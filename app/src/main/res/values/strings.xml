@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">LarkMusic</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="hall_title">Hall</string>
+    <string name="search_title">Search</string>
+    <string name="library_title">Library</string>
+    <string name="me_title">Me</string>
+
+    <string name="title_new">NewList</string>
+    <string name="title_hot">HotList</string>
+    <string name="title_more">More</string>
+</resources>

@@ -1,0 +1,46 @@
+package internet.com.larkmusic.view;
+
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import internet.com.larkmusic.R;
+
+/**
+ * Created by sjning
+ * created on: 2019/5/6 下午2:46
+ * description:
+ */
+public class HotNewView extends FrameLayout {
+
+    TextView mTvSongName;
+    TextView mTvSingerName;
+    ImageView mIvPhoto;
+
+    public HotNewView(@NonNull Context context) {
+        super(context);
+        initView(context);
+    }
+
+    public HotNewView(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        initView(context);
+    }
+
+    public HotNewView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView(context);
+    }
+
+    private void initView(Context context) {
+        inflate(context, R.layout.view_hot_new_item, this);
+        mTvSingerName = findViewById(R.id.tv_singer_name);
+        mTvSongName = findViewById(R.id.tv_song_name);
+        mIvPhoto = findViewById(R.id.iv_photo);
+    }
+
+}
