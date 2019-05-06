@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import internet.com.larkmusic.R;
 
@@ -56,6 +58,24 @@ public class HallFragment extends Fragment {
         mBannerView.setImages(mList)        //ImageView数据
                 .setIndcatorTitles(mTitles) //title数据
                 .start();
+    }
+
+    @OnClick(R.id.tv_hot_more)
+    void onClickHotMore() {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+        transaction.add(R.id.view_container, new HotNewListFragment());
+        transaction.addToBackStack("");
+        transaction.commit();
+    }
+
+    @OnClick(R.id.tv_new_more)
+    void onClickNewMore() {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+        transaction.add(R.id.view_container, new HotNewListFragment());
+        transaction.addToBackStack("");
+        transaction.commit();
     }
 
     @Override

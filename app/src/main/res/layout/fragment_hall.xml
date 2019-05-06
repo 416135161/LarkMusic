@@ -66,6 +66,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_new_more"
                     android:layout_width="63dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -175,6 +176,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_hot_more"
                     android:layout_width="63dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
