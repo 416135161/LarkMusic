@@ -14,6 +14,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.fragment.HallFragment;
+import internet.com.larkmusic.fragment.LibraryFragment;
+import internet.com.larkmusic.fragment.MeFragment;
+import internet.com.larkmusic.fragment.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         setAllNormal();
         ivSearch.setImageResource(R.mipmap.tab_search_select);
         tvSearch.setTextColor(getResources().getColor(R.color.text_red));
+
+        startFragment(SearchFragment.class, new Bundle());
     }
 
     @OnClick(R.id.view_library)
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         setAllNormal();
         ivLibrary.setImageResource(R.mipmap.tab_library_select);
         tvLibrary.setTextColor(getResources().getColor(R.color.text_red));
+        startFragment(LibraryFragment.class, new Bundle());
     }
 
     @OnClick(R.id.view_me)
@@ -74,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         setAllNormal();
         ivMe.setImageResource(R.mipmap.tab_me_select);
         tvMe.setTextColor(getResources().getColor(R.color.text_red));
+        startFragment(MeFragment.class, new Bundle());
     }
 
     private void setAllNormal() {
