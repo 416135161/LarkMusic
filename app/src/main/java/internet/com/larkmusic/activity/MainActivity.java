@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.fragment.HallFragment;
 import internet.com.larkmusic.fragment.LibraryFragment;
 import internet.com.larkmusic.fragment.MeFragment;
@@ -127,6 +128,13 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e("main", "add fragment fail:" + e);
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!BackHandlerHelper.handleBackPress(this)) {
+            super.onBackPressed();
         }
     }
 

@@ -17,13 +17,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.back.BackHandlerHelper;
+import internet.com.larkmusic.back.FragmentBackHandler;
 
 /**
  * Created by sjning
  * created on: 2019/5/6 上午11:03
  * description:
  */
-public class HallFragment extends Fragment {
+public class HallFragment extends Fragment implements FragmentBackHandler {
     Unbinder bind;
 
     List<Integer> mList;
@@ -62,7 +64,7 @@ public class HallFragment extends Fragment {
 
     @OnClick(R.id.tv_hot_more)
     void onClickHotMore() {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         transaction.add(R.id.view_container, new HotNewListFragment());
         transaction.addToBackStack("");
@@ -71,7 +73,7 @@ public class HallFragment extends Fragment {
 
     @OnClick(R.id.tv_new_more)
     void onClickNewMore() {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         transaction.add(R.id.view_container, new HotNewListFragment());
         transaction.addToBackStack("");
@@ -83,5 +85,10 @@ public class HallFragment extends Fragment {
         super.onDestroy();
         //解除绑定
         bind.unbind();
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return BackHandlerHelper.handleBackPress(this);
     }
 }
