@@ -11,23 +11,18 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.base.BaseFragment;
 
 /**
  * Created by sjning
  * created on: 2019/5/7 下午8:19
  * description:
  */
-public class MeFragment extends Fragment {
-    Unbinder bind;
+public class MeFragment extends BaseFragment {
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_me, null);
-        bind = ButterKnife.bind(this, view);
-        return view;
-
+    protected int getLayoutId() {
+        return R.layout.fragment_me;
     }
 
     @Override
@@ -36,10 +31,4 @@ public class MeFragment extends Fragment {
 
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //解除绑定
-        bind.unbind();
-    }
 }

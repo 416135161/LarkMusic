@@ -19,29 +19,24 @@ import butterknife.Unbinder;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
+import internet.com.larkmusic.base.BaseFragment;
+import internet.com.larkmusic.network.Config;
 
 /**
  * Created by sjning
  * created on: 2019/5/6 上午11:03
  * description:
  */
-public class HallFragment extends Fragment implements FragmentBackHandler {
-    Unbinder bind;
-
+public class HallFragment extends BaseFragment implements FragmentBackHandler {
     List<Integer> mList;
     List<String> mTitles;
 
     @BindView(R.id.banner_bv)
     com.alin.lib.bannerlib.BannerView mBannerView;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_hall, null);
-        bind = ButterKnife.bind(this, view);
-        return view;
-
+    protected int getLayoutId() {
+        return R.layout.fragment_hall;
     }
 
     @Override
@@ -66,7 +61,12 @@ public class HallFragment extends Fragment implements FragmentBackHandler {
     void onClickHotMore() {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-        transaction.add(R.id.view_container, new HotNewListFragment());
+        HotNewListFragment.TYPE = HotNewListFragment.TYPE_HOT;
+        Fragment fragment = new HotNewListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("from", Config.FROM_US);
+        fragment.setArguments(bundle);
+        transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
         transaction.commit();
     }
@@ -75,17 +75,16 @@ public class HallFragment extends Fragment implements FragmentBackHandler {
     void onClickNewMore() {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-        transaction.add(R.id.view_container, new HotNewListFragment());
+        HotNewListFragment.TYPE = HotNewListFragment.TYPE_NEW;
+        Fragment fragment = new HotNewListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("from", Config.FROM_US);
+        fragment.setArguments(bundle);
+        transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
         transaction.commit();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //解除绑定
-        bind.unbind();
-    }
 
     @Override
     public boolean onBackPressed() {
