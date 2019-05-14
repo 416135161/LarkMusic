@@ -1,9 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/red"
-              android:orientation="vertical"
-    >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+
+        android:orientation="vertical"
+        >
+
+        <internet.com.larkmusic.view.MyTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/library_title"
+            android:textColor="#fffe3939"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            />
+
+        <internet.com.larkmusic.view.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/title_genres"
+            android:textColor="@color/text_15"
+            android:textSize="20sp"
+            />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:scrollbars="none"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <internet.com.larkmusic.view.GenreView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        >
+
+                    </internet.com.larkmusic.view.GenreView>
+
+                    <internet.com.larkmusic.view.GenreView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="13dp"
+                        >
+
+                    </internet.com.larkmusic.view.GenreView>
+
+                    <internet.com.larkmusic.view.GenreView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginRight="20dp"
+                        >
+
+                    </internet.com.larkmusic.view.GenreView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <internet.com.larkmusic.view.GenreView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        >
+
+                    </internet.com.larkmusic.view.GenreView>
+
+                    <internet.com.larkmusic.view.GenreView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="13dp"
+                        >
+
+                    </internet.com.larkmusic.view.GenreView>
+
+                    <internet.com.larkmusic.view.GenreView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginRight="20dp"
+                        >
+
+                    </internet.com.larkmusic.view.GenreView>
+
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <internet.com.larkmusic.view.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="My Genres"
+            android:textColor="@color/text_15"
+            android:textSize="20sp"
+            />
+
+        <internet.com.larkmusic.view.GenreListItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+        </internet.com.larkmusic.view.GenreListItemView>
+
+        <internet.com.larkmusic.view.GenreListItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </internet.com.larkmusic.view.GenreListItemView>
+
+        <internet.com.larkmusic.view.GenreListItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </internet.com.larkmusic.view.GenreListItemView>
+
+        <internet.com.larkmusic.view.GenreListItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </internet.com.larkmusic.view.GenreListItemView>
+
+        <internet.com.larkmusic.view.GenreListItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </internet.com.larkmusic.view.GenreListItemView>
+
+        <internet.com.larkmusic.view.GenreListItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            >
+
+        </internet.com.larkmusic.view.GenreListItemView>
+    </LinearLayout>
+</ScrollView>

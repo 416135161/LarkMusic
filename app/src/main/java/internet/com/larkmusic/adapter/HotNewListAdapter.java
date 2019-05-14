@@ -22,7 +22,15 @@ import internet.com.larkmusic.bean.Song;
  * description:
  */
 public class HotNewListAdapter extends RecyclerView.Adapter<HotNewListAdapter.MyViewHolder> {
+    public int getSelectedPosition() {
+        return selectedPosition;
+    }
 
+    public void setSelectedPosition(int selectedPosition) {
+        this.selectedPosition = selectedPosition;
+    }
+
+    private int selectedPosition;
     private List<Song> songs;
     private Context context;
 
@@ -50,7 +58,7 @@ public class HotNewListAdapter extends RecyclerView.Adapter<HotNewListAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final Song song = songs.get(position);
         holder.title.setText(song.getSongName());
         holder.artist.setText(song.getSingerName());
@@ -61,11 +69,16 @@ public class HotNewListAdapter extends RecyclerView.Adapter<HotNewListAdapter.My
                     .error(R.mipmap.ic_default)
                     .placeholder(R.mipmap.ic_default)
                     .into(holder.art);
-            Log.d("URL", song.getImgUrl());
         } catch (Exception e) {
-            Log.e("AdapterError", e.getMessage());
+           e.printStackTrace();
         }
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClick(holder.itemView, position);
+            }
+        });
     }
 
     @Override
@@ -93,5 +106,17 @@ public class HotNewListAdapter extends RecyclerView.Adapter<HotNewListAdapter.My
         if (position >= 0 && songs != null && songs.size() > position) {
             return songs.get(position);
         } else return null;
+    }
+
+    private OnItemClickListener onItemClickListener = null;
+
+    /*暴露给外部的方法*/
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        onItemClickListener = listener;
+    }
+
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 }

@@ -21,6 +21,7 @@
         android:background="@color/home_tab_bg"
         android:elevation="4dp"
         android:orientation="horizontal"
+
         >
 
         <LinearLayout
@@ -30,6 +31,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
             >
 
             <ImageView
@@ -58,6 +60,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
             >
 
             <ImageView
@@ -85,6 +88,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+
             >
 
             <ImageView
@@ -113,6 +118,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
             >
 
             <ImageView

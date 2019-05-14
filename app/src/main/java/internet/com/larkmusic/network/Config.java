@@ -24,6 +24,7 @@ public final class Config {
 
     public static Typeface tf3;
     public static Typeface tf4;
+    public static Typeface tfLark;
 
     public static final String GENIUS = "genius";
 

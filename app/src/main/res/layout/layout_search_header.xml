@@ -5,11 +5,12 @@
               android:layout_height="wrap_content"
               android:orientation="vertical">
 
-    <TextView
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_title"
         android:layout_width="95dp"
         android:layout_height="34dp"
         android:layout_marginTop="32dp"
-        android:text="Search"
+        android:text="@string/search_title"
         android:textColor="#fffe3939"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -54,7 +55,7 @@
             />
     </LinearLayout>
 
-    <TextView
+    <internet.com.larkmusic.view.MyTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -73,7 +74,7 @@
         zhy:max_select="-1">
     </com.zhy.view.flowlayout.TagFlowLayout>
 
-    <TextView
+    <internet.com.larkmusic.view.MyTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"

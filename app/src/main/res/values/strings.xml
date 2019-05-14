@@ -13,4 +13,6 @@
     <string name="title_hot">HotList</string>
     <string name="title_more">More</string>
     <string name="title_song_count">Play all（%1$d）</string>
+    <string name="title_genres">Genres</string>
+
 </resources>

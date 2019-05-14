@@ -9,8 +9,8 @@
 
     <com.itheima.roundedimageview.RoundedImageView
         android:id="@+id/iv_photo"
-        android:layout_width="105dp"
-        android:layout_height="105dp"
+        android:layout_width="132dp"
+        android:layout_height="132dp"
         android:background="@drawable/song_item_bg"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_default"
@@ -19,26 +19,15 @@
         app:riv_corner_radius="5dp"
         app:riv_oval="false"/>
 
-    <TextView
-        android:id="@+id/tv_song_name"
-        android:layout_width="105dp"
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="Movieadfadfadfadfadfadf"
-        android:textColor="#ff333333"
+        android:layout_marginTop="10dp"
+        android:text="Pop"
+        android:textColor="@color/text_333"
         android:textSize="14sp"
         />
 
-    <TextView
-        android:id="@+id/tv_singer_name"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="Film Scoreadfadfadfasdfadfadfad"
-        android:textColor="#ff999999"
-        android:textSize="12sp"
-
-        />
 </LinearLayout>

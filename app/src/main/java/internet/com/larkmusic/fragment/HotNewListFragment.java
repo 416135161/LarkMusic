@@ -61,20 +61,29 @@ public class HotNewListFragment extends EventFragment {
         }
         from = getArguments().getString("from", Config.FROM_US);
         mAdapter = new HotNewListAdapter(getContext(), new ArrayList<Song>());
+        mAdapter.setOnItemClickListener(new HotNewListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                mAdapter.setSelectedPosition(position);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
         LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRvSongs.setLayoutManager(mLayoutManager2);
         mRvSongs.setItemAnimator(new DefaultItemAnimator());
         mRvSongs.setAdapter(mAdapter);
+        showDialog();
         if (TYPE == TYPE_NEW) {
-            CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, Config.FROM);
-        } else {
             CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_LIST, Config.FROM);
+        } else {
+            CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, Config.FROM);
         }
 
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPosting(ActionNewSongs event) {
+        closeDialog();
         if (event.type == ActionNewSongs.TYPE_LIST && event.from == from) {
             if (event != null && event.trackList != null && event.trackList.size() > 0) {
                 mAdapter.setPlaylists(event.trackList);
@@ -87,6 +96,7 @@ public class HotNewListFragment extends EventFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPosting(ActionHotSongs event) {
+        closeDialog();
         if (event.type == ActionHotSongs.TYPE_LIST && event.from == from) {
             if (event != null && event.trackList != null && event.trackList.size() > 0) {
                 mAdapter.setPlaylists(event.trackList);

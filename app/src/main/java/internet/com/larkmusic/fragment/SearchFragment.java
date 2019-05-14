@@ -20,6 +20,8 @@ import java.util.List;
 import butterknife.BindView;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.base.BaseFragment;
+import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.util.CommonUtil;
 
 /**
  * Created by sjning
@@ -32,6 +34,8 @@ public class SearchFragment extends BaseFragment {
     @BindView(R.id.et_search)
     EditText mEtSearch;
 
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
     List<String> mValues;
 
     @Override
@@ -42,7 +46,7 @@ public class SearchFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        CommonUtil.setTvBoldFace(mTvTitle);
         mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {

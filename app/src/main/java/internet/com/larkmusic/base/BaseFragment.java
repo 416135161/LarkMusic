@@ -1,5 +1,6 @@
 package internet.com.larkmusic.base;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import internet.com.larkmusic.fragment.WaitDialog;
 
 /**
  * Created by sjning
@@ -19,7 +21,7 @@ import butterknife.Unbinder;
  * description:
  */
 public abstract class BaseFragment extends Fragment {
-
+    WaitDialog customLoseDialog;
     Unbinder bind;
 
     @Nullable
@@ -39,4 +41,18 @@ public abstract class BaseFragment extends Fragment {
         //解除绑定
         bind.unbind();
     }
+
+    protected void showDialog() {
+        if (customLoseDialog == null) {
+            customLoseDialog = new WaitDialog();
+        }
+        customLoseDialog.show(getFragmentManager(), "lose");
+    }
+
+    protected void closeDialog() {
+        if (customLoseDialog != null && !customLoseDialog.isHidden()) {
+            customLoseDialog.dismiss();
+        }
+    }
+
 }

@@ -11,5 +11,6 @@
     <color name="text_red">#fffe3838</color>
     <color name="text_15">#ff151515</color>
     <color name="home_tab_bg">#c8ffffff</color>
+    <color name="item_bg_gray">#22000000</color>
 
 </resources>

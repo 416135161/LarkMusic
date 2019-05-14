@@ -18,6 +18,7 @@ import internet.com.larkmusic.fragment.HallFragment;
 import internet.com.larkmusic.fragment.LibraryFragment;
 import internet.com.larkmusic.fragment.MeFragment;
 import internet.com.larkmusic.fragment.SearchFragment;
+import internet.com.larkmusic.network.Config;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setAllNormal();
         ivSearch.setImageResource(R.mipmap.tab_search_select);
         tvSearch.setTextColor(getResources().getColor(R.color.text_red));
-
+        tvSearch.setTypeface(Config.tfLark);
         startFragment(SearchFragment.class, new Bundle());
     }
 

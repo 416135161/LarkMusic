@@ -11,47 +11,43 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import internet.com.larkmusic.R;
-import internet.com.larkmusic.bean.Song;
 
 /**
  * Created by sjning
- * created on: 2019/5/6 下午2:46
+ * created on: 2019/5/13 下午11:20
  * description:
  */
-public class HotNewView extends FrameLayout {
+public class GenreListItemView extends FrameLayout {
 
-    TextView mTvSongName;
-    TextView mTvSingerName;
+    TextView mTvName;
     ImageView mIvPhoto;
 
-    public HotNewView(@NonNull Context context) {
+    public GenreListItemView(@NonNull Context context) {
         super(context);
         initView(context);
     }
 
-    public HotNewView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public GenreListItemView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initView(context);
     }
 
-    public HotNewView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public GenreListItemView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
     }
 
     private void initView(Context context) {
-        inflate(context, R.layout.view_hot_new_item, this);
-        mTvSingerName = findViewById(R.id.tv_singer_name);
-        mTvSongName = findViewById(R.id.tv_song_name);
+        inflate(context, R.layout.view_genre_list_item, this);
+        mTvName = findViewById(R.id.tv_name);
         mIvPhoto = findViewById(R.id.iv_photo);
     }
 
-    public void refreshView(Song song) {
-        mTvSongName.setText(song.getSongName());
-        mTvSingerName.setText(song.getSingerName());
+    public void refreshView(String title, String imgUrl) {
+        mTvName.setText(title);
         try {
             Picasso.with(getContext())
-                    .load(song.getImgUrl())
+                    .load(imgUrl)
                     .error(R.mipmap.ic_default)
                     .placeholder(R.mipmap.ic_default)
                     .into(mIvPhoto);
