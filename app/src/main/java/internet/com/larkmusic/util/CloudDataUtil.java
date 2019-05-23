@@ -1,6 +1,10 @@
 package internet.com.larkmusic.util;
 
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -8,14 +12,16 @@ import java.util.ArrayList;
 
 import internet.com.larkmusic.action.ActionBrowPlayTeam;
 import internet.com.larkmusic.action.ActionHotSongs;
-import internet.com.larkmusic.action.ActionListPlayTeam;
+import internet.com.larkmusic.action.ActionAlbumList;
 import internet.com.larkmusic.action.ActionNewSongs;
 import internet.com.larkmusic.action.ActionPlayList;
+import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionStopLoading;
 import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.HttpUtil;
+import internet.com.larkmusic.network.QueryInterceptor;
 import internet.com.larkmusic.network.StreamService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +51,7 @@ public final class CloudDataUtil {
                         && !response.body().isEmpty()) {
                     ArrayList<Album> list = response.body();
                     if (type == ActionBrowPlayTeam.TYPE_TEAM_LIST) {
-                        EventBus.getDefault().post(new ActionListPlayTeam(list, from));
+                        EventBus.getDefault().post(new ActionAlbumList(list, from));
                     } else if (type == ActionBrowPlayTeam.TYPE_BROW) {
                         EventBus.getDefault().post(new ActionBrowPlayTeam(list));
 
@@ -58,7 +64,7 @@ public final class CloudDataUtil {
             @Override
             public void onFailure(Call<ArrayList<Album>> call, Throwable t) {
                 if (type == ActionBrowPlayTeam.TYPE_TEAM_LIST) {
-                    EventBus.getDefault().post(new ActionListPlayTeam(null, null));
+                    EventBus.getDefault().post(new ActionAlbumList(null, null));
                 } else if (type == ActionBrowPlayTeam.TYPE_BROW) {
                     EventBus.getDefault().post(new ActionBrowPlayTeam(null));
                 }
@@ -192,5 +198,27 @@ public final class CloudDataUtil {
             }
 
         });
+    }
+
+    public static void searchSongs(String key) {
+        StreamService ss = HttpUtil.getApiService(Config.API_HOST, new QueryInterceptor());
+        Call<ArrayList<Song>> call = ss.searchSong(key, Config.SEARCH_COUNT);
+        call.enqueue(new Callback<ArrayList<Song>>() {
+
+            @Override
+            public void onResponse(Call<ArrayList<Song>> call, Response<ArrayList<Song>> response) {
+                if (response.isSuccessful()) {
+                    EventBus.getDefault().post(new ActionSearchSongs(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Song>> call, Throwable t) {
+
+                EventBus.getDefault().post(new ActionSearchSongs(null));
+            }
+
+        });
+
     }
 }

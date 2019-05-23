@@ -5,8 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -15,43 +18,43 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import internet.com.larkmusic.R;
-import internet.com.larkmusic.action.ActionHotSongs;
-import internet.com.larkmusic.action.ActionNewSongs;
-import internet.com.larkmusic.adapter.HotNewListAdapter;
+import internet.com.larkmusic.action.ActionPlayList;
+import internet.com.larkmusic.adapter.SongListAdapter;
 import internet.com.larkmusic.base.EventFragment;
+import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.util.BlurTransformation;
 import internet.com.larkmusic.util.CloudDataUtil;
 
 /**
  * Created by sjning
- * created on: 2019/5/6 下午3:49
+ * created on: 2019/5/17 下午6:36
  * description:
  */
-public class HotNewListFragment extends EventFragment {
-    public static int TYPE;
-    public static int TYPE_HOT = 0;
-    public static int TYPE_NEW = 1;
+public class SongListFragment extends EventFragment {
+    private String from;
+    private Album album;
 
     @BindView(R.id.rv_songs)
     ListView mRvSongs;
-    private HotNewListAdapter mAdapter;
-
+    private SongListAdapter mAdapter;
 
     TextView mTvTitle;
     TextView mTvCount;
-
-    String from;
+    ImageView mIvHeader;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_hot_new_list;
+        return R.layout.fragment_song_list;
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         from = getArguments().getString("from", Config.FROM_US);
+        album = (Album) getArguments().getSerializable("album");
     }
 
     @Override
@@ -59,17 +62,19 @@ public class HotNewListFragment extends EventFragment {
         super.onViewCreated(view, savedInstanceState);
         initHeaderAndFooter();
         initView();
+        mTvTitle.setText(album.getName());
+        Picasso.with(getContext())
+                .load(album.getImgUrl())
+                .error(R.mipmap.ic_song_default)
+                .placeholder(R.mipmap.ic_song_default)
+                .transform(new BlurTransformation(getActivity()))
+                .into(mIvHeader);
         showDialog();
-        if (TYPE == TYPE_NEW) {
-            CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_LIST, Config.FROM);
-        } else {
-            CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, Config.FROM);
-        }
-
+        CloudDataUtil.getPlayList(album.getId() + "", from);
     }
 
-    private void initView(){
-        mAdapter = new HotNewListAdapter(getContext(), new ArrayList<Song>());
+    private void initView() {
+        mAdapter = new SongListAdapter(getContext(), new ArrayList<Song>());
         mRvSongs.setAdapter(mAdapter);
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,11 +82,6 @@ public class HotNewListFragment extends EventFragment {
 
             }
         });
-        if (TYPE == TYPE_HOT) {
-            mTvTitle.setText(R.string.title_hot);
-        } else if (TYPE == TYPE_NEW) {
-            mTvTitle.setText(R.string.title_new);
-        }
     }
 
     private void initHeaderAndFooter() {
@@ -89,6 +89,7 @@ public class HotNewListFragment extends EventFragment {
         mRvSongs.addHeaderView(header);
         mTvCount = header.findViewById(R.id.tv_count);
         mTvTitle = header.findViewById(R.id.tv_title);
+        mIvHeader = header.findViewById(R.id.iv_header);
 
         View footer = new View(getContext());
         footer.setMinimumHeight(50);
@@ -96,28 +97,14 @@ public class HotNewListFragment extends EventFragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventPosting(ActionNewSongs event) {
+    public void onEventReceive(ActionPlayList event) {
         closeDialog();
-        if (event.type == ActionNewSongs.TYPE_LIST && event.from == from) {
-            if (event != null && event.trackList != null && event.trackList.size() > 0) {
-                mAdapter.setPlayList(event.trackList);
-                mAdapter.notifyDataSetChanged();
-            }
+        ArrayList<Song> playList = event.result;
+        if (playList != null && !playList.isEmpty()) {
+            mAdapter.setPlayList(playList);
+            mAdapter.notifyDataSetChanged();
+            mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
         }
-        mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
-
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventPosting(ActionHotSongs event) {
-        closeDialog();
-        if (event.type == ActionHotSongs.TYPE_LIST && event.from == from) {
-            if (event != null && event.trackList != null && event.trackList.size() > 0) {
-                mAdapter.setPlayList(event.trackList);
-                mAdapter.notifyDataSetChanged();
-            }
-        }
-        mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
-
-    }
 }

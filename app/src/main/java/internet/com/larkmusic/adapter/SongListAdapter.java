@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -18,10 +17,10 @@ import internet.com.larkmusic.bean.Song;
 
 /**
  * Created by sjning
- * created on: 2019/5/12 下午8:56
+ * created on: 2019/5/17 下午6:34
  * description:
  */
-public class SearchListAdapter extends BaseAdapter {
+public class SongListAdapter extends BaseAdapter {
 
     private List<Song> songs;
     private Context context;
@@ -52,7 +51,7 @@ public class SearchListAdapter extends BaseAdapter {
         MyViewHolder holder;
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.layout_item_search, null, true);
+            convertView = inflater.inflate(R.layout.layout_item_hot_new, null, true);
             holder = new MyViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -62,12 +61,16 @@ public class SearchListAdapter extends BaseAdapter {
         holder.title.setText(song.getSongName());
         holder.artist.setText(song.getSingerName());
         holder.no.setText((i + 1) + "");
-        Picasso.with(context)
-                .load(song.getImgUrl())
-                .error(R.mipmap.ic_song_default)
-                .placeholder(R.mipmap.ic_song_default)
-                .into(holder.art);
-
+        holder.art.setVisibility(View.GONE);
+        try {
+            Picasso.with(context)
+                    .load(song.getImgUrl())
+                    .error(R.mipmap.ic_song_default)
+                    .placeholder(R.mipmap.ic_song_default)
+                    .into(holder.art);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return convertView;
     }
 
@@ -90,7 +93,7 @@ public class SearchListAdapter extends BaseAdapter {
     }
 
 
-    public SearchListAdapter(Context ctx, List<Song> Songs) {
+    public SongListAdapter(Context ctx, List<Song> Songs) {
         super();
         context = ctx;
         this.songs = Songs;

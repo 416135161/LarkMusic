@@ -52,12 +52,13 @@ public class HotNewView extends FrameLayout {
         try {
             Picasso.with(getContext())
                     .load(song.getImgUrl())
-                    .error(R.mipmap.ic_default)
-                    .placeholder(R.mipmap.ic_default)
+                    .error(R.mipmap.ic_song_default)
+                    .placeholder(R.mipmap.ic_song_default)
                     .into(mIvPhoto);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
     }
 

@@ -1,11 +1,15 @@
 package internet.com.larkmusic.bean;
 
+import android.text.TextUtils;
+
+import java.io.Serializable;
+
 /**
  * Created by sjning
  * created on: 2019/5/12 下午8:57
  * description:
  */
-public class Song {
+public class Song implements Serializable{
     private String songName;
 
     public int duration;
@@ -22,6 +26,9 @@ public class Song {
 
 
     public String getSongName() {
+        if(!TextUtils.isEmpty(songName) && songName.matches(".*\\(.*")){
+            songName = songName.substring(0, songName.indexOf("("));
+        }
         return songName;
     }
 

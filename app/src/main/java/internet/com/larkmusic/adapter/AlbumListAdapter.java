@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -14,22 +13,22 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import internet.com.larkmusic.R;
-import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.bean.Album;
 
 /**
  * Created by sjning
- * created on: 2019/5/12 下午8:56
+ * created on: 2019/5/17 下午4:36
  * description:
  */
-public class SearchListAdapter extends BaseAdapter {
+public class AlbumListAdapter extends BaseAdapter {
 
-    private List<Song> songs;
+    private List<Album> albums;
     private Context context;
 
     @Override
     public int getCount() {
-        if (songs != null) {
-            return songs.size();
+        if (albums != null) {
+            return albums.size();
         } else {
             return 0;
         }
@@ -37,8 +36,8 @@ public class SearchListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        if (i >= 0 && songs != null && songs.size() > i) {
-            return songs.get(i);
+        if (i >= 0 && albums != null && albums.size() > i) {
+            return albums.get(i);
         } else return null;
     }
 
@@ -52,22 +51,25 @@ public class SearchListAdapter extends BaseAdapter {
         MyViewHolder holder;
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.layout_item_search, null, true);
+            convertView = inflater.inflate(R.layout.layout_item_album_list, null, true);
             holder = new MyViewHolder(convertView);
             convertView.setTag(holder);
         } else {
             holder = (MyViewHolder) convertView.getTag();
         }
-        final Song song = songs.get(i);
-        holder.title.setText(song.getSongName());
-        holder.artist.setText(song.getSingerName());
+        final Album song = albums.get(i);
+        holder.title.setText(song.getName());
+        holder.artist.setVisibility(View.GONE);
         holder.no.setText((i + 1) + "");
-        Picasso.with(context)
-                .load(song.getImgUrl())
-                .error(R.mipmap.ic_song_default)
-                .placeholder(R.mipmap.ic_song_default)
-                .into(holder.art);
-
+        try {
+            Picasso.with(context)
+                    .load(song.getImgUrl())
+                    .error(R.mipmap.ic_song_default)
+                    .placeholder(R.mipmap.ic_song_default)
+                    .into(holder.art);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return convertView;
     }
 
@@ -85,15 +87,15 @@ public class SearchListAdapter extends BaseAdapter {
         }
     }
 
-    public void setPlayList(List<Song> playList) {
-        this.songs = playList;
+    public void setPlayList(List<Album> playList) {
+        this.albums = playList;
     }
 
 
-    public SearchListAdapter(Context ctx, List<Song> Songs) {
+    public AlbumListAdapter(Context ctx, List<Album> Songs) {
         super();
         context = ctx;
-        this.songs = Songs;
+        this.albums = Songs;
     }
 
 }
