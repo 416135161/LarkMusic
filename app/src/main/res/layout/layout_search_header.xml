@@ -3,9 +3,9 @@
               xmlns:zhy="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:orientation="vertical"
               android:paddingLeft="20dp"
-              android:paddingRight="20dp"
-              android:orientation="vertical">
+              android:paddingRight="20dp">
 
     <internet.com.larkmusic.view.MyTextView
         android:id="@+id/tv_title"
@@ -61,26 +61,24 @@
     <internet.com.larkmusic.view.MyTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:text="Trending"
         android:textColor="@color/text_15"
         android:textSize="20sp"
         android:textStyle="bold"
         />
 
-    <com.zhy.view.flowlayout.TagFlowLayout
-        android:id="@+id/id_flow_lay_out"
-        android:layout_width="fill_parent"
+    <internet.com.larkmusic.view.FlowLayout
+        android:id="@+id/flow"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        zhy:itemSpacing="14dp"
-        zhy:max_select="-1">
-    </com.zhy.view.flowlayout.TagFlowLayout>
+        android:layout_marginTop="10dp"
+        />
 
     <internet.com.larkmusic.view.MyTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:text="Charts"
         android:textColor="@color/text_15"
         android:textSize="20sp"

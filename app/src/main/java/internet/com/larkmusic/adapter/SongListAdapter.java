@@ -51,7 +51,7 @@ public class SongListAdapter extends BaseAdapter {
         MyViewHolder holder;
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.layout_item_hot_new, null, true);
+            convertView = inflater.inflate(R.layout.layout_item_song_list, null, true);
             holder = new MyViewHolder(convertView);
             convertView.setTag(holder);
         } else {

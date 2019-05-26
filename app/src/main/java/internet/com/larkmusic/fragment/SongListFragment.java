@@ -42,7 +42,7 @@ public class SongListFragment extends EventFragment {
 
     TextView mTvTitle;
     TextView mTvCount;
-    ImageView mIvHeader;
+    ImageView mIvHeader, mIvIcon;
 
     @Override
     protected int getLayoutId() {
@@ -69,6 +69,11 @@ public class SongListFragment extends EventFragment {
                 .placeholder(R.mipmap.ic_song_default)
                 .transform(new BlurTransformation(getActivity()))
                 .into(mIvHeader);
+        Picasso.with(getContext())
+                .load(album.getImgUrl())
+                .error(R.mipmap.ic_song_default)
+                .placeholder(R.mipmap.ic_song_default)
+                .into(mIvIcon);
         showDialog();
         CloudDataUtil.getPlayList(album.getId() + "", from);
     }
@@ -85,12 +90,12 @@ public class SongListFragment extends EventFragment {
     }
 
     private void initHeaderAndFooter() {
-        View header = getLayoutInflater().inflate(R.layout.layout_hot_new_list_header, null);
+        View header = getLayoutInflater().inflate(R.layout.layout_song_list_header, null);
         mRvSongs.addHeaderView(header);
         mTvCount = header.findViewById(R.id.tv_count);
         mTvTitle = header.findViewById(R.id.tv_title);
         mIvHeader = header.findViewById(R.id.iv_header);
-
+        mIvIcon = header.findViewById(R.id.iv_icon);
         View footer = new View(getContext());
         footer.setMinimumHeight(50);
         mRvSongs.addFooterView(footer);

@@ -5,17 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -32,8 +29,10 @@ import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.util.CloudDataUtil;
 import internet.com.larkmusic.util.CommonUtil;
+import internet.com.larkmusic.view.FlowLayout;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static android.support.annotation.Dimension.SP;
 
 /**
  * Created by sjning
@@ -41,16 +40,12 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
  * description:
  */
 public class SearchFragment extends EventFragment {
-    @BindView(R.id.id_flow_lay_out)
-    TagFlowLayout mFlowLayout;
-    @BindView(R.id.et_search)
-    EditText mEtSearch;
-
-    @BindView(R.id.tv_title)
-    TextView mTvTitle;
-
     @BindView(R.id.rv_songs)
     ListView mRvSongs;
+    @BindView(R.id.et_search)
+    EditText mEtSearch;
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
     SearchListAdapter mAdapter;
     List<String> mValues;
 
@@ -62,12 +57,6 @@ public class SearchFragment extends EventFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CommonUtil.setTvBoldFace(mTvTitle);
-
-        View footer = new View(getContext());
-        footer.setMinimumHeight(50);
-        mRvSongs.addFooterView(footer);
-
         mAdapter = new SearchListAdapter(getContext(), new ArrayList<Song>());
         mRvSongs.setAdapter(mAdapter);
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,40 +65,29 @@ public class SearchFragment extends EventFragment {
 
             }
         });
+        CommonUtil.setTvBoldFace(mTvTitle);
         mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-
-                    Toast.makeText(getContext(), "呵呵", Toast.LENGTH_SHORT).show();
                     showDialog();
                     CloudDataUtil.searchSongs(mEtSearch.getText().toString());
                     hideInput();
                     return true;
                 }
-
                 return false;
             }
         });
 
-        mValues = new ArrayList<>();
-        mValues.add("eddad");
-        mValues.add("eddad");
-        mValues.add("eddad");
-        mValues.add("eddad");
-        mFlowLayout.setAdapter(new TagAdapter<String>(mValues) {
-            @Override
-            public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) getLayoutInflater().inflate(R.layout.layout_item_flow,
-                        mFlowLayout, false);
-                tv.setText(s);
-                return tv;
-            }
-        });
+        FlowLayout flowLayout = view.findViewById(R.id.flow);
+        initTrending(flowLayout);
+        View footer = new View(getContext());
+        footer.setMinimumHeight(50);
+        mRvSongs.addFooterView(footer);
     }
 
     @OnClick(R.id.tv_cancel)
-    void onClickCancel(View view) {
+    void onClickCancel(){
         mEtSearch.setText("");
     }
 
@@ -120,6 +98,43 @@ public class SearchFragment extends EventFragment {
             mAdapter.setPlayList(event.result);
             mAdapter.notifyDataSetChanged();
 
+        }
+    }
+
+    private void initTrending(internet.com.larkmusic.view.FlowLayout flowLayout) {
+        mValues = new ArrayList<>();
+        mValues.add("Alan Walker");
+        mValues.add("Taylor Swift");
+        mValues.add("The Chainsmokers");
+        mValues.add("Olly Murs");
+        mValues.add("Vicetone");
+        //往容器内添加TextView数据
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, 0, 16, 16);
+        if (flowLayout != null) {
+            flowLayout.removeAllViews();
+        }
+        for (int i = 0; i < mValues.size(); i++) {
+            TextView tv = new TextView(this.getActivity());
+            tv.setPadding(20, 5, 20, 5);
+            tv.setText(mValues.get(i));
+            tv.setMaxEms(10);
+            tv.setTextColor(0xff666666);
+            tv.setTextSize(SP, 14);
+            tv.setSingleLine();
+            tv.setBackgroundResource(R.drawable.item_flow_bg);
+            tv.setLayoutParams(layoutParams);
+            flowLayout.addView(tv, layoutParams);
+            final int position = i;
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mEtSearch.setText(mValues.get(position));
+                    showDialog();
+                    CloudDataUtil.searchSongs(mEtSearch.getText().toString());
+                    hideInput();
+                }
+            });
         }
 
     }

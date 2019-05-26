@@ -28,6 +28,8 @@ public class Song implements Serializable{
     public String getSongName() {
         if(!TextUtils.isEmpty(songName) && songName.matches(".*\\(.*")){
             songName = songName.substring(0, songName.indexOf("("));
+        }else if(!TextUtils.isEmpty(songName) && songName.matches(".*\\【.*")){
+            songName = songName.substring(0, songName.indexOf("【"));
         }
         return songName;
     }

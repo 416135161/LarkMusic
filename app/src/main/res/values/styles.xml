@@ -6,7 +6,9 @@
         <item name="windowActionBar">false</item>
         <item name="colorPrimary">#FF4081</item>
         <item name="colorPrimaryDark">#FF4081</item>
-        <item name="colorAccent">#FF4081</item>
+        <item name="colorAccent">#FE3939</item>
+        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+
     </style>
 
     <style name="MyMiddleDialogStyle" parent="@android:style/Theme.Holo.Light.Dialog">
@@ -27,5 +29,13 @@
         <!--进出动画-->
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
     </style>
+
+    <style name="activityAnimation" parent="@android:style/Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
 
 </resources>

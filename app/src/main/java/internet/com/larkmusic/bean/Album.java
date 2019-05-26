@@ -1,5 +1,7 @@
 package internet.com.larkmusic.bean;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,7 @@ import java.io.Serializable;
  * created on: 2019/5/12 下午8:58
  * description:
  */
-public class Album implements Serializable{
+public class Album implements Serializable {
     private String imgUrl;
     private String name;
     private int id;
@@ -21,6 +23,9 @@ public class Album implements Serializable{
     }
 
     public String getName() {
+        if (!TextUtils.isEmpty(name) && name.matches(".*\\(.*")) {
+            name = name.substring(0, name.indexOf("("));
+        }
         return name;
     }
 
