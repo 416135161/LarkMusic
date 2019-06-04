@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="#F5F7F8"
               android:orientation="vertical"
     >
@@ -14,22 +15,58 @@
         android:layout_weight="1"
         android:background="@drawable/play_top_bg"
         >
-        <com.lauzy.freedom.library.LrcView
-            android:id="@+id/lrc_view"
+
+        <LinearLayout
+            android:id="@+id/view_lrc"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            app:currentIndicateLrcColor="#ffffff"
-            app:lrcCurrentTextColor="#ffffffff"
-            app:lrcNormalTextColor="#53ffffff"
-            app:lrcTextSize="16sp"
-            />
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            >
+
+            <internet.com.larkmusic.view.MyTextView
+                android:id="@+id/tv_song1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="#ff3c3d57"
+                android:textSize="20sp"
+                tools:text="Acer"
+                />
+
+            <TextView
+                android:id="@+id/tv_singer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#ff78858c"
+                android:textSize="14sp"
+                tools:text="Acer"
+                />
+
+            <com.lauzy.freedom.library.LrcView
+                android:id="@+id/lrc_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                app:currentIndicateLrcColor="#ffffff"
+                app:lrcCurrentTextColor="#ffffffff"
+                app:lrcNormalTextColor="#c82a3033"
+                app:lrcTextSize="16sp"
+                app:indicatorLineColor="@color/colorPrimary"
+                app:noLrcTextColor="@color/colorPrimaryDark"
+                />
+        </LinearLayout>
+
         <FrameLayout
+            android:id="@+id/view_top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,12 +84,13 @@
                     />
 
                 <ImageView
-                    android:layout_width="305dp"
-                    android:layout_height="305dp"
+                    android:id="@+id/iv_song_bg"
+                    android:layout_width="315dp"
+                    android:layout_height="335dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="28dp"
-                    android:scaleType="fitStart"
-                    android:background="@color/red"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_player_main_default"
                     />
 
                 <TextView
@@ -60,8 +98,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Ace"
                     android:layout_marginTop="13dp"
+                    tools:text="Ace"
                     android:textColor="#ff3c3d57"
                     android:textSize="20sp"
                     />
@@ -71,8 +109,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Else"
                     android:layout_marginTop="8dp"
+                    tools:text="Else"
                     android:textColor="#ff78858c"
                     android:textSize="14sp"
                     />
@@ -80,13 +118,14 @@
             </LinearLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_singer"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_gravity="right"
                 android:layout_marginRight="65dp"
-                android:layout_marginTop="320dp"
-                app:civ_border_width="0dp"
+                android:layout_marginTop="365dp"
                 android:src="@mipmap/ic_song_default"
+                app:civ_border_width="0dp"
                 />
         </FrameLayout>
     </FrameLayout>
@@ -122,7 +161,7 @@
                 android:id="@+id/tv_time_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2:10"
+                android:text="0:00"
                 android:textColor="#ff3c425b"
                 android:textSize="11sp"
                 />
@@ -136,7 +175,7 @@
                 android:id="@+id/tv_time_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2:10"
+                android:text="0:00"
                 android:textColor="#ff3c425b"
                 android:textSize="11sp"
                 />
@@ -161,6 +200,7 @@
                 android:src="@mipmap/icon_favorite_normal"
                 />
 
+
             <ImageView
                 android:id="@+id/iv_last"
                 android:layout_width="wrap_content"
@@ -173,14 +213,30 @@
                 android:src="@mipmap/icon_last_song"
                 />
 
-            <ImageView
-                android:id="@+id/iv_play_stop"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@mipmap/icon_play_bg"
-                android:src="@mipmap/icon_play"
-                />
+                >
+
+                <ImageView
+                    android:id="@+id/iv_play_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/icon_play_bg"
+                    android:src="@mipmap/icon_play"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_play_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_play"
+                    android:visibility="gone"
+                    />
+            </FrameLayout>
 
             <ImageView
                 android:id="@+id/iv_next"

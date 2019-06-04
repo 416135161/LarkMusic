@@ -22,5 +22,6 @@ public class MusicApplication extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

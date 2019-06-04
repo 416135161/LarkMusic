@@ -1,25 +1,25 @@
 package internet.com.larkmusic.util;
 
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
+import internet.com.larkmusic.action.ActionAlbumList;
 import internet.com.larkmusic.action.ActionBrowPlayTeam;
 import internet.com.larkmusic.action.ActionHotSongs;
-import internet.com.larkmusic.action.ActionAlbumList;
 import internet.com.larkmusic.action.ActionNewSongs;
 import internet.com.larkmusic.action.ActionPlayList;
 import internet.com.larkmusic.action.ActionSearchSongs;
+import internet.com.larkmusic.action.ActionStartLoading;
 import internet.com.larkmusic.action.ActionStopLoading;
 import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.bean.songDetailResponse.SongDetailKuGou;
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.network.DetailIntercepter;
+import internet.com.larkmusic.network.GetSongCallBack;
 import internet.com.larkmusic.network.HttpUtil;
 import internet.com.larkmusic.network.QueryInterceptor;
 import internet.com.larkmusic.network.StreamService;
@@ -176,25 +176,43 @@ public final class CloudDataUtil {
     }
 
     //获取歌曲详情
-    public static void getSongFromCloud(String hash) {
-        StreamService ss = HttpUtil.getApiService(Config.API_HOST, null);
-        Call<Song> call = ss.getSongDetail(hash);
-        call.enqueue(new Callback<Song>() {
+    public static void getSongFromCloud(final Song song, final GetSongCallBack callBack) {
+        if (song == null) {
+            return;
+        }
+        EventBus.getDefault().post(new ActionStartLoading());
+        StreamService ss = HttpUtil.getApiService(Config.HOST_GET_SONG, new DetailIntercepter());
+        Call<SongDetailKuGou> call = ss.getSongDetailKuGou(song.getHash());
+        call.enqueue(new Callback<SongDetailKuGou>() {
 
             @Override
-            public void onResponse(Call<Song> call, Response<Song> response) {
-
+            public void onResponse(Call<SongDetailKuGou> call, Response<SongDetailKuGou> response) {
+                EventBus.getDefault().post(new ActionStopLoading());
                 if (response.isSuccessful() && response.body() != null) {
-
-
+                    Song data = TransformUtil.detailResponse2Song(response.body());
+                    song.setImgUrl(data.getImgUrl());
+                    song.setPlayUrl(data.getPlayUrl());
+                    song.setDuration(data.getDuration());
+                    song.setLrc(data.getLrc());
+                    song.setPortrait(data.getPortrait());
+                    if (callBack != null) {
+                        callBack.onSongGetOk();
+                    }
+                    CloudDataUtil.saveSongImg(data.getHash(), data.getImgUrl());
+                } else {
+                    if (callBack != null) {
+                        callBack.onSongGetFail();
+                    }
                 }
 
             }
 
             @Override
-            public void onFailure(Call<Song> call, Throwable t) {
+            public void onFailure(Call<SongDetailKuGou> call, Throwable t) {
                 EventBus.getDefault().post(new ActionStopLoading());
-
+                if (callBack != null) {
+                    callBack.onSongGetFail();
+                }
             }
 
         });
@@ -214,11 +232,27 @@ public final class CloudDataUtil {
 
             @Override
             public void onFailure(Call<ArrayList<Song>> call, Throwable t) {
-
                 EventBus.getDefault().post(new ActionSearchSongs(null));
             }
 
         });
 
+    }
+
+
+    //保存图片到远程服务器
+    public static void saveSongImg(String hash, String img) {
+        StreamService ss = HttpUtil.getApiService(Config.API_HOST, null);
+        Call<Boolean> call = ss.saveSongImg(hash, img);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+            }
+
+        });
     }
 }

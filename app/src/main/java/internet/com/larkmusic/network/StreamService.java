@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.bean.songDetailResponse.SongDetailKuGou;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -49,6 +50,16 @@ public interface StreamService {
     Call<Song> getSongDetail(@Query("hash") String hash);
 
     /**
+     * 获取歌曲播放地址
+     *
+     * @param hash
+     * @return
+     */
+    @GET("/yy/index.php?r=play/getdata")
+    Call<SongDetailKuGou> getSongDetailKuGou(@Query("hash") String hash);
+
+
+    /**
      * 获取歌单
      *
      * @param pageSize
@@ -83,5 +94,14 @@ public interface StreamService {
      */
     @GET("/music/europe/album/songs")
     Call<ArrayList<Song>> getEuropePlayList(@Query("id") String id);
+
+    /**
+     * 保存歌曲的图片
+     *
+     * @return
+     */
+    @GET("/music/save/img")
+    Call<Boolean> saveSongImg(@Query("hash") String hash, @Query("img")String img);
+
 
 }

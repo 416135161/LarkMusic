@@ -4,25 +4,36 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionNewSongs;
+import internet.com.larkmusic.action.ActionPlayEvent;
+import internet.com.larkmusic.action.ActionStartPlayAct;
 import internet.com.larkmusic.back.BackHandlerHelper;
+import internet.com.larkmusic.base.EventActivity;
+import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.fragment.HallFragment;
 import internet.com.larkmusic.fragment.LibraryFragment;
 import internet.com.larkmusic.fragment.MeFragment;
 import internet.com.larkmusic.fragment.SearchFragment;
 import internet.com.larkmusic.network.Config;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends EventActivity {
 
     @BindView(R.id.iv_hall)
     ImageView ivHall;
@@ -140,6 +151,17 @@ public class MainActivity extends AppCompatActivity {
         if (!BackHandlerHelper.handleBackPress(this)) {
             super.onBackPressed();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventStartPlayAct(ActionStartPlayAct event) {
+        List<Song> songList = new ArrayList<>();
+        songList.add(event.song);
+        ActionPlayEvent actionPlayEvent = new ActionPlayEvent();
+        actionPlayEvent.setAction(ActionPlayEvent.Action.PLAY);
+        actionPlayEvent.setQueue(songList);
+        EventBus.getDefault().post(actionPlayEvent);
+        PlayerActivity.start(event.song, this);
     }
 
 }

@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -17,6 +18,7 @@ import butterknife.BindView;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionHotSongs;
 import internet.com.larkmusic.action.ActionNewSongs;
+import internet.com.larkmusic.action.ActionStartPlayAct;
 import internet.com.larkmusic.adapter.HotNewListAdapter;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
@@ -74,7 +76,11 @@ public class HotNewListFragment extends EventFragment {
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                if (i == 0) {
+                    return;
+                }
+                i -= 1;
+                EventBus.getDefault().post(new ActionStartPlayAct((Song) mAdapter.getItem(i)));
             }
         });
         if (TYPE == TYPE_HOT) {

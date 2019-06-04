@@ -27,11 +27,11 @@ public final class Config {
     public static Typeface tfLark;
 
     public static final String GENIUS = "genius";
-
+    public static String HOST_GET_SONG = "http://www.kugou.com";
     //测试
-    public static final String API_HOST = "http://101.200.200.156:8080";
+//    public static final String API_HOST = "http://101.200.200.156:8080";
     //生产
-//    public static final String API_HOST = "http://39.98.242.57:8080";
+    public static final String API_HOST = "http://39.98.242.57:8080";
 
     public static String FROM;
     public static String FROM_US = "0";

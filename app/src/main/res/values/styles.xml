@@ -8,8 +8,7 @@
         <item name="colorPrimaryDark">#FF4081</item>
         <item name="colorAccent">#FE3939</item>
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
-
-    </style>
+   </style>
 
     <style name="MyMiddleDialogStyle" parent="@android:style/Theme.Holo.Light.Dialog">
         <!-- 窗口背景色 -->
@@ -35,6 +34,12 @@
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+
+        <!--<item name="android:activityOpenEnterAnimation">@anim/slide_bottom_in</item>-->
+        <!--<item name="android:activityOpenExitAnimation">@anim/slide_top_out</item>-->
+        <!--<item name="android:activityCloseEnterAnimation">@anim/slide_top_in</item>-->
+        <!--<item name="android:activityCloseExitAnimation">@anim/slide_bottom_out</item>-->
+
     </style>
 
 

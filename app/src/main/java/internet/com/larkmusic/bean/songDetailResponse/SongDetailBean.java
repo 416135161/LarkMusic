@@ -1,15 +1,16 @@
-package internet.com.larkmusic.bean;
-
-import android.text.TextUtils;
-
-import java.io.Serializable;
+/**
+ * Copyright 2019 bejson.com
+ */
+package internet.com.larkmusic.bean.songDetailResponse;
 
 /**
- * Created by sjning
- * created on: 2019/5/12 下午8:57
- * description:
+ * Auto-generated: 2019-01-08 20:9:52
+ *
+ * @author bejson.com (i@bejson.com)
+ * @website http://www.bejson.com/java2pojo/
  */
-public class Song implements Serializable{
+public class SongDetailBean {
+
     private String songName;
 
     public int duration;
@@ -24,15 +25,8 @@ public class Song implements Serializable{
 
     private String lrc;
 
-    private String portrait;
-
 
     public String getSongName() {
-        if(!TextUtils.isEmpty(songName) && songName.matches(".*\\(.*")){
-            songName = songName.substring(0, songName.indexOf("("));
-        }else if(!TextUtils.isEmpty(songName) && songName.matches(".*\\【.*")){
-            songName = songName.substring(0, songName.indexOf("【"));
-        }
         return songName;
     }
 
@@ -88,11 +82,4 @@ public class Song implements Serializable{
         this.lrc = lrc;
     }
 
-    public String getPortrait() {
-        return portrait;
-    }
-
-    public void setPortrait(String portrait) {
-        this.portrait = portrait;
-    }
 }

@@ -9,8 +9,8 @@
     <string name="library_title">Library</string>
     <string name="me_title">Me</string>
 
-    <string name="title_new">NewList</string>
-    <string name="title_hot">HotList</string>
+    <string name="title_new">New</string>
+    <string name="title_hot">Hot</string>
     <string name="title_albums">Albums</string>
     <string name="title_more">More</string>
     <string name="title_song_count">Play all（%1$d）</string>

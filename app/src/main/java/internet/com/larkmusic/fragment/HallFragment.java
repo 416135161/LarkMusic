@@ -75,14 +75,13 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mList = new ArrayList<>();                  //ImageView数据
-        mList.add(R.mipmap.banner_1);
-        mList.add(R.mipmap.banner_2);
-        mList.add(R.mipmap.banner_3);
+        mList.add(R.mipmap.banner_default);
+        mList.add(R.mipmap.banner_default);
+
 
         mTitles = new ArrayList<>();                //title数据
-        mTitles.add("第一页到货发动你的号看到回复");
-        mTitles.add("第二页佛挡");
-        mTitles.add("第三页大佛我as的后if好的搜iuuuu家的三");
+        mTitles.add("");
+        mTitles.add("");
 
         mBannerView.setImages(mList)        //ImageView数据
                 .setIndcatorTitles(mTitles) //title数据
@@ -101,7 +100,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         HotNewListFragment.TYPE = HotNewListFragment.TYPE_HOT;
         Fragment fragment = new HotNewListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("from", Config.FROM_US);
+        bundle.putString("from", Config.FROM);
         fragment.setArguments(bundle);
         transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
@@ -115,7 +114,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         HotNewListFragment.TYPE = HotNewListFragment.TYPE_NEW;
         Fragment fragment = new HotNewListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("from", Config.FROM_US);
+        bundle.putString("from", Config.FROM);
         fragment.setArguments(bundle);
         transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");

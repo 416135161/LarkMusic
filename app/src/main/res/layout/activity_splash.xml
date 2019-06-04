@@ -9,10 +9,10 @@
 
     <ImageView
         android:id="@+id/splash_img"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginBottom="10dp"
-
+        android:src="@mipmap/splash_logo"
         android:layout_centerInParent="true"
         />
 

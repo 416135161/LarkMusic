@@ -27,6 +27,7 @@ public class RotateAnimation {
         imageViewObjectAnimator.setRepeatCount(repeatCount);
         imageViewObjectAnimator.setInterpolator(new LinearInterpolator());
         imageViewObjectAnimator.start();
+
     }
 
     private int duration = 2000;
