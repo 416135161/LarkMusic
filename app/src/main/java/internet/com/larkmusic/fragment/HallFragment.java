@@ -1,10 +1,12 @@
 package internet.com.larkmusic.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -38,6 +40,8 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
 
     @BindView(R.id.banner_bv)
     com.alin.lib.bannerlib.BannerView mBannerView;
+    @BindView(R.id.refresh_layout)
+    SwipeRefreshLayout refreshLayout;
 
     @BindView(R.id.tv_title)
     TextView mTvTitle;
@@ -74,6 +78,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initeddd();
         mList = new ArrayList<>();                  //ImageView数据
         mList.add(R.mipmap.banner_default);
         mList.add(R.mipmap.banner_default);
@@ -90,6 +95,24 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         showDialog();
         CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
         CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
+
+    }
+
+    private void initeddd() {
+        refreshLayout.setSize(SwipeRefreshLayout.LARGE);
+        refreshLayout.setProgressViewOffset(true, -0, 100);
+        refreshLayout.setProgressViewEndTarget(true, 180);
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary),
+                getResources().getColor(R.color.colorPrimaryDark));
+        refreshLayout.setDistanceToTriggerSync(200);
+        refreshLayout.setOnChildScrollUpCallback(null);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
+                CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
+            }
+        });
 
     }
 
@@ -130,6 +153,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPosting(ActionNewSongs event) {
         closeDialog();
+        refreshLayout.setRefreshing(false);
         if (event.type == ActionNewSongs.TYPE_HOME) {
             if (event != null && event.trackList != null && event.trackList.size() >= 6) {
                 new0.refreshView(event.trackList.get(0));
@@ -146,6 +170,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPosting(ActionHotSongs event) {
         closeDialog();
+        refreshLayout.setRefreshing(false);
         if (event.type == ActionHotSongs.TYPE_HOME) {
             if (event != null && event.trackList != null && event.trackList.size() >= 6) {
                 hot0.refreshView(event.trackList.get(0));

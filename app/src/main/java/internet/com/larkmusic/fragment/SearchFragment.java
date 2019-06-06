@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -24,6 +25,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionSearchSongs;
+import internet.com.larkmusic.action.ActionStartPlayAct;
 import internet.com.larkmusic.adapter.SearchListAdapter;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
@@ -62,6 +64,7 @@ public class SearchFragment extends EventFragment {
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                EventBus.getDefault().post(new ActionStartPlayAct((Song) mAdapter.getItem(i)));
 
             }
         });

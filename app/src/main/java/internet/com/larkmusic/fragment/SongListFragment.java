@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionPlayList;
+import internet.com.larkmusic.action.ActionStartPlayAct;
 import internet.com.larkmusic.adapter.SongListAdapter;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Album;
@@ -84,7 +86,11 @@ public class SongListFragment extends EventFragment {
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                if (i == 0) {
+                    return;
+                }
+                i -= 1;
+                EventBus.getDefault().post(new ActionStartPlayAct((Song) mAdapter.getItem(i)));
             }
         });
     }

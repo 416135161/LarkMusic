@@ -12,9 +12,12 @@ import internet.com.larkmusic.network.Config;
  */
 public class MusicApplication extends Application {
 
+    private static MusicApplication instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         try {
             Config.tf4 = Typeface.createFromAsset(getAssets(), "fonts/Intro_Cond_Light.otf");
             Config.tf3 = Typeface.createFromAsset(getAssets(), "fonts/Gidole-Regular.ttf");
@@ -23,5 +26,9 @@ public class MusicApplication extends Application {
             e.printStackTrace();
         }
 
+    }
+
+    public static MusicApplication getInstance() {
+        return instance;
     }
 }

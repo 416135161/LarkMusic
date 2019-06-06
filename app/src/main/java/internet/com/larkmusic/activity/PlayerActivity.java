@@ -183,8 +183,8 @@ public class PlayerActivity extends EventActivity {
         Song song = event.song;
         Picasso.with(this)
                 .load(song.getPortrait())
-                .error(R.mipmap.ic_song_default)
-                .placeholder(R.mipmap.ic_song_default)
+                .error(R.mipmap.ic_singer_default)
+                .placeholder(R.mipmap.ic_singer_default)
                 .into(ivSinger);
         Picasso.with(this)
                 .load(song.getImgUrl())
@@ -199,7 +199,7 @@ public class PlayerActivity extends EventActivity {
             lrcView.setLrcData(lrcs);
             lrcView.resume();
         } else {
-            lrcView.setEmptyContent("No data");
+            lrcView.setEmptyContent(getString(R.string.lrc_nothing));
         }
 
     }

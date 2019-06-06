@@ -1,57 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
              android:orientation="vertical">
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        >
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="32dp"
+            android:scrollbars="none"
             >
 
-            <internet.com.larkmusic.view.MyTextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="@string/hall_title"
-                android:textStyle="bold"
-                android:textColor="@color/text_red"
-                android:textSize="28sp"
-                />
-
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/hall_banner_shadow"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="32dp"
                 >
 
-                <com.alin.lib.bannerlib.BannerView
-                    android:id="@+id/banner_bv"
+                <internet.com.larkmusic.view.MyTextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/hall_title"
+                    android:textColor="@color/text_red"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    />
+
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="102dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
-                    app:number_pointer_background="@color/transparent"
-                    app:indicator_background_color="@color/transparent"
-                    ></com.alin.lib.bannerlib.BannerView>
-            </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/hall_banner_shadow"
+                    >
 
-            <include layout="@layout/layout_hall_hot_new"/>
+                    <com.alin.lib.bannerlib.BannerView
+                        android:id="@+id/banner_bv"
+                        android:layout_width="match_parent"
+                        android:layout_height="102dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        app:indicator_background_color="@color/transparent"
+                        app:number_pointer_background="@color/transparent"
+                        ></com.alin.lib.bannerlib.BannerView>
+                </FrameLayout>
 
-        </LinearLayout>
-    </ScrollView>
+                <include layout="@layout/layout_hall_hot_new"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <FrameLayout
         android:id="@+id/view_container"
         android:layout_width="match_parent"
