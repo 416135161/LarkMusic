@@ -21,8 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
-import internet.com.larkmusic.action.ActionNewSongs;
 import internet.com.larkmusic.action.ActionPlayEvent;
+import internet.com.larkmusic.action.ActionShowOperateDlg;
 import internet.com.larkmusic.action.ActionStartPlayAct;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.base.EventActivity;
@@ -30,6 +30,7 @@ import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.fragment.HallFragment;
 import internet.com.larkmusic.fragment.LibraryFragment;
 import internet.com.larkmusic.fragment.MeFragment;
+import internet.com.larkmusic.fragment.OperateDialog;
 import internet.com.larkmusic.fragment.SearchFragment;
 import internet.com.larkmusic.network.Config;
 
@@ -162,6 +163,14 @@ public class MainActivity extends EventActivity {
         actionPlayEvent.setQueue(songList);
         EventBus.getDefault().post(actionPlayEvent);
         PlayerActivity.start(event.song, this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventShowOperateDlg(ActionShowOperateDlg event) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        OperateDialog operateDialog = new OperateDialog();
+        operateDialog.setSong(event.song);
+        operateDialog.show(fragmentManager, OperateDialog.class.getName());
     }
 
 }

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/operate_dlg_bg"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <ImageView
+            android:id="@+id/iv_singer"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/ic_song_default"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tv_song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="With you"
+                android:textColor="#ff666666"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_singer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Towes"
+                android:textColor="#ff999999"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@mipmap/ic_play_next"
+        android:drawablePadding="15dp"
+        android:text="Play Next"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+        />
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_later"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@mipmap/ic_play_later"
+        android:drawablePadding="15dp"
+        android:text="Play Later"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+        />
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_add_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@mipmap/ic_add_to_play"
+        android:drawablePadding="15dp"
+        android:text="Add to Playlist"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+        />
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@mipmap/ic_delete"
+        android:drawablePadding="15dp"
+        android:text="Delete"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+        />
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_close"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/operate_dlg_cancel_btn_bg"
+        android:gravity="center"
+        android:text="Cancel"
+        android:textColor="#ff999999"
+        android:textSize="16sp"
+        />
+
+</LinearLayout>

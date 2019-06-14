@@ -7,6 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.SpriteFactory;
+import com.github.ybq.android.spinkit.Style;
+import com.github.ybq.android.spinkit.sprite.Sprite;
 
 import internet.com.larkmusic.R;
 
@@ -27,7 +35,10 @@ public class WaitDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE); //无标题
-        View view = inflater.inflate(R.layout.net_wait_dialog,container);
+        View view = inflater.inflate(R.layout.net_wait_dialog, container);
+        SpinKitView spinKitView = view.findViewById(R.id.spin_kit);
+        Sprite drawable = SpriteFactory.create(Style.CIRCLE);
+        spinKitView.setIndeterminateDrawable(drawable);
         return view;
     }
 }

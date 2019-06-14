@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tag_key_favorite_song" type="id"/>
+    <item name="tag_key_favorite_check" type="id"/>
+</resources>

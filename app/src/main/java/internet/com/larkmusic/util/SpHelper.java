@@ -3,7 +3,14 @@ package internet.com.larkmusic.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
+
 import internet.com.larkmusic.app.MusicApplication;
+import internet.com.larkmusic.bean.Album;
+import internet.com.larkmusic.bean.Song;
 
 /**
  * Created by sjning
@@ -13,8 +20,34 @@ import internet.com.larkmusic.app.MusicApplication;
 
 public final class SpHelper {
 
-
+    //循环模式
     public static final String KEY_RECYCLE_MODE = "recycle_mode";
+    //喜欢的歌曲
+    public static final String KEY_FAVORITE_SONGS = "key_favorite_songs";
+    //喜欢的专辑列表
+    public static final String KEY_FAVORITE_ALBUMS = "key_favorite_albums";
+    //搜索历史列表
+    public static final String KEY_SEARCH_HISTORY = "key_search_history";
+
+
+    public static List<Song> favoriteSongs;
+
+    public static List<Album> favoriteAlbums;
+
+    public static List<String> searchHistory;
+
+    static {
+        Gson gs = new Gson();
+        favoriteSongs = gs.fromJson(getDefault().getString(KEY_FAVORITE_SONGS, "[]"), new TypeToken<List<Song>>() {
+        }.getType());
+
+        favoriteAlbums = gs.fromJson(getDefault().getString(KEY_FAVORITE_ALBUMS, "[]"), new TypeToken<List<Album>>() {
+        }.getType());
+
+        searchHistory = gs.fromJson(getDefault().getString(KEY_SEARCH_HISTORY, "[]"), new TypeToken<List<String>>() {
+        }.getType());
+
+    }
 
     private String spName = "myData";
     private static SpHelper mInstance;

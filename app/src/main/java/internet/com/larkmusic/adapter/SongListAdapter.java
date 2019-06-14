@@ -14,6 +14,7 @@ import java.util.List;
 
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.listener.MyClickListener;
 
 /**
  * Created by sjning
@@ -71,6 +72,7 @@ public class SongListAdapter extends BaseAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        holder.operate.setOnClickListener(new MyClickListener(song));
         return convertView;
     }
 

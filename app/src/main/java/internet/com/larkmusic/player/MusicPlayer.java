@@ -2,6 +2,7 @@ package internet.com.larkmusic.player;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.support.design.widget.BottomSheetDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,10 +31,6 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     private LinkedList<Song> mQueue;
     private int mQueueIndex;
     private PlayMode mPlayMode;
-
-    private enum PlayMode {
-        LOOP, RANDOM, REPEAT
-    }
 
     private Timer timer;
 
@@ -72,7 +69,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     public void addQueue(List<Song> songs, boolean playNow) {
-        if (songs == null && songs.size() == 0)
+        if (songs == null || songs.size() == 0)
             return;
         if (playNow) {
             initQueue();
@@ -82,6 +79,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         } else {
             mQueue.addAll(songs);
         }
+
     }
 
     private void initQueue() {

@@ -34,6 +34,9 @@ import internet.com.larkmusic.animations.RotateAnimation;
 import internet.com.larkmusic.base.EventActivity;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.player.MusicPlayer;
+import internet.com.larkmusic.player.PlayMode;
+import internet.com.larkmusic.util.FavoriteService;
+import internet.com.larkmusic.util.SpHelper;
 
 /**
  * Created by sjning
@@ -105,6 +108,21 @@ public class PlayerActivity extends EventActivity {
                 EventBus.getDefault().post(actionPlayEvent);
             }
         });
+        initIvRecycle();
+    }
+
+    void initIvRecycle() {
+        int index = SpHelper.getDefault().getInt(SpHelper.KEY_RECYCLE_MODE, PlayMode.LOOP.ordinal());
+        if (index == PlayMode.LOOP.ordinal()) {
+            MusicPlayer.getPlayer().setPlayMode(PlayMode.LOOP);
+            ivRecycle.setImageResource(R.mipmap.icon_recycle_all);
+        } else if (index == PlayMode.REPEAT.ordinal()) {
+            MusicPlayer.getPlayer().setPlayMode(PlayMode.REPEAT);
+            ivRecycle.setImageResource(R.mipmap.icon_recycle_single);
+        } else if (index == PlayMode.RANDOM.ordinal()) {
+            MusicPlayer.getPlayer().setPlayMode(PlayMode.RANDOM);
+            ivRecycle.setImageResource(R.mipmap.icon_recycle_random);
+        }
     }
 
     @OnClick(R.id.view_top)
@@ -117,6 +135,42 @@ public class PlayerActivity extends EventActivity {
     void onClickViewLrc(View view) {
         viewLrc.setVisibility(View.INVISIBLE);
         viewTop.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick({R.id.iv_favorite})
+    void onClickFavorite(View view) {
+        if (ivFavorite.getTag(R.id.tag_key_favorite_check) == null) {
+            return;
+        }
+        if ((Boolean) ivFavorite.getTag(R.id.tag_key_favorite_check)) {
+            ivFavorite.setImageResource(R.mipmap.icon_favorite_normal);
+            ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.FALSE);
+            FavoriteService.getInstance().saveSong(
+                    (Song) ivFavorite.getTag(R.id.tag_key_favorite_song), false);
+        } else {
+            ivFavorite.setImageResource(R.mipmap.icon_favorite_select);
+            ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.TRUE);
+            FavoriteService.getInstance().saveSong(
+                    (Song) ivFavorite.getTag(R.id.tag_key_favorite_song), true);
+        }
+    }
+
+    @OnClick({R.id.iv_recycle})
+    void onClickRecycle(View view) {
+        int index = SpHelper.getDefault().getInt(SpHelper.KEY_RECYCLE_MODE, PlayMode.LOOP.ordinal());
+        if (index == PlayMode.LOOP.ordinal()) {
+            SpHelper.getDefault().putInt(SpHelper.KEY_RECYCLE_MODE, PlayMode.REPEAT.ordinal());
+            MusicPlayer.getPlayer().setPlayMode(PlayMode.REPEAT);
+            ivRecycle.setImageResource(R.mipmap.icon_recycle_single);
+        } else if (index == PlayMode.REPEAT.ordinal()) {
+            SpHelper.getDefault().putInt(SpHelper.KEY_RECYCLE_MODE, PlayMode.RANDOM.ordinal());
+            MusicPlayer.getPlayer().setPlayMode(PlayMode.RANDOM);
+            ivRecycle.setImageResource(R.mipmap.icon_recycle_random);
+        } else if (index == PlayMode.RANDOM.ordinal()) {
+            SpHelper.getDefault().putInt(SpHelper.KEY_RECYCLE_MODE, PlayMode.LOOP.ordinal());
+            MusicPlayer.getPlayer().setPlayMode(PlayMode.LOOP);
+            ivRecycle.setImageResource(R.mipmap.icon_recycle_all);
+        }
     }
 
     @OnClick(R.id.iv_play_stop)
@@ -179,6 +233,14 @@ public class PlayerActivity extends EventActivity {
             tvSinger.setText(event.song.getSingerName());
             tvSinger1.setText(event.song.getSingerName());
             initLrc(event.song.getLrc());
+            if (FavoriteService.getInstance().isFavorite(event.song)) {
+                ivFavorite.setImageResource(R.mipmap.icon_favorite_select);
+                ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.TRUE);
+            } else {
+                ivFavorite.setImageResource(R.mipmap.icon_favorite_normal);
+                ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.FALSE);
+            }
+            ivFavorite.setTag(R.id.tag_key_favorite_song, event.song);
         }
         Song song = event.song;
         Picasso.with(this)
@@ -191,6 +253,8 @@ public class PlayerActivity extends EventActivity {
                 .error(R.mipmap.icon_player_main_default)
                 .placeholder(R.mipmap.icon_player_main_default)
                 .into(ivSongBg);
+
+
     }
 
     protected void initLrc(String lrc) {
