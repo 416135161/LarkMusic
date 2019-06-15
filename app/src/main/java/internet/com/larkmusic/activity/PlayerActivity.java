@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.view.Window;
@@ -215,6 +216,7 @@ public class PlayerActivity extends EventActivity {
             refreshTime(tvTimeRight, event.duration);
             seekBar.setMax(event.duration);
             seekBar.setProgress(event.currentTime);
+            initLrc(event.song.getLrc());
             lrcView.updateTime(event.currentTime);
         } else if (event.action == ActionPlayerInformEvent.Action.STOP) {
             ivPlayIndicator.setVisibility(View.GONE);
@@ -259,8 +261,9 @@ public class PlayerActivity extends EventActivity {
 
     protected void initLrc(String lrc) {
         List<Lrc> lrcs = LrcHelper.parseLrcFromString(lrc);
-        if (lrcs != null && lrcs.size() > 0) {
+        if (lrcs != null && lrcs.size() > 0 && !TextUtils.equals(lrc, lrcView.getmLrc())) {
             lrcView.setLrcData(lrcs);
+            lrcView.setmLrc(lrc);
             lrcView.resume();
         } else {
             lrcView.setEmptyContent(getString(R.string.lrc_nothing));

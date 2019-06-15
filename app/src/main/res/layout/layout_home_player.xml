@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="53dp"
+              android:background="@drawable/main_play_bg"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingLeft="20dp"
+              android:paddingRight="20dp"
+    >
+
+    <View
+        android:layout_width="53dp"
+        android:layout_height="2dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_song"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:text="Where have you gone"
+        android:textColor="@color/text_666"
+        android:textSize="14sp"
+        />
+
+    <ImageView
+        android:id="@+id/iv_play_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/ic_home_pause"
+        />
+
+    <ImageView
+        android:id="@+id/iv_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_home_next"
+        />
+</LinearLayout>

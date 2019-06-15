@@ -1,146 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
-
-    <FrameLayout
-        android:id="@+id/view_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="33dp"
-        ></FrameLayout>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".activity.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:layout_gravity="bottom"
-        android:background="@color/home_tab_bg"
-        android:elevation="4dp"
-        android:orientation="horizontal"
-
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         >
 
-        <LinearLayout
-            android:id="@+id/view_hall"
+        <FrameLayout
+            android:id="@+id/view_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            >
+            />
 
-            <ImageView
-                android:id="@+id/iv_hall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/tab_hall_select"
-                />
-
-            <TextView
-                android:id="@+id/tv_hall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/hall_title"
-                android:textColor="#fffe3838"
-                android:textSize="10sp"
-                />
-
-        </LinearLayout>
+        <include layout="@layout/layout_home_player"/>
 
         <LinearLayout
-            android:id="@+id/view_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            >
-
-            <ImageView
-                android:id="@+id/iv_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/tab_search_select"
-                />
-
-            <TextView
-                android:id="@+id/tv_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/search_title"
-                android:textColor="#fffe3838"
-                android:textSize="10sp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/view_library"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_height="53dp"
+            android:layout_gravity="bottom"
+            android:background="@color/home_tab_bg"
+            android:elevation="4dp"
+            android:orientation="horizontal"
 
             >
 
-            <ImageView
-                android:id="@+id/iv_library"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/tab_library_select"
-                />
+            <LinearLayout
+                android:id="@+id/view_hall"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
 
-            <TextView
-                android:id="@+id/tv_library"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/library_title"
-                android:textColor="#fffe3838"
-                android:textSize="10sp"
-                />
+                <ImageView
+                    android:id="@+id/iv_hall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/tab_hall_select"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_hall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/hall_title"
+                    android:textColor="#fffe3838"
+                    android:textSize="10sp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/tab_search_select"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/search_title"
+                    android:textColor="#fffe3838"
+                    android:textSize="10sp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_library"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="vertical"
+
+                >
+
+                <ImageView
+                    android:id="@+id/iv_library"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/tab_library_select"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_library"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/library_title"
+                    android:textColor="#fffe3838"
+                    android:textSize="10sp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_me"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_me"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/tab_me_select"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_me"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/me_title"
+                    android:textColor="#fffe3838"
+                    android:textSize="10sp"
+                    />
+
+            </LinearLayout>
+
 
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/view_me"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            >
-
-            <ImageView
-                android:id="@+id/iv_me"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/tab_me_select"
-                />
-
-            <TextView
-                android:id="@+id/tv_me"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/me_title"
-                android:textColor="#fffe3838"
-                android:textSize="10sp"
-                />
-
-        </LinearLayout>
-
 
     </LinearLayout>
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_singer"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="65dp"
+        android:layout_marginLeft="20dp"
+        android:src="@mipmap/ic_singer_default"
+        app:civ_border_width="0dp"
+        />
 </FrameLayout>

@@ -41,6 +41,7 @@ import java.util.List;
 public class LrcView extends View {
 
     private static final String DEFAULT_CONTENT = "Empty";
+    private String mLrc;
     private List<Lrc> mLrcData;
     private TextPaint mTextPaint;
     private String mDefaultContent;
@@ -651,5 +652,13 @@ public class LrcView extends View {
     public void setIndicatorTextColor(int indicatorTextColor) {
         mIndicatorTextColor = indicatorTextColor;
         invalidateView();
+    }
+
+    public String getmLrc() {
+        return mLrc;
+    }
+
+    public void setmLrc(String mLrc) {
+        this.mLrc = mLrc;
     }
 }

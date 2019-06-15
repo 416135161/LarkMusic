@@ -5,10 +5,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -22,8 +25,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionPlayEvent;
+import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.ActionShowOperateDlg;
 import internet.com.larkmusic.action.ActionStartPlayAct;
+import internet.com.larkmusic.animations.RotateAnimation;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.base.EventActivity;
 import internet.com.larkmusic.bean.Song;
@@ -33,6 +38,7 @@ import internet.com.larkmusic.fragment.MeFragment;
 import internet.com.larkmusic.fragment.OperateDialog;
 import internet.com.larkmusic.fragment.SearchFragment;
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.player.MusicPlayer;
 
 public class MainActivity extends EventActivity {
 
@@ -162,7 +168,6 @@ public class MainActivity extends EventActivity {
         actionPlayEvent.setAction(ActionPlayEvent.Action.PLAY);
         actionPlayEvent.setQueue(songList);
         EventBus.getDefault().post(actionPlayEvent);
-        PlayerActivity.start(event.song, this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -171,6 +176,70 @@ public class MainActivity extends EventActivity {
         OperateDialog operateDialog = new OperateDialog();
         operateDialog.setSong(event.song);
         operateDialog.show(fragmentManager, OperateDialog.class.getName());
+    }
+
+    @BindView(R.id.iv_singer)
+    ImageView ivSinger;
+    @BindView(R.id.tv_song)
+    TextView tvSong;
+    @BindView(R.id.iv_play_stop)
+    ImageView ivPlayStop;
+    @BindView(R.id.iv_next)
+    ImageView ivNext;
+
+    @OnClick({R.id.iv_play_stop, R.id.iv_next, R.id.iv_singer, R.id.tv_song})
+    public void onClickPlayPanel(View view) {
+        ActionPlayEvent actionPlayEvent;
+        switch (view.getId()) {
+            case R.id.iv_singer:
+            case R.id.tv_song:
+                PlayerActivity.start(null, this);
+                break;
+            case R.id.iv_next:
+                actionPlayEvent = new ActionPlayEvent();
+                actionPlayEvent.setAction(ActionPlayEvent.Action.NEXT);
+                EventBus.getDefault().post(actionPlayEvent);
+                break;
+            case R.id.iv_play_stop:
+                actionPlayEvent = new ActionPlayEvent();
+                if (MusicPlayer.getPlayer().isPlaying()) {
+                    actionPlayEvent.setAction(ActionPlayEvent.Action.STOP);
+                } else {
+                    if (MusicPlayer.getPlayer().isPause()) {
+                        actionPlayEvent.setAction(ActionPlayEvent.Action.RESUME);
+                    } else {
+                        actionPlayEvent.setAction(ActionPlayEvent.Action.PLAY);
+                    }
+                }
+                EventBus.getDefault().post(actionPlayEvent);
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventStartPlayAct(ActionPlayerInformEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (event.action == ActionPlayerInformEvent.Action.PLAYING) {
+            ivPlayStop.setImageResource(R.mipmap.icon_stop);
+            tvSong.setText(event.song.getSongName());
+        } else if (event.action == ActionPlayerInformEvent.Action.STOP) {
+            ivPlayStop.setImageResource(R.mipmap.icon_play);
+            ivSinger.getAnimation().cancel();
+        } else if (event.action == ActionPlayerInformEvent.Action.PREPARE) {
+            RotateAnimation.create().with(ivSinger)
+                    .setDuration(5000)
+                    .start();
+            tvSong.setText(event.song.getSongName());
+
+        }
+        Song song = event.song;
+        Picasso.with(this)
+                .load(song.getPortrait())
+                .error(R.mipmap.ic_singer_default)
+                .placeholder(R.mipmap.ic_singer_default)
+                .into(ivSinger);
     }
 
 }

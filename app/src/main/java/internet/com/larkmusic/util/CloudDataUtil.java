@@ -188,7 +188,7 @@ public final class CloudDataUtil {
             @Override
             public void onResponse(Call<SongDetailKuGou> call, Response<SongDetailKuGou> response) {
                 EventBus.getDefault().post(new ActionStopLoading());
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().getErr_code() == 0) {
                     Song data = TransformUtil.detailResponse2Song(response.body());
                     song.setImgUrl(data.getImgUrl());
                     song.setPlayUrl(data.getPlayUrl());

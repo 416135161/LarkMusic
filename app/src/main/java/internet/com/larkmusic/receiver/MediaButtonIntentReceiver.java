@@ -17,6 +17,11 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.view.KeyEvent;
 
+import org.greenrobot.eventbus.EventBus;
+
+import internet.com.larkmusic.action.ActionPlayEvent;
+import internet.com.larkmusic.player.MusicPlayer;
+
 
 /**
  * Used to control headset playback.
@@ -27,39 +32,83 @@ import android.view.KeyEvent;
  */
 public class MediaButtonIntentReceiver extends BroadcastReceiver {
 
+    private static MyAction lastAction;
+
     @Override
-    public void onReceive(final Context context, final Intent intent) {
-        final String intentAction = intent.getAction();
+    public void onReceive(Context context, Intent intent) {
+        String intentAction = intent.getAction();
         if (AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intentAction)) {
-
+            dealNoisyAction();
         } else if (Intent.ACTION_MEDIA_BUTTON.equals(intentAction)) {
-            KeyEvent event = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
-            if (event == null) {
-                return;
-            }
-            int keycode = event.getKeyCode();
-            switch (keycode) {
-                case KeyEvent.KEYCODE_MEDIA_STOP:
-
-                    break;
-                case KeyEvent.KEYCODE_HEADSETHOOK:
-                case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-
-                    break;
-                case KeyEvent.KEYCODE_MEDIA_NEXT:
-
-                    break;
-                case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
-
-                    break;
-                case KeyEvent.KEYCODE_MEDIA_PAUSE:
-
-                    break;
-                case KeyEvent.KEYCODE_MEDIA_PLAY:
-
-                    break;
-            }
-
+            dealMediaButtonAction(intent);
         }
+    }
+
+    private void dealNoisyAction() {
+        if (MusicPlayer.getPlayer().isPlaying()) {
+            ActionPlayEvent actionPlayEvent = new ActionPlayEvent();
+            actionPlayEvent.setAction(ActionPlayEvent.Action.STOP);
+            EventBus.getDefault().post(actionPlayEvent);
+        }
+    }
+
+    private void dealMediaButtonAction(Intent intent) {
+        KeyEvent event = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
+        if (event == null) {
+            return;
+        }
+        int keycode = event.getKeyCode();
+        // 防止广播事件连续收到
+        if (lastAction != null && lastAction.code == keycode && System.currentTimeMillis() - lastAction.time < 500) {
+            lastAction.code = keycode;
+            lastAction.time = System.currentTimeMillis();
+
+            return;
+        } else {
+            lastAction = new MyAction();
+            lastAction.code = keycode;
+            lastAction.time = System.currentTimeMillis();
+        }
+        ActionPlayEvent actionPlayEvent = new ActionPlayEvent();
+        switch (keycode) {
+            case KeyEvent.KEYCODE_MEDIA_STOP:
+                actionPlayEvent.setAction(ActionPlayEvent.Action.STOP);
+                EventBus.getDefault().post(actionPlayEvent);
+                break;
+            case KeyEvent.KEYCODE_HEADSETHOOK:
+            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+                if (MusicPlayer.getPlayer().isPlaying()) {
+                    actionPlayEvent.setAction(ActionPlayEvent.Action.STOP);
+                } else {
+                    if (MusicPlayer.getPlayer().isPause()) {
+                        actionPlayEvent.setAction(ActionPlayEvent.Action.RESUME);
+                    } else {
+                        actionPlayEvent.setAction(ActionPlayEvent.Action.PLAY);
+                    }
+                }
+                EventBus.getDefault().post(actionPlayEvent);
+                break;
+            case KeyEvent.KEYCODE_MEDIA_NEXT:
+                actionPlayEvent.setAction(ActionPlayEvent.Action.NEXT);
+                EventBus.getDefault().post(actionPlayEvent);
+                break;
+            case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
+                actionPlayEvent.setAction(ActionPlayEvent.Action.PREVIOUS);
+                EventBus.getDefault().post(actionPlayEvent);
+                break;
+            case KeyEvent.KEYCODE_MEDIA_PAUSE:
+                actionPlayEvent.setAction(ActionPlayEvent.Action.STOP);
+                EventBus.getDefault().post(actionPlayEvent);
+                break;
+            case KeyEvent.KEYCODE_MEDIA_PLAY:
+                actionPlayEvent.setAction(ActionPlayEvent.Action.PLAY);
+                EventBus.getDefault().post(actionPlayEvent);
+                break;
+        }
+    }
+
+    public class MyAction {
+        public long time;
+        public int code;
     }
 }

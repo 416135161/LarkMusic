@@ -1,15 +1,18 @@
 package internet.com.larkmusic.player;
 
 import android.app.Service;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.IBinder;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.Timer;
 
 import internet.com.larkmusic.action.ActionPlayEvent;
+import internet.com.larkmusic.receiver.MediaButtonIntentReceiver;
 
 public class PlayerService extends Service {
 
@@ -22,6 +25,7 @@ public class PlayerService extends Service {
     public void onCreate() {
         super.onCreate();
         EventBus.getDefault().register(this);
+        registerHeadsetReceiver(this);
     }
 
     @Override
@@ -60,6 +64,20 @@ public class PlayerService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().post(this);
+        unregisterHeadsetReceiver(this);
+    }
+
+    public void registerHeadsetReceiver(Context context) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);// 另说context.AUDIO_SERVICE
+        ComponentName name = new ComponentName(context.getPackageName(), MediaButtonIntentReceiver.class.getName());// 另说MediaButtonReceiver.class.getName()
+        audioManager.registerMediaButtonEventReceiver(name);
+    }
+
+    public void unregisterHeadsetReceiver(Context context) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        ComponentName name = new ComponentName(context.getPackageName(), MediaButtonIntentReceiver.class.getName());
+        audioManager.unregisterMediaButtonEventReceiver(name);
     }
 
 
