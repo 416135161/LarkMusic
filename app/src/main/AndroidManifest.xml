@@ -27,11 +27,13 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             >
         </activity>
         <activity
             android:name=".activity.PlayerActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             >
 
@@ -40,7 +42,7 @@
         <service android:name=".player.PlayerService"></service>
 
         <receiver android:name=".receiver.MediaButtonIntentReceiver">
-            <intent-filter  android:priority="1000">
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.MEDIA_BUTTON"/>
                 <action android:name="android.media.AUDIO_BECOMING_NOISY"/>
             </intent-filter>

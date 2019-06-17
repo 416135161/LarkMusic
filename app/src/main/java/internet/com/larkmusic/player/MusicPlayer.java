@@ -65,7 +65,6 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         mQueueIndex = 0;
 
         mPlayMode = PlayMode.LOOP;
-        informPlayingState();
     }
 
     public void addQueue(List<Song> songs, boolean playNow) {

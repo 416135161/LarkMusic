@@ -13,9 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
-import butterknife.OnClick;
 import internet.com.larkmusic.R;
-import internet.com.larkmusic.action.ActionStartPlayAct;
+import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.bean.Song;
 
 /**
@@ -68,7 +67,7 @@ public class HotNewView extends FrameLayout {
             @Override
             public void onClick(View view) {
 
-                EventBus.getDefault().post(new ActionStartPlayAct(song));
+                EventBus.getDefault().post(new ActionSelectSong(song));
 
             }
         });

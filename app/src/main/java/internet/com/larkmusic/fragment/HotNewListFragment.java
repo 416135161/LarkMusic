@@ -18,7 +18,7 @@ import butterknife.BindView;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionHotSongs;
 import internet.com.larkmusic.action.ActionNewSongs;
-import internet.com.larkmusic.action.ActionStartPlayAct;
+import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.adapter.HotNewListAdapter;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
@@ -80,7 +80,7 @@ public class HotNewListFragment extends EventFragment {
                     return;
                 }
                 i -= 1;
-                EventBus.getDefault().post(new ActionStartPlayAct((Song) mAdapter.getItem(i)));
+                EventBus.getDefault().post(new ActionSelectSong((Song) mAdapter.getItem(i)));
             }
         });
         if (TYPE == TYPE_HOT) {

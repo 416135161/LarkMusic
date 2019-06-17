@@ -1,7 +1,10 @@
 package internet.com.larkmusic.util;
 
+import android.content.Context;
+import android.content.Intent;
 import android.widget.TextView;
 
+import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.network.Config;
 
 /**
@@ -15,6 +18,13 @@ public final class CommonUtil {
     public static void setTvBoldFace(TextView textView){
         textView.setTypeface(Config.tfLark);
         textView.getPaint().setFakeBoldText(true);
+    }
+
+    public static Intent getNowPlayingIntent(Context context) {
+
+        final Intent intent = new Intent(context, MainActivity.class);
+        intent.setAction(Constants.NAVIGATE_NOW_PLAYING);
+        return intent;
     }
 
 

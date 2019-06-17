@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +26,7 @@ import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.ActionShowOperateDlg;
-import internet.com.larkmusic.action.ActionStartPlayAct;
+import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.animations.RotateAnimation;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.base.EventActivity;
@@ -66,7 +65,7 @@ public class MainActivity extends EventActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         onClickViewHall();
@@ -161,13 +160,17 @@ public class MainActivity extends EventActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventStartPlayAct(ActionStartPlayAct event) {
+    public void onEventSelectSong(ActionSelectSong event) {
         List<Song> songList = new ArrayList<>();
         songList.add(event.song);
         ActionPlayEvent actionPlayEvent = new ActionPlayEvent();
         actionPlayEvent.setAction(ActionPlayEvent.Action.PLAY);
         actionPlayEvent.setQueue(songList);
         EventBus.getDefault().post(actionPlayEvent);
+        if (viewPlayer.getVisibility() == View.GONE) {
+            viewPlayer.setVisibility(View.VISIBLE);
+            ivSinger.setVisibility(View.VISIBLE);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -221,7 +224,7 @@ public class MainActivity extends EventActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventStartPlayAct(ActionPlayerInformEvent event) {
+    public void onEventPlayerInform(ActionPlayerInformEvent event) {
         if (event == null) {
             return;
         }

@@ -7,11 +7,11 @@ import internet.com.larkmusic.bean.Song;
  * created on: 2019/5/29 下午5:25
  * description:
  */
-public class ActionStartPlayAct {
+public class ActionSelectSong {
 
     public Song song;
 
-    public ActionStartPlayAct(Song song) {
+    public ActionSelectSong(Song song) {
         this.song = song;
     }
 }
