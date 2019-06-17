@@ -178,8 +178,12 @@ public class MainActivity extends EventActivity {
         operateDialog.show(fragmentManager, OperateDialog.class.getName());
     }
 
+    @BindView(R.id.view_player)
+    View viewPlayer;
     @BindView(R.id.iv_singer)
     ImageView ivSinger;
+    @BindView(R.id.iv_singer_indicator)
+    ImageView ivSingerIndicator;
     @BindView(R.id.tv_song)
     TextView tvSong;
     @BindView(R.id.iv_play_stop)
@@ -221,18 +225,23 @@ public class MainActivity extends EventActivity {
         if (event == null) {
             return;
         }
+        if (viewPlayer.getVisibility() == View.GONE) {
+            viewPlayer.setVisibility(View.VISIBLE);
+            ivSinger.setVisibility(View.VISIBLE);
+        }
         if (event.action == ActionPlayerInformEvent.Action.PLAYING) {
-            ivPlayStop.setImageResource(R.mipmap.icon_stop);
+            ivPlayStop.setImageResource(R.mipmap.ic_home_pause);
             tvSong.setText(event.song.getSongName());
+            ivSingerIndicator.setVisibility(View.VISIBLE);
         } else if (event.action == ActionPlayerInformEvent.Action.STOP) {
-            ivPlayStop.setImageResource(R.mipmap.icon_play);
-            ivSinger.getAnimation().cancel();
+            ivPlayStop.setImageResource(R.mipmap.ic_home_play);
+            ivSingerIndicator.setVisibility(View.GONE);
         } else if (event.action == ActionPlayerInformEvent.Action.PREPARE) {
-            RotateAnimation.create().with(ivSinger)
-                    .setDuration(5000)
+            RotateAnimation.create().with(ivSingerIndicator)
+                    .setDuration(6000)
                     .start();
             tvSong.setText(event.song.getSongName());
-
+            ivSingerIndicator.setVisibility(View.VISIBLE);
         }
         Song song = event.song;
         Picasso.with(this)
@@ -240,6 +249,11 @@ public class MainActivity extends EventActivity {
                 .error(R.mipmap.ic_singer_default)
                 .placeholder(R.mipmap.ic_singer_default)
                 .into(ivSinger);
+        Picasso.with(this)
+                .load(song.getPortrait())
+                .error(R.mipmap.ic_singer_default)
+                .placeholder(R.mipmap.ic_singer_default)
+                .into(ivSingerIndicator);
     }
 
 }

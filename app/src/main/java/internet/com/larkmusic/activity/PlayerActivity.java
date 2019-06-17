@@ -110,6 +110,37 @@ public class PlayerActivity extends EventActivity {
             }
         });
         initIvRecycle();
+        initView();
+    }
+
+    private void initView() {
+        if (MusicPlayer.getPlayer() != null && MusicPlayer.getPlayer().getNowPlaying() != null) {
+            Song song = MusicPlayer.getPlayer().getNowPlaying();
+            ivPlayIndicator.setVisibility(View.VISIBLE);
+            tvSong.setText(song.getSongName());
+            tvSong1.setText(song.getSongName());
+            tvSinger.setText(song.getSingerName());
+            tvSinger1.setText(song.getSingerName());
+            initLrc(song.getLrc());
+            if (FavoriteService.getInstance().isFavorite(song)) {
+                ivFavorite.setImageResource(R.mipmap.icon_favorite_select);
+                ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.TRUE);
+            } else {
+                ivFavorite.setImageResource(R.mipmap.icon_favorite_normal);
+                ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.FALSE);
+            }
+            ivFavorite.setTag(R.id.tag_key_favorite_song, song);
+            Picasso.with(this)
+                    .load(song.getPortrait())
+                    .error(R.mipmap.ic_singer_default)
+                    .placeholder(R.mipmap.ic_singer_default)
+                    .into(ivSinger);
+            Picasso.with(this)
+                    .load(song.getImgUrl())
+                    .error(R.mipmap.icon_player_main_default)
+                    .placeholder(R.mipmap.icon_player_main_default)
+                    .into(ivSongBg);
+        }
     }
 
     void initIvRecycle() {

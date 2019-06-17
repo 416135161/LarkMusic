@@ -88,7 +88,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         }
     }
 
-    public void play(){
+    public void play() {
         play(getNowPlaying());
     }
 
@@ -143,7 +143,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         next();
     }
 
-    private Song getNowPlaying() {
+    public Song getNowPlaying() {
         if (mQueue.isEmpty()) {
             return null;
         }

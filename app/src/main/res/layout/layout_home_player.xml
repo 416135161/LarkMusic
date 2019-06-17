@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/view_player"
               android:layout_width="match_parent"
               android:layout_height="53dp"
               android:background="@drawable/main_play_bg"
               android:gravity="center_vertical"
               android:orientation="horizontal"
               android:paddingLeft="20dp"
-              android:paddingRight="20dp"
+              android:paddingRight="10dp"
+              android:visibility="gone"
     >
 
     <View
@@ -30,14 +32,19 @@
         android:id="@+id/iv_play_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:src="@mipmap/ic_home_pause"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:src="@mipmap/ic_home_play"
         />
 
     <ImageView
         android:id="@+id/iv_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:src="@mipmap/ic_home_next"
         />
 </LinearLayout>
