@@ -51,36 +51,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="cancel"
+            android:text="@string/tv_cancel"
             android:textColor="#fffe3939"
             android:textSize="14sp"
             android:textStyle="bold"
             />
     </LinearLayout>
 
-    <internet.com.larkmusic.view.MyTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Trending"
-        android:textColor="@color/text_15"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        />
 
-    <internet.com.larkmusic.view.FlowLayout
-        android:id="@+id/flow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        />
-
-    <internet.com.larkmusic.view.MyTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Charts"
-        android:textColor="@color/text_15"
-        android:textSize="20sp"
-        />
 </LinearLayout>

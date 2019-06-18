@@ -26,11 +26,12 @@ import butterknife.OnClick;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionSelectSong;
+import internet.com.larkmusic.adapter.HistoryAdapter;
 import internet.com.larkmusic.adapter.SearchListAdapter;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.util.CloudDataUtil;
-import internet.com.larkmusic.util.CommonUtil;
+import internet.com.larkmusic.util.HistoryService;
 import internet.com.larkmusic.view.FlowLayout;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
@@ -46,9 +47,15 @@ public class SearchFragment extends EventFragment {
     ListView mRvSongs;
     @BindView(R.id.et_search)
     EditText mEtSearch;
-    @BindView(R.id.tv_title)
-    TextView mTvTitle;
+    @BindView(R.id.view_condition)
+    View mViewCondition;
+    @BindView(R.id.flow)
+    FlowLayout mFlowLayout;
     SearchListAdapter mAdapter;
+    HistoryAdapter mHistoryAdapter;
+
+    @BindView(R.id.rv_history)
+    ListView mRvHistory;
     List<String> mValues;
 
     @Override
@@ -68,30 +75,37 @@ public class SearchFragment extends EventFragment {
 
             }
         });
-        CommonUtil.setTvBoldFace(mTvTitle);
+        mHistoryAdapter = new HistoryAdapter(getContext());
+        mRvHistory.setAdapter(mHistoryAdapter);
+        mHistoryAdapter.setPlayList(HistoryService.getInstance().getList());
+        mRvHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                doSearch((String) mHistoryAdapter.getItem(i));
+            }
+        });
+
         mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    showDialog();
-                    CloudDataUtil.searchSongs(mEtSearch.getText().toString());
-                    hideInput();
+                    HistoryService.getInstance().saveSong(mEtSearch.getText().toString());
+                    doSearch(mEtSearch.getText().toString());
                     return true;
                 }
                 return false;
             }
         });
-
-        FlowLayout flowLayout = view.findViewById(R.id.flow);
-        initTrending(flowLayout);
+        initTrending();
         View footer = new View(getContext());
         footer.setMinimumHeight(50);
         mRvSongs.addFooterView(footer);
     }
 
     @OnClick(R.id.tv_cancel)
-    void onClickCancel(){
+    void onClickCancel() {
         mEtSearch.setText("");
+        mViewCondition.setVisibility(View.VISIBLE);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -104,7 +118,7 @@ public class SearchFragment extends EventFragment {
         }
     }
 
-    private void initTrending(internet.com.larkmusic.view.FlowLayout flowLayout) {
+    private void initTrending() {
         mValues = new ArrayList<>();
         mValues.add("Alan Walker");
         mValues.add("Taylor Swift");
@@ -114,8 +128,8 @@ public class SearchFragment extends EventFragment {
         //往容器内添加TextView数据
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 0, 16, 16);
-        if (flowLayout != null) {
-            flowLayout.removeAllViews();
+        if (mFlowLayout != null) {
+            mFlowLayout.removeAllViews();
         }
         for (int i = 0; i < mValues.size(); i++) {
             TextView tv = new TextView(this.getActivity());
@@ -127,18 +141,24 @@ public class SearchFragment extends EventFragment {
             tv.setSingleLine();
             tv.setBackgroundResource(R.drawable.item_flow_bg);
             tv.setLayoutParams(layoutParams);
-            flowLayout.addView(tv, layoutParams);
+            mFlowLayout.addView(tv, layoutParams);
             final int position = i;
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mEtSearch.setText(mValues.get(position));
-                    showDialog();
-                    CloudDataUtil.searchSongs(mEtSearch.getText().toString());
-                    hideInput();
+                    doSearch(mValues.get(position));
                 }
             });
         }
+
+    }
+
+    private void doSearch(String key) {
+        mEtSearch.setText(key);
+        mViewCondition.setVisibility(View.GONE);
+        hideInput();
+        showDialog();
+        CloudDataUtil.searchSongs(key);
 
     }
 

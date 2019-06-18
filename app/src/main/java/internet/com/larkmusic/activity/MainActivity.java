@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.ActionShowOperateDlg;
@@ -232,14 +233,14 @@ public class MainActivity extends EventActivity {
             viewPlayer.setVisibility(View.VISIBLE);
             ivSinger.setVisibility(View.VISIBLE);
         }
-        if (event.action == ActionPlayerInformEvent.Action.PLAYING) {
+        if (event.action == PlayerStatus.PLAYING) {
             ivPlayStop.setImageResource(R.mipmap.ic_home_pause);
             tvSong.setText(event.song.getSongName());
             ivSingerIndicator.setVisibility(View.VISIBLE);
-        } else if (event.action == ActionPlayerInformEvent.Action.STOP) {
+        } else if (event.action == PlayerStatus.STOP) {
             ivPlayStop.setImageResource(R.mipmap.ic_home_play);
             ivSingerIndicator.setVisibility(View.GONE);
-        } else if (event.action == ActionPlayerInformEvent.Action.PREPARE) {
+        } else if (event.action == PlayerStatus.PREPARE) {
             RotateAnimation.create().with(ivSingerIndicator)
                     .setDuration(6000)
                     .start();

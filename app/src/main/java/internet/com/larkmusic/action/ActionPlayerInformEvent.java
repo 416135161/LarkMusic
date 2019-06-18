@@ -9,10 +9,7 @@ import internet.com.larkmusic.bean.Song;
  */
 public class ActionPlayerInformEvent {
 
-    public enum Action {
-        PLAYING, PREPARE, STOP
-    }
-    public Action action;
+    public PlayerStatus action;
     public int currentTime;
     public int duration;
     public Song song;

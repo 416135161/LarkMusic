@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.activity.MainActivity;
@@ -92,11 +93,11 @@ public class PlayerService extends Service {
         if (event == null) {
             return;
         }
-        if (event.action == ActionPlayerInformEvent.Action.PLAYING) {
+        if (event.action == PlayerStatus.PLAYING) {
             updateNotification(event.song);
-        } else if (event.action == ActionPlayerInformEvent.Action.STOP) {
+        } else if (event.action == PlayerStatus.STOP) {
             updateNotification(event.song);
-        } else if (event.action == ActionPlayerInformEvent.Action.PREPARE) {
+        } else if (event.action == PlayerStatus.PREPARE) {
             updateNotification(event.song);
         }
 

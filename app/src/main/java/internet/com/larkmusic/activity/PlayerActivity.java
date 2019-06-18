@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.animations.RotateAnimation;
@@ -115,31 +116,21 @@ public class PlayerActivity extends EventActivity {
 
     private void initView() {
         if (MusicPlayer.getPlayer() != null && MusicPlayer.getPlayer().getNowPlaying() != null) {
-            Song song = MusicPlayer.getPlayer().getNowPlaying();
-            ivPlayIndicator.setVisibility(View.VISIBLE);
-            tvSong.setText(song.getSongName());
-            tvSong1.setText(song.getSongName());
-            tvSinger.setText(song.getSingerName());
-            tvSinger1.setText(song.getSingerName());
-            initLrc(song.getLrc());
-            if (FavoriteService.getInstance().isFavorite(song)) {
-                ivFavorite.setImageResource(R.mipmap.icon_favorite_select);
-                ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.TRUE);
-            } else {
-                ivFavorite.setImageResource(R.mipmap.icon_favorite_normal);
-                ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.FALSE);
+            PlayerStatus playerStatus = MusicPlayer.getPlayer().getStatus();
+            if(playerStatus == PlayerStatus.PLAYING){
+                return;
+            }else{
+                ActionPlayerInformEvent actionPlayerInformEvent = new ActionPlayerInformEvent();
+                if (playerStatus == PlayerStatus.STOP ) {
+                    actionPlayerInformEvent.currentTime = MusicPlayer.getPlayer().getCurrentPosition();
+                    actionPlayerInformEvent.duration = MusicPlayer.getPlayer().getDuration();
+                }
+                actionPlayerInformEvent.action = playerStatus;
+                actionPlayerInformEvent.song = MusicPlayer.getPlayer().getNowPlaying();
+                onEventPlayerInform(actionPlayerInformEvent);
             }
-            ivFavorite.setTag(R.id.tag_key_favorite_song, song);
-            Picasso.with(this)
-                    .load(song.getPortrait())
-                    .error(R.mipmap.ic_singer_default)
-                    .placeholder(R.mipmap.ic_singer_default)
-                    .into(ivSinger);
-            Picasso.with(this)
-                    .load(song.getImgUrl())
-                    .error(R.mipmap.icon_player_main_default)
-                    .placeholder(R.mipmap.icon_player_main_default)
-                    .into(ivSongBg);
+
+
         }
     }
 
@@ -236,11 +227,11 @@ public class PlayerActivity extends EventActivity {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventStartPlayAct(ActionPlayerInformEvent event) {
+    public void onEventPlayerInform(ActionPlayerInformEvent event) {
         if (event == null) {
             return;
         }
-        if (event.action == ActionPlayerInformEvent.Action.PLAYING) {
+        if (event.action == PlayerStatus.PLAYING) {
             ivPlayIndicator.setVisibility(View.GONE);
             ivPlayStop.setImageResource(R.mipmap.icon_stop);
             refreshTime(tvTimeLeft, event.currentTime);
@@ -249,14 +240,14 @@ public class PlayerActivity extends EventActivity {
             seekBar.setProgress(event.currentTime);
             initLrc(event.song.getLrc());
             lrcView.updateTime(event.currentTime);
-        } else if (event.action == ActionPlayerInformEvent.Action.STOP) {
+        } else if (event.action == PlayerStatus.STOP) {
             ivPlayIndicator.setVisibility(View.GONE);
             ivPlayStop.setImageResource(R.mipmap.icon_play);
             refreshTime(tvTimeLeft, event.currentTime);
             refreshTime(tvTimeRight, event.duration);
             seekBar.setMax(event.duration);
             seekBar.setProgress(event.currentTime);
-        } else if (event.action == ActionPlayerInformEvent.Action.PREPARE) {
+        } else if (event.action == PlayerStatus.PREPARE) {
             RotateAnimation.create().with(ivPlayIndicator)
                     .setDuration(1000)
                     .start();

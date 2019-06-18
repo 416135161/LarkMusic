@@ -23,6 +23,10 @@
     <string name="genres_electronic">ELECTRONIC</string>
     <string name="genres_country">COUNTRY</string>
     <string name="lrc_nothing">Nothing</string>
+    <string name="tv_cancel">cancel</string>
+    <string name="title_trending">Trending</string>
+    <string name="title_history">History</string>
+
 
 
     <!--public static String FROM_US = "0";-->

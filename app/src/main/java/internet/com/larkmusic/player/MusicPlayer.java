@@ -2,7 +2,6 @@ package internet.com.larkmusic.player;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.support.design.widget.BottomSheetDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -13,6 +12,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.GetSongCallBack;
@@ -25,7 +25,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     private static MusicPlayer player = new MusicPlayer();
 
-
+    private PlayerStatus status = PlayerStatus.STOP;
     private ManagedMediaPlayer mMediaPlayer;
     private Context mContext;
     private LinkedList<Song> mQueue;
@@ -99,7 +99,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
                     mMediaPlayer.reset();
                     mMediaPlayer.setDataSource(song.getPlayUrl());
                     mMediaPlayer.prepareAsync();
-                    sendPlayerInformation(ActionPlayerInformEvent.Action.PREPARE);
+                    sendPlayerInformation(PlayerStatus.PREPARE);
                     cancleTimer();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -118,7 +118,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         if (mMediaPlayer != null) {
             mMediaPlayer.pause();
             cancleTimer();
-            sendPlayerInformation(ActionPlayerInformEvent.Action.STOP);
+            sendPlayerInformation(PlayerStatus.STOP);
         }
     }
 
@@ -201,7 +201,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     public void seekTo(int seekTo) {
         if (mMediaPlayer != null) {
             mMediaPlayer.seekTo(seekTo);
-            sendPlayerInformation(ActionPlayerInformEvent.Action.PREPARE);
+            sendPlayerInformation(PlayerStatus.PREPARE);
         }
     }
 
@@ -263,16 +263,17 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
                 new TimerTask() {
                     public void run() {
                         if (mMediaPlayer != null) {
-                            sendPlayerInformation(ActionPlayerInformEvent.Action.PLAYING);
+                            sendPlayerInformation(PlayerStatus.PLAYING);
                         }
 
                     }
                 }, 0, 1000);
     }
 
-    private void sendPlayerInformation(ActionPlayerInformEvent.Action action) {
+    private void sendPlayerInformation(PlayerStatus action) {
+        status = action;
         ActionPlayerInformEvent actionPlayerInformEvent = new ActionPlayerInformEvent();
-        if (action == ActionPlayerInformEvent.Action.STOP || action == ActionPlayerInformEvent.Action.PLAYING) {
+        if (action == PlayerStatus.STOP || action == PlayerStatus.PLAYING) {
             actionPlayerInformEvent.currentTime = mMediaPlayer.getCurrentPosition();
             actionPlayerInformEvent.duration = mMediaPlayer.getDuration();
         }
@@ -281,4 +282,8 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         EventBus.getDefault().post(actionPlayerInformEvent);
     }
 
+
+    public PlayerStatus getStatus() {
+        return status;
+    }
 }
