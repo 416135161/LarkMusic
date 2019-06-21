@@ -163,7 +163,7 @@ public class PlayerService extends Service {
                 PendingIntent.FLAG_CANCEL_CURRENT);
 
         mBuilder = new Notification.Builder(
-                this).setSmallIcon(R.mipmap.ic_launcher_round)
+                this).setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(getString(R.string.app_name))
                 .setTicker("Music");
         mBuilder.setAutoCancel(false);
