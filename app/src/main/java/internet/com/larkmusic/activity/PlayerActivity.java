@@ -240,6 +240,7 @@ public class PlayerActivity extends EventActivity {
             seekBar.setProgress(event.currentTime);
             initLrc(event.song.getLrc());
             lrcView.updateTime(event.currentTime);
+            initFavorite(event.song);
         } else if (event.action == PlayerStatus.STOP) {
             ivPlayIndicator.setVisibility(View.GONE);
             ivPlayStop.setImageResource(R.mipmap.icon_play);
@@ -257,14 +258,7 @@ public class PlayerActivity extends EventActivity {
             tvSinger.setText(event.song.getSingerName());
             tvSinger1.setText(event.song.getSingerName());
             initLrc(event.song.getLrc());
-            if (FavoriteService.getInstance().isFavorite(event.song)) {
-                ivFavorite.setImageResource(R.mipmap.icon_favorite_select);
-                ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.TRUE);
-            } else {
-                ivFavorite.setImageResource(R.mipmap.icon_favorite_normal);
-                ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.FALSE);
-            }
-            ivFavorite.setTag(R.id.tag_key_favorite_song, event.song);
+            initFavorite(event.song);
         }
         Song song = event.song;
         Picasso.with(this)
@@ -279,6 +273,17 @@ public class PlayerActivity extends EventActivity {
                 .into(ivSongBg);
 
 
+    }
+
+    void initFavorite(Song song){
+        if (FavoriteService.getInstance().isFavorite(song)) {
+            ivFavorite.setImageResource(R.mipmap.icon_favorite_select);
+            ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.TRUE);
+        } else {
+            ivFavorite.setImageResource(R.mipmap.icon_favorite_normal);
+            ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.FALSE);
+        }
+        ivFavorite.setTag(R.id.tag_key_favorite_song, song);
     }
 
     protected void initLrc(String lrc) {
