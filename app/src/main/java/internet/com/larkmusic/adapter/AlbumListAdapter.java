@@ -57,19 +57,20 @@ public class AlbumListAdapter extends BaseAdapter {
         } else {
             holder = (MyViewHolder) convertView.getTag();
         }
-        final Album song = albums.get(i);
-        holder.title.setText(song.getName());
+        final Album album = albums.get(i);
+        holder.title.setText(album.getName());
         holder.artist.setVisibility(View.GONE);
         holder.no.setText((i + 1) + "");
         try {
             Picasso.with(context)
-                    .load(song.getImgUrl())
+                    .load(album.getImgUrl())
                     .error(R.mipmap.ic_song_default)
                     .placeholder(R.mipmap.ic_song_default)
                     .into(holder.art);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        holder.operate.setOnClickListener(new MyClickListener(album));
         return convertView;
     }
 
@@ -96,6 +97,19 @@ public class AlbumListAdapter extends BaseAdapter {
         super();
         context = ctx;
         this.albums = Songs;
+    }
+
+    public class MyClickListener implements View.OnClickListener {
+
+        private Album album;
+
+        public MyClickListener(Album album) {
+            this.album = album;
+        }
+
+        @Override
+        public void onClick(View view) {
+       }
     }
 
 }

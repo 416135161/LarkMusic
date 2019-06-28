@@ -1,6 +1,5 @@
 package internet.com.larkmusic.player;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
@@ -17,9 +17,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import internet.com.larkmusic.R;
-import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
+import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.receiver.MediaButtonIntentReceiver;
@@ -123,21 +123,12 @@ public class PlayerService extends Service {
     }
 
     private NotificationManager mNotificationManager;
-    private Notification.Builder mBuilder;
+    private NotificationCompat.Builder mBuilder;
     String id = "lark_channel_01";
     String name = "lark_channel";
 
     private void initNotification() {
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            // 8.0之后需要传入一个 channelId
-            NotificationChannel mChannel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH);
-            mNotificationManager.createNotificationChannel(mChannel);
-            mBuilder = new Notification.Builder(this, id);
-        } else {
-            // 8.0之前
-            mBuilder = new Notification.Builder(this);
-        }
     }
 
     private void updateNotification(Song song) {
@@ -162,12 +153,21 @@ public class PlayerService extends Service {
                 this, 0, intent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
 
-        mBuilder = new Notification.Builder(
-                this).setSmallIcon(R.mipmap.ic_launcher)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            // 8.0之后需要传入一个 channelId
+            NotificationChannel channel = mNotificationManager.getNotificationChannel(id);
+            if (channel == null) {
+                channel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT);
+                mNotificationManager.createNotificationChannel(channel);
+            }
+            channel.enableLights(true);
+            channel.setLightColor(getColor(R.color.colorPrimary));
+        }
+        mBuilder = new NotificationCompat.Builder(this, id);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(getString(R.string.app_name))
                 .setTicker("Music");
         mBuilder.setAutoCancel(false);
-
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setContent(contentViews);
         mNotificationManager.notify(notificationId, mBuilder.build());

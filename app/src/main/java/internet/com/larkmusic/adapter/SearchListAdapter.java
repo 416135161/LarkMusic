@@ -15,6 +15,7 @@ import java.util.List;
 
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.listener.MyClickListener;
 
 /**
  * Created by sjning
@@ -67,7 +68,7 @@ public class SearchListAdapter extends BaseAdapter {
                 .error(R.mipmap.ic_song_default)
                 .placeholder(R.mipmap.ic_song_default)
                 .into(holder.art);
-
+        holder.operate.setOnClickListener(new MyClickListener(song));
         return convertView;
     }
 

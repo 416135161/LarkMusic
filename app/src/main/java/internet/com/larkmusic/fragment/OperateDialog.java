@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.bean.Song;
 

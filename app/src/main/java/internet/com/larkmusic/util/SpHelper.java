@@ -26,11 +26,15 @@ public final class SpHelper {
     public static final String KEY_FAVORITE_SONGS = "key_favorite_songs";
     //喜欢的专辑列表
     public static final String KEY_FAVORITE_ALBUMS = "key_favorite_albums";
+    //最近播放的歌曲
+    public static final String KEY_RECENT_SONGS = "key_recent_songs";
     //搜索历史列表
     public static final String KEY_SEARCH_HISTORY = "key_search_history";
 
 
     public static List<Song> favoriteSongs;
+
+    public static List<Song> recentSongs;
 
     public static List<Album> favoriteAlbums;
 
@@ -39,6 +43,9 @@ public final class SpHelper {
     static {
         Gson gs = new Gson();
         favoriteSongs = gs.fromJson(getDefault().getString(KEY_FAVORITE_SONGS, "[]"), new TypeToken<List<Song>>() {
+        }.getType());
+
+        recentSongs = gs.fromJson(getDefault().getString(KEY_RECENT_SONGS, "[]"), new TypeToken<List<Song>>() {
         }.getType());
 
         favoriteAlbums = gs.fromJson(getDefault().getString(KEY_FAVORITE_ALBUMS, "[]"), new TypeToken<List<Album>>() {

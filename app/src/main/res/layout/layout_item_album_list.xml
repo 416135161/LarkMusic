@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
             android:scaleType="fitEnd"
-            android:src="@mipmap/ic_song_operate"
+            android:src="@mipmap/ic_arrow_right"
             />
     </LinearLayout>
 

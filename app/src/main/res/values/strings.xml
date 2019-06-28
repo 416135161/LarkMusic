@@ -27,6 +27,9 @@
     <string name="title_trending">Trending</string>
     <string name="title_history">History</string>
 
+    <string name="title_recent">Recently Played</string>
+    <string name="title_favorite_music">Favorite Music</string>
+    <string name="title_favorite_album">Favorite Album</string>
 
 
     <!--public static String FROM_US = "0";-->

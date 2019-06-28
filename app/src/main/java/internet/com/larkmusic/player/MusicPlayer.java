@@ -12,11 +12,12 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
+import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.GetSongCallBack;
 import internet.com.larkmusic.util.CloudDataUtil;
+import internet.com.larkmusic.util.RecentSongService;
 
 /**
  * Created by MASAILA on 16/5/13.
@@ -100,7 +101,8 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
                     mMediaPlayer.setDataSource(song.getPlayUrl());
                     mMediaPlayer.prepareAsync();
                     sendPlayerInformation(PlayerStatus.PREPARE);
-                    cancleTimer();
+                    cancelTimer();
+                    RecentSongService.getInstance().saveSong(song);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -117,7 +119,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     public void pause() {
         if (mMediaPlayer != null) {
             mMediaPlayer.pause();
-            cancleTimer();
+            cancelTimer();
             sendPlayerInformation(PlayerStatus.STOP);
         }
     }
@@ -247,7 +249,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         }
     }
 
-    private void cancleTimer() {
+    private void cancelTimer() {
         if (timer != null) {
             timer.cancel();
             timer = null;
