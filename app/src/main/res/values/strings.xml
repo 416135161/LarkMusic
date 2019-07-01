@@ -29,6 +29,10 @@
     <string name="title_favorite_music">Favorite Music</string>
     <string name="title_favorite_album">Favorite Album</string>
 
+    <string name="text_please_rate">Please rate the app</string>
+    <string name="text_sure">Ensure</string>
+    <string name="text_cancel">Cancel</string>
+
 
     <!--public static String FROM_US = "0";-->
     <!--public static String FROM_JAPAN = "1";-->

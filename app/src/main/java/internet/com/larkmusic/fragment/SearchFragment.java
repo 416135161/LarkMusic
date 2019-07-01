@@ -19,6 +19,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +31,7 @@ import internet.com.larkmusic.adapter.HistoryAdapter;
 import internet.com.larkmusic.adapter.SearchListAdapter;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.util.CloudDataUtil;
 import internet.com.larkmusic.util.HistoryService;
 import internet.com.larkmusic.view.FlowLayout;
@@ -120,20 +122,23 @@ public class SearchFragment extends EventFragment {
 
     private void initTrending() {
         mValues = new ArrayList<>();
-        //欧美个数
+        //欧美歌手
         mValues.add("Alan Walker");
         mValues.add("Taylor Swift");
         mValues.add("The Chainsmokers");
         mValues.add("Olly Murs");
         mValues.add("Vicetone");
-//日本歌手
-        mValues.add("ボーカロイド");
-        mValues.add("泽野弘之");
-        mValues.add("手嶌葵");
-        mValues.add("山下智久");
-        mValues.add("おぐり しゅん");
-        mValues.add("石原さとみ");
-        mValues.add("新垣結衣");
+        //日本歌手
+        if (Config.FROM == Config.FROM_JAPAN) {
+            mValues.add("ボーカロイド");
+            mValues.add("泽野弘之");
+            mValues.add("手嶌葵");
+            mValues.add("山下智久");
+            mValues.add("おぐり しゅん");
+            mValues.add("石原さとみ");
+            mValues.add("新垣結衣");
+            Collections.shuffle(mValues);
+        }
 
         //往容器内添加TextView数据
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

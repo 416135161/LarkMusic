@@ -2,6 +2,10 @@ package internet.com.larkmusic.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.TextView;
 
 import internet.com.larkmusic.activity.MainActivity;
@@ -25,6 +29,24 @@ public final class CommonUtil {
         final Intent intent = new Intent(context, MainActivity.class);
         intent.setAction(Constants.NAVIGATE_NOW_PLAYING);
         return intent;
+    }
+
+    public static String getMetaData(@NonNull Context context, @NonNull String key) {
+        ApplicationInfo appInfo = null;
+        try {
+            appInfo = context.getApplicationContext()
+                    .getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            if (appInfo != null && appInfo.metaData != null) {
+                String serverName = appInfo.metaData.getString(key);
+                return serverName;
+            } else {
+                Log.e("music lark","需要在AndroidManifest.xml中配置WebviewUrl meta数据");
+                return "";
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 

@@ -31,6 +31,7 @@ public final class SpHelper {
     //搜索历史列表
     public static final String KEY_SEARCH_HISTORY = "key_search_history";
 
+    public static final String KEY_STAR = "key_star";
 
     public static List<Song> favoriteSongs;
 

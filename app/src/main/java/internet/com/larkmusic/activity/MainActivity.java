@@ -1,5 +1,6 @@
 package internet.com.larkmusic.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,6 +32,7 @@ import internet.com.larkmusic.action.ActionShowOperateDlg;
 import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.animations.RotateAnimation;
 import internet.com.larkmusic.back.BackHandlerHelper;
+import internet.com.larkmusic.base.AdsBaseActivity;
 import internet.com.larkmusic.base.EventActivity;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.fragment.HallFragment;
@@ -40,8 +42,9 @@ import internet.com.larkmusic.fragment.OperateDialog;
 import internet.com.larkmusic.fragment.SearchFragment;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.player.MusicPlayer;
+import internet.com.larkmusic.util.SpHelper;
 
-public class MainActivity extends EventActivity {
+public class MainActivity extends AdsBaseActivity {
 
     @BindView(R.id.iv_hall)
     ImageView ivHall;
@@ -160,7 +163,12 @@ public class MainActivity extends EventActivity {
             if (mCurrentFragment != null && !(mCurrentFragment instanceof HallFragment)) {
                 onClickViewHall();
             } else {
-                super.onBackPressed();
+                if (SpHelper.getDefault().getBoolean(SpHelper.KEY_STAR)) {
+                    doFinish();
+                } else {
+                    showStarDialog();
+                }
+
             }
         }
     }
@@ -177,6 +185,7 @@ public class MainActivity extends EventActivity {
             viewPlayer.setVisibility(View.VISIBLE);
             ivSinger.setVisibility(View.VISIBLE);
         }
+        showAd();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
