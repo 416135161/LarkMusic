@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">LarkMusic</string>
+
+    <string name="hall_title">ホール</string>
+    <string name="search_title">サーチ</string>
+    <string name="library_title">曲リスト</string>
+    <string name="me_title">私の</string>
+
+    <string name="title_new">新しい</string>
+    <string name="title_hot">人気の</string>
+    <string name="title_albums">アルバム</string>
+    <string name="title_more">もっと</string>
+    <string name="title_song_count">全部プレイ（%1$d）</string>
+    <string name="title_genres">ジャンル</string>
+
+    <string name="genres_us">US-EURO</string>
+    <string name="genres_japan">JAPAN</string>
+    <string name="genres_pop">POP</string>
+    <string name="genres_rock">ROCK</string>
+    <string name="genres_electronic">ELECTRONIC</string>
+    <string name="genres_country">COUNTRY</string>
+    <string name="lrc_nothing">内容なし</string>
+    <string name="tv_cancel">キャンセル</string>
+    <string name="title_trending">おすすめ</string>
+    <string name="title_history">検索履歴</string>
+
+    <string name="title_recent">最近プレイした</string>
+    <string name="title_my_favorite">お気に入り</string>
+    <string name="title_favorite_music">好きな曲</string>
+    <string name="title_favorite_album">お気に入りのアルバム</string>
+
+
+    <!--public static String FROM_US = "0";-->
+    <!--public static String FROM_JAPAN = "1";-->
+    <!--欧美资源分类-->
+    <!--public static final int EUROP_POP = 1051;-->
+    <!--public static final int EUROP_COUNTRY = 1065;-->
+    <!--public static final int EUROP_ELECTRONIC = 1053;-->
+    <!--public static final int EUROP_ROCK = 1055;-->
+    <string name="from_us">0</string>
+    <string name="from_japan">1</string>
+    <string name="from_pop">1051</string>
+    <string name="from_country">1065</string>
+    <string name="from_electronic">1053</string>
+    <string name="from_rock">1055</string>
+
+    <string name="me_recent"></string>
+</resources>

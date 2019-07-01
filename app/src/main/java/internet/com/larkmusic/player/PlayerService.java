@@ -139,7 +139,7 @@ public class PlayerService extends Service {
         RemoteViews contentViews = new RemoteViews(getPackageName(),
                 R.layout.custom_notification);
         //通过控件的Id设置属性
-        contentViews.setImageViewResource(R.id.iv_singer, R.mipmap.ic_singer_default);
+        contentViews.setImageViewResource(R.id.iv_singer, R.mipmap.ic_notifity);
         contentViews.setTextViewText(R.id.tv_song, song.getSongName());
         contentViews.setTextViewText(R.id.tv_singer, song.getSingerName());
         contentViews.setImageViewResource(R.id.iv_play_stop, playButtonResId);

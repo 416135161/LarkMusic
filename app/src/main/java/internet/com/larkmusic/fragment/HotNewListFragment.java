@@ -5,8 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,6 +26,7 @@ import internet.com.larkmusic.adapter.HotNewListAdapter;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.util.BlurTransformation;
 import internet.com.larkmusic.util.CloudDataUtil;
 
 /**
@@ -42,6 +46,7 @@ public class HotNewListFragment extends EventFragment {
 
     TextView mTvTitle;
     TextView mTvCount;
+    ImageView mIvHeader;
 
     String from;
 
@@ -61,16 +66,39 @@ public class HotNewListFragment extends EventFragment {
         super.onViewCreated(view, savedInstanceState);
         initHeaderAndFooter();
         initView();
-        showDialog();
         if (TYPE == TYPE_NEW) {
-            CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_LIST, Config.FROM);
+            Picasso.with(getContext())
+                    .load(R.mipmap.ic_new_header_bg)
+                    .error(R.mipmap.ic_song_default)
+                    .placeholder(R.mipmap.ic_song_default)
+                    .transform(new BlurTransformation(getActivity()))
+                    .into(mIvHeader);
         } else {
             CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, Config.FROM);
+            Picasso.with(getContext())
+                    .load(R.mipmap.ic_hot_header_bg)
+                    .error(R.mipmap.ic_song_default)
+                    .placeholder(R.mipmap.ic_song_default)
+                    .transform(new BlurTransformation(getActivity()))
+                    .into(mIvHeader);
         }
 
+        if (getArguments().getSerializable("songs") != null) {
+            ArrayList<Song> songs = (ArrayList<Song>) getArguments().getSerializable("songs");
+            mAdapter.setPlayList(songs);
+            mAdapter.notifyDataSetChanged();
+            mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
+        } else {
+            showDialog();
+            if (TYPE == TYPE_NEW) {
+                CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_LIST, Config.FROM);
+            } else {
+                CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, Config.FROM);
+            }
+        }
     }
 
-    private void initView(){
+    private void initView() {
         mAdapter = new HotNewListAdapter(getContext(), new ArrayList<Song>());
         mRvSongs.setAdapter(mAdapter);
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,6 +123,7 @@ public class HotNewListFragment extends EventFragment {
         mRvSongs.addHeaderView(header);
         mTvCount = header.findViewById(R.id.tv_count);
         mTvTitle = header.findViewById(R.id.tv_title);
+        mIvHeader = header.findViewById(R.id.iv_header);
 
         View footer = new View(getContext());
         footer.setMinimumHeight(50);
@@ -111,7 +140,6 @@ public class HotNewListFragment extends EventFragment {
             }
         }
         mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

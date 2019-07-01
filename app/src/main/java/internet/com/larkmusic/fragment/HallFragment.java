@@ -1,6 +1,5 @@
 package internet.com.larkmusic.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +23,7 @@ import internet.com.larkmusic.action.ActionNewSongs;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.EventFragment;
+import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.util.CloudDataUtil;
 import internet.com.larkmusic.util.CommonUtil;
@@ -69,6 +69,9 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
     HotNewView hot4;
     @BindView(R.id.hot5)
     HotNewView hot5;
+
+    ArrayList<Song> mHotList;
+    ArrayList<Song> mNewList;
 
     @Override
     protected int getLayoutId() {
@@ -124,6 +127,9 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         Fragment fragment = new HotNewListFragment();
         Bundle bundle = new Bundle();
         bundle.putString("from", Config.FROM);
+        if (mHotList != null && mHotList.size() > 0) {
+            bundle.putSerializable("songs", mHotList);
+        }
         fragment.setArguments(bundle);
         transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
@@ -138,6 +144,9 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         Fragment fragment = new HotNewListFragment();
         Bundle bundle = new Bundle();
         bundle.putString("from", Config.FROM);
+        if (mNewList != null && mNewList.size() > 0) {
+            bundle.putSerializable("songs", mNewList);
+        }
         fragment.setArguments(bundle);
         transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
@@ -162,6 +171,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 new3.refreshView(event.trackList.get(3));
                 new4.refreshView(event.trackList.get(4));
                 new5.refreshView(event.trackList.get(5));
+                mNewList = (ArrayList<Song>) event.trackList;
             }
         }
 
@@ -179,6 +189,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 hot3.refreshView(event.trackList.get(3));
                 hot4.refreshView(event.trackList.get(4));
                 hot5.refreshView(event.trackList.get(5));
+                mHotList = (ArrayList<Song>) event.trackList;
             }
         }
 

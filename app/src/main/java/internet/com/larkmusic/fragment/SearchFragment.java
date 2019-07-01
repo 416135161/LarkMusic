@@ -120,11 +120,21 @@ public class SearchFragment extends EventFragment {
 
     private void initTrending() {
         mValues = new ArrayList<>();
+        //欧美个数
         mValues.add("Alan Walker");
         mValues.add("Taylor Swift");
         mValues.add("The Chainsmokers");
         mValues.add("Olly Murs");
         mValues.add("Vicetone");
+//日本歌手
+        mValues.add("ボーカロイド");
+        mValues.add("泽野弘之");
+        mValues.add("手嶌葵");
+        mValues.add("山下智久");
+        mValues.add("おぐり しゅん");
+        mValues.add("石原さとみ");
+        mValues.add("新垣結衣");
+
         //往容器内添加TextView数据
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 0, 16, 16);

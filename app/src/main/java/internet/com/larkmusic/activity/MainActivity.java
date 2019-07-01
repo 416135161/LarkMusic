@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -66,7 +67,7 @@ public class MainActivity extends EventActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         onClickViewHall();
@@ -156,7 +157,11 @@ public class MainActivity extends EventActivity {
     @Override
     public void onBackPressed() {
         if (!BackHandlerHelper.handleBackPress(this)) {
-            super.onBackPressed();
+            if (mCurrentFragment != null && !(mCurrentFragment instanceof HallFragment)) {
+                onClickViewHall();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 

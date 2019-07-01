@@ -5,8 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -16,6 +19,7 @@ import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.adapter.HotNewListAdapter;
 import internet.com.larkmusic.base.BaseFragment;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.util.BlurTransformation;
 import internet.com.larkmusic.util.FavoriteService;
 import internet.com.larkmusic.util.RecentSongService;
 
@@ -37,6 +41,7 @@ public class RecentLoveFragment extends BaseFragment {
 
     TextView mTvTitle;
     TextView mTvCount;
+    ImageView mIvHeader;
 
     @Override
     protected int getLayoutId() {
@@ -73,10 +78,21 @@ public class RecentLoveFragment extends BaseFragment {
         if (type == TYPE_RECENT) {
             mTvTitle.setText(R.string.title_recent);
             mAdapter.setPlayList(RecentSongService.getInstance().getSongList());
-
+            Picasso.with(getContext())
+                    .load(R.mipmap.ic_recent_header_bg)
+                    .error(R.mipmap.ic_song_default)
+                    .placeholder(R.mipmap.ic_song_default)
+                    .transform(new BlurTransformation(getActivity()))
+                    .into(mIvHeader);
         } else if (type == TYPE_FAVORITE_SONG) {
             mTvTitle.setText(R.string.title_favorite_music);
             mAdapter.setPlayList(FavoriteService.getInstance().getSongList());
+            Picasso.with(getContext())
+                    .load(R.mipmap.ic_favorite_header_bg)
+                    .error(R.mipmap.ic_song_default)
+                    .placeholder(R.mipmap.ic_song_default)
+                    .transform(new BlurTransformation(getActivity()))
+                    .into(mIvHeader);
         } else if (type == TYPE_FAVORITE_ALBUM) {
             mTvTitle.setText(R.string.title_favorite_album);
         }
@@ -89,6 +105,7 @@ public class RecentLoveFragment extends BaseFragment {
         mRvSongs.addHeaderView(header);
         mTvCount = header.findViewById(R.id.tv_count);
         mTvTitle = header.findViewById(R.id.tv_title);
+        mIvHeader = header.findViewById(R.id.iv_header);
 
         View footer = new View(getContext());
         footer.setMinimumHeight(50);

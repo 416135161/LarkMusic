@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">LarkMusic</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
 
     <string name="hall_title">Hall</string>
     <string name="search_title">Search</string>
@@ -28,6 +25,7 @@
     <string name="title_history">History</string>
 
     <string name="title_recent">Recently Played</string>
+    <string name="title_my_favorite">My Favorite</string>
     <string name="title_favorite_music">Favorite Music</string>
     <string name="title_favorite_album">Favorite Album</string>
 
