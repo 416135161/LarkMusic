@@ -58,6 +58,12 @@ public class RecentListHorizontalAdapter extends RecyclerView.Adapter<RecentList
         return songList.size();
     }
 
+    public Song getItem(int i) {
+        if (i >= 0 && songList != null && songList.size() > i) {
+            return songList.get(i);
+        } else return null;
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView art;

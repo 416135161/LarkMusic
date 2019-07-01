@@ -40,7 +40,7 @@ public class AdsBaseActivity extends EventActivity {
         Config.PLAY_ADS_COUNT = 0;
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(BuildConfig.DEBUG ? "ca-app-pub-3940256099942544/1033173712"
-                : "ca-app-pub-7203590267874431/7784247488");
+                : "ca-app-pub-7203590267874431/5624153859");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override

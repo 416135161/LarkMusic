@@ -132,7 +132,7 @@ public class PlayerService extends Service {
     }
 
     private void updateNotification(Song song) {
-        int notificationId = hashCode();
+        int notificationId = 7654321;
         int playButtonResId = MusicPlayer.getPlayer().isPlaying()
                 ? R.mipmap.ic_pause_white_36dp : R.mipmap.ic_play_white_36dp;
 

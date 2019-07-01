@@ -82,6 +82,22 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     }
 
+    public void addQueueNext(Song song) {
+        if (song == null) {
+            return;
+        }
+        initQueue();
+        mQueue.add(getNextIndex(), song);
+    }
+
+    public void addQueueLater(Song song) {
+        if (song == null) {
+            return;
+        }
+        initQueue();
+        mQueue.addLast(song);
+    }
+
     private void initQueue() {
         if (mQueue == null) {
             mQueue = new LinkedList<>();

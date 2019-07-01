@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.player.MusicPlayer;
+import internet.com.larkmusic.util.FavoriteService;
 
 /**
  * Created by sjning
@@ -63,10 +65,13 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_next:
+                MusicPlayer.getPlayer().addQueueNext(song);
                 break;
             case R.id.tv_later:
+                MusicPlayer.getPlayer().addQueueLater(song);
                 break;
             case R.id.tv_add_list:
+                FavoriteService.getInstance().saveSong(song, true);
                 break;
             case R.id.tv_delete:
                 break;

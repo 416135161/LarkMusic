@@ -11,13 +11,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.adapter.RecentListHorizontalAdapter;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.BaseFragment;
+import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.listener.ClickItemTouchListener;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.util.RecentSongService;
@@ -70,6 +74,7 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
         mRvRecent.addOnItemTouchListener(new ClickItemTouchListener(mRvRecent) {
             @Override
             public boolean onClick(RecyclerView parent, View view, int position, long id) {
+                EventBus.getDefault().post(new ActionSelectSong(mRecentAdapter.getItem(position)));
                 return false;
             }
 

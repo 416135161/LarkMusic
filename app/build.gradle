@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "internet.com.larkmusic"
+        applicationId "com.interest.music"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 300
+        versionName "3.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //解决butterknife依赖报错的问题
@@ -22,7 +22,7 @@ android {
             minifyEnabled false
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            manifestPlaceholders = [ads_id: "ca-app-pub-7203590267874431~2284508794"]
+            manifestPlaceholders = [ads_id: "ca-app-pub-7203590267874431~8969815578"]
         }
         debug{
             manifestPlaceholders = [ads_id: "ca-app-pub-3940256099942544~3347511713"]
