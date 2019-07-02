@@ -48,6 +48,7 @@ public class HotNewListFragment extends EventFragment {
     TextView mTvCount;
     ImageView mIvHeader;
 
+
     String from;
 
     @Override
@@ -67,20 +68,16 @@ public class HotNewListFragment extends EventFragment {
         initHeaderAndFooter();
         initView();
         if (TYPE == TYPE_NEW) {
-            Picasso.with(getContext())
-                    .load(R.mipmap.ic_new_header_bg)
-                    .error(R.mipmap.ic_song_default)
-                    .placeholder(R.mipmap.ic_song_default)
-                    .transform(new BlurTransformation(getActivity()))
-                    .into(mIvHeader);
+
+            mIvHeader.setImageResource(R.mipmap.ic_new_header_bg);
         } else {
             CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, Config.FROM);
             Picasso.with(getContext())
                     .load(R.mipmap.ic_hot_header_bg)
                     .error(R.mipmap.ic_song_default)
                     .placeholder(R.mipmap.ic_song_default)
-                    .transform(new BlurTransformation(getActivity()))
                     .into(mIvHeader);
+            mIvHeader.setImageResource(R.mipmap.ic_hot_header_bg);
         }
 
         if (getArguments().getSerializable("songs") != null) {
