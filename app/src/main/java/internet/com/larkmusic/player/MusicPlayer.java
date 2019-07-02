@@ -228,6 +228,9 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     private int getNextIndex() {
+        if (mQueue == null || mQueue.size() == 0) {
+            return 0;
+        }
         mQueueIndex = (mQueueIndex + 1) % mQueue.size();
         return mQueueIndex;
     }

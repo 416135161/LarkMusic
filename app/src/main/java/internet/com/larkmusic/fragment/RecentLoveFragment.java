@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
@@ -19,7 +17,6 @@ import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.adapter.HotNewListAdapter;
 import internet.com.larkmusic.base.BaseFragment;
 import internet.com.larkmusic.bean.Song;
-import internet.com.larkmusic.util.BlurTransformation;
 import internet.com.larkmusic.util.FavoriteService;
 import internet.com.larkmusic.util.RecentSongService;
 
@@ -42,6 +39,7 @@ public class RecentLoveFragment extends BaseFragment {
     TextView mTvTitle;
     TextView mTvCount;
     ImageView mIvHeader;
+    ImageView mIvIcon;
 
     @Override
     protected int getLayoutId() {
@@ -59,7 +57,6 @@ public class RecentLoveFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initHeaderAndFooter();
         initView();
-
     }
 
     private void initView() {
@@ -78,21 +75,13 @@ public class RecentLoveFragment extends BaseFragment {
         if (type == TYPE_RECENT) {
             mTvTitle.setText(R.string.title_recent);
             mAdapter.setPlayList(RecentSongService.getInstance().getSongList());
-            Picasso.with(getContext())
-                    .load(R.mipmap.ic_recent_header_bg)
-                    .error(R.mipmap.ic_song_default)
-                    .placeholder(R.mipmap.ic_song_default)
-                    .transform(new BlurTransformation(getActivity()))
-                    .into(mIvHeader);
+            mIvHeader.setImageResource(R.mipmap.ic_recent_header_bg);
+            mIvIcon.setImageResource(R.mipmap.ic_recent_tip);
         } else if (type == TYPE_FAVORITE_SONG) {
             mTvTitle.setText(R.string.title_favorite_music);
             mAdapter.setPlayList(FavoriteService.getInstance().getSongList());
-            Picasso.with(getContext())
-                    .load(R.mipmap.ic_favorite_header_bg)
-                    .error(R.mipmap.ic_song_default)
-                    .placeholder(R.mipmap.ic_song_default)
-                    .transform(new BlurTransformation(getActivity()))
-                    .into(mIvHeader);
+            mIvHeader.setImageResource(R.mipmap.ic_favorite_header_bg);
+            mIvIcon.setImageResource(R.mipmap.ic_favorite_tip);
         } else if (type == TYPE_FAVORITE_ALBUM) {
             mTvTitle.setText(R.string.title_favorite_album);
         }
@@ -101,11 +90,12 @@ public class RecentLoveFragment extends BaseFragment {
     }
 
     private void initHeaderAndFooter() {
-        View header = getLayoutInflater().inflate(R.layout.layout_hot_new_list_header, null);
+        View header = getLayoutInflater().inflate(R.layout.layout_recent_love_list_header, null);
         mRvSongs.addHeaderView(header);
         mTvCount = header.findViewById(R.id.tv_count);
         mTvTitle = header.findViewById(R.id.tv_title);
         mIvHeader = header.findViewById(R.id.iv_header);
+        mIvIcon = header.findViewById(R.id.iv_icon);
 
         View footer = new View(getContext());
         footer.setMinimumHeight(50);

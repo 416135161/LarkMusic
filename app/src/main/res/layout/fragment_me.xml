@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:text="Me"
+            android:text="@string/me_title"
             android:textColor="#fffe3939"
             android:textSize="28sp"
             />
