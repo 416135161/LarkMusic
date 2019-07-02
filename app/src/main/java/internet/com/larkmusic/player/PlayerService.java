@@ -132,7 +132,7 @@ public class PlayerService extends Service {
     }
 
     private void updateNotification(Song song) {
-        int notificationId = 7654321;
+        int notificationId = 7654322;
         int playButtonResId = MusicPlayer.getPlayer().isPlaying()
                 ? R.mipmap.ic_pause_white_36dp : R.mipmap.ic_play_white_36dp;
 
@@ -157,16 +157,21 @@ public class PlayerService extends Service {
             // 8.0之后需要传入一个 channelId
             NotificationChannel channel = mNotificationManager.getNotificationChannel(id);
             if (channel == null) {
-                channel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT);
+                channel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_MIN);
                 mNotificationManager.createNotificationChannel(channel);
             }
-            channel.enableLights(true);
+            channel.setSound(null, null);
+            channel.enableLights(false);
+            channel.enableVibration(false);
             channel.setLightColor(getColor(R.color.colorPrimary));
         }
         mBuilder = new NotificationCompat.Builder(this, id);
         mBuilder.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(getString(R.string.app_name))
                 .setTicker("Music");
+        mBuilder.setSound(null)
+                .setLights(0,0,0)
+                .setVibrate(null);
         mBuilder.setAutoCancel(false);
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setContent(contentViews);
