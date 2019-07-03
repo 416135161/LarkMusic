@@ -17,6 +17,7 @@ import internet.com.larkmusic.BuildConfig;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.player.MusicPlayer;
+import internet.com.larkmusic.player.PlayerService;
 import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.SpHelper;
 
@@ -100,6 +101,9 @@ public class AdsBaseActivity extends EventActivity {
             startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME));
         } else {
             finish();
+            Intent intent = new Intent() ;
+            intent.setClass(this , PlayerService.class) ;
+            stopService(intent);
         }
     }
 

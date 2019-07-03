@@ -24,7 +24,7 @@ import internet.com.larkmusic.util.RecentSongService;
  */
 public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
-    private static MusicPlayer player = new MusicPlayer();
+    private static MusicPlayer player;
 
     private PlayerStatus status = PlayerStatus.STOP;
     private ManagedMediaPlayer mMediaPlayer;
@@ -36,14 +36,13 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     private Timer timer;
 
     public static MusicPlayer getPlayer() {
+        if (player == null) {
+            player = new MusicPlayer();
+        }
         return player;
     }
 
-    public static void setPlayer(MusicPlayer player) {
-        MusicPlayer.player = player;
-    }
-
-    public MusicPlayer() {
+    private MusicPlayer() {
 
         mMediaPlayer = new ManagedMediaPlayer();
         mMediaPlayer.setOnCompletionListener(this);
@@ -249,12 +248,13 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         return mQueueIndex;
     }
 
-    private void release() {
+    public void release() {
         if (mMediaPlayer != null) {
             mMediaPlayer.release();
         }
         mMediaPlayer = null;
         mContext = null;
+        player = null;
     }
 
     public boolean isPlaying() {

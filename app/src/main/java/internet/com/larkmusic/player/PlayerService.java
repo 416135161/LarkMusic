@@ -111,7 +111,13 @@ public class PlayerService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().post(this);
+        MusicPlayer.getPlayer().release();
+        if (mNotificationManager != null) {
+            mNotificationManager.cancelAll();
+        }
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
         unregisterHeadsetReceiver(this);
     }
 
