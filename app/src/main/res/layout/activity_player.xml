@@ -93,7 +93,7 @@
                 <ImageView
                     android:id="@+id/iv_song_bg"
                     android:layout_width="315dp"
-                    android:layout_height="335dp"
+                    android:layout_height="315dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="28dp"
                     android:scaleType="centerCrop"
@@ -130,7 +130,7 @@
                 android:layout_height="72dp"
                 android:layout_gravity="right"
                 android:layout_marginRight="65dp"
-                android:layout_marginTop="365dp"
+                android:layout_marginTop="345dp"
                 android:src="@mipmap/ic_singer_default"
                 app:civ_border_width="0dp"
                 />

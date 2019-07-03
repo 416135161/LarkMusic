@@ -15,6 +15,7 @@ import android.widget.RemoteViews;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionPlayEvent;
@@ -34,15 +35,19 @@ public class PlayerService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         registerHeadsetReceiver(this);
         initNotification();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        String action = intent.getAction();
-        handleAction(action);
+        if (intent != null) {
+            String action = intent.getAction();
+            handleAction(action);
+        }
         return START_STICKY;
     }
 
@@ -61,7 +66,7 @@ public class PlayerService extends Service {
     }
 
     //接收EventBus post过来的PlayEvent
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(ActionPlayEvent playEvent) {
         switch (playEvent.getAction()) {
             case PLAY:
@@ -170,7 +175,7 @@ public class PlayerService extends Service {
                 .setContentTitle(getString(R.string.app_name))
                 .setTicker("Music");
         mBuilder.setSound(null)
-                .setLights(0,0,0)
+                .setLights(0, 0, 0)
                 .setVibrate(null);
         mBuilder.setAutoCancel(false);
         mBuilder.setContentIntent(pendingIntent);

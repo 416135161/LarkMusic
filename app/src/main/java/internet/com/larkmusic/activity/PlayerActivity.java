@@ -241,6 +241,10 @@ public class PlayerActivity extends EventActivity {
             initLrc(event.song.getLrc());
             lrcView.updateTime(event.currentTime);
             initFavorite(event.song);
+            tvSong.setText(event.song.getSongName());
+            tvSong1.setText(event.song.getSongName());
+            tvSinger.setText(event.song.getSingerName());
+            tvSinger1.setText(event.song.getSingerName());
         } else if (event.action == PlayerStatus.STOP) {
             ivPlayIndicator.setVisibility(View.GONE);
             ivPlayStop.setImageResource(R.mipmap.icon_play);
