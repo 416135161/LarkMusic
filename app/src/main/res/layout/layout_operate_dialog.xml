@@ -58,7 +58,7 @@
         android:layout_marginTop="20dp"
         android:drawableLeft="@mipmap/ic_play_next"
         android:drawablePadding="15dp"
-        android:text="Play Next"
+        android:text="@string/play_next"
         android:textColor="#ff666666"
         android:textSize="14sp"
         />
@@ -70,7 +70,7 @@
         android:layout_marginTop="20dp"
         android:drawableLeft="@mipmap/ic_play_later"
         android:drawablePadding="15dp"
-        android:text="Play Later"
+        android:text="@string/play_later"
         android:textColor="#ff666666"
         android:textSize="14sp"
         />
@@ -82,7 +82,7 @@
         android:layout_marginTop="20dp"
         android:drawableLeft="@mipmap/ic_add_to_play"
         android:drawablePadding="15dp"
-        android:text="Add to Playlist"
+        android:text="@string/add_to_favorite"
         android:textColor="#ff666666"
         android:textSize="14sp"
         />

@@ -1,14 +1,11 @@
 package internet.com.larkmusic.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,20 +22,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
-import internet.com.larkmusic.action.PlayerStatus;
+import internet.com.larkmusic.action.ActionBack;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
-import internet.com.larkmusic.action.ActionShowOperateDlg;
 import internet.com.larkmusic.action.ActionSelectSong;
+import internet.com.larkmusic.action.ActionShowOperateDlg;
+import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.animations.RotateAnimation;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.base.AdsBaseActivity;
-import internet.com.larkmusic.base.EventActivity;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.fragment.HallFragment;
 import internet.com.larkmusic.fragment.LibraryFragment;
 import internet.com.larkmusic.fragment.MeFragment;
 import internet.com.larkmusic.fragment.OperateDialog;
+import internet.com.larkmusic.fragment.PlayingListDialog;
 import internet.com.larkmusic.fragment.SearchFragment;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.player.MusicPlayer;
@@ -81,7 +79,6 @@ public class MainActivity extends AdsBaseActivity {
         setAllNormal();
         ivHall.setImageResource(R.mipmap.tab_hall_select);
         tvHall.setTextColor(getResources().getColor(R.color.text_red));
-
         startFragment(HallFragment.class, new Bundle());
     }
 
@@ -92,6 +89,7 @@ public class MainActivity extends AdsBaseActivity {
         tvSearch.setTextColor(getResources().getColor(R.color.text_red));
         tvSearch.setTypeface(Config.tfLark);
         startFragment(SearchFragment.class, new Bundle());
+        showAd();
     }
 
     @OnClick(R.id.view_library)
@@ -100,6 +98,7 @@ public class MainActivity extends AdsBaseActivity {
         ivLibrary.setImageResource(R.mipmap.tab_library_select);
         tvLibrary.setTextColor(getResources().getColor(R.color.text_red));
         startFragment(LibraryFragment.class, new Bundle());
+        showAd();
     }
 
     @OnClick(R.id.view_me)
@@ -176,7 +175,12 @@ public class MainActivity extends AdsBaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventSelectSong(ActionSelectSong event) {
         List<Song> songList = new ArrayList<>();
-        songList.add(event.song);
+        if (event.song != null) {
+            songList.add(event.song);
+        }
+        if (event.songList != null && event.songList.size() > 0) {
+            songList.addAll(event.songList);
+        }
         ActionPlayEvent actionPlayEvent = new ActionPlayEvent();
         actionPlayEvent.setAction(ActionPlayEvent.Action.PLAY);
         actionPlayEvent.setQueue(songList);
@@ -208,8 +212,10 @@ public class MainActivity extends AdsBaseActivity {
     ImageView ivPlayStop;
     @BindView(R.id.iv_next)
     ImageView ivNext;
+    @BindView(R.id.iv_list)
+    ImageView ivList;
 
-    @OnClick({R.id.iv_play_stop, R.id.iv_next, R.id.iv_singer, R.id.tv_song})
+    @OnClick({R.id.iv_play_stop, R.id.iv_next, R.id.iv_singer, R.id.tv_song, R.id.iv_list})
     public void onClickPlayPanel(View view) {
         ActionPlayEvent actionPlayEvent;
         switch (view.getId()) {
@@ -234,6 +240,9 @@ public class MainActivity extends AdsBaseActivity {
                     }
                 }
                 EventBus.getDefault().post(actionPlayEvent);
+                break;
+            case R.id.iv_list:
+                new PlayingListDialog().show(getSupportFragmentManager(), PlayingListDialog.class.getName());
                 break;
         }
     }
@@ -272,6 +281,11 @@ public class MainActivity extends AdsBaseActivity {
                 .error(R.mipmap.ic_singer_default)
                 .placeholder(R.mipmap.ic_singer_default)
                 .into(ivSingerIndicator);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBack(ActionBack event) {
+        onBackPressed();
     }
 
 }

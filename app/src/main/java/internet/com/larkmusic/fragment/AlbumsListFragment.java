@@ -100,7 +100,7 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
     }
 
     private void initHeaderAndFooter() {
-        View header = getLayoutInflater().inflate(R.layout.layout_hot_new_list_header, null);
+        View header = getLayoutInflater().inflate(R.layout.layout_album_list_header, null);
         mRvAlbums.addHeaderView(header);
         mTvCount = header.findViewById(R.id.tv_count);
         mTvTitle = header.findViewById(R.id.tv_title);
@@ -112,6 +112,7 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
         View footer = new View(getContext());
         footer.setMinimumHeight(50);
         mRvAlbums.addFooterView(footer);
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -96,10 +96,19 @@ public class RecentLoveFragment extends BaseFragment {
         mTvTitle = header.findViewById(R.id.tv_title);
         mIvHeader = header.findViewById(R.id.iv_header);
         mIvIcon = header.findViewById(R.id.iv_icon);
+        header.findViewById(R.id.view_play_all).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mAdapter.getCount() > 0) {
+                    EventBus.getDefault().post(new ActionSelectSong(mAdapter.getSongs()));
+                }
+            }
+        });
 
         View footer = new View(getContext());
         footer.setMinimumHeight(50);
         mRvSongs.addFooterView(footer);
+
     }
 
 

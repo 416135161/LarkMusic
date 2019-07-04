@@ -22,7 +22,7 @@
         android:orientation="vertical"
         >
 
-        <ImageView
+        <internet.com.larkmusic.view.MyBackImageView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="13dp"
@@ -32,22 +32,22 @@
 
             />
 
-        <TextView
+        <internet.com.larkmusic.view.MyTextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="60dp"
             android:text="Favorite Music"
             android:textColor="#ffffffff"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="95dp"
             android:background="@drawable/play_list_bg"
             >
 
@@ -59,6 +59,7 @@
                 />
 
             <LinearLayout
+                android:id="@+id/view_play_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -66,6 +67,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingTop="20dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 >
 
                 <ImageView

@@ -49,4 +49,9 @@
     <string name="from_rock">1055</string>
 
     <string name="me_recent"></string>
+    <string name="playing_list">プレイリスト</string>
+    <string name="play_next">次のプレイ</string>
+    <string name="play_later">後で遊ぶ</string>
+    <string name="add_to_favorite">お気に入りに追加</string>
+
 </resources>

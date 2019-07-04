@@ -2,6 +2,7 @@ package internet.com.larkmusic.player;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.text.TextUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -70,6 +71,9 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     public void addQueue(List<Song> songs, boolean playNow) {
         if (songs == null || songs.size() == 0)
             return;
+        for (Song item : songs) {
+            deleteIfExist(item);
+        }
         if (playNow) {
             initQueue();
             mQueue.addAll(0, songs);
@@ -81,11 +85,25 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     }
 
+    public void deleteIfExist(Song song) {
+        if (song == null || mQueue == null || mQueue.size() == 0) {
+            return;
+        }
+        for (int i = mQueue.size() - 1; i >= 0; i--) {
+            if (TextUtils.equals(song.getHash(), mQueue.get(i).getHash())) {
+                mQueue.remove(i);
+                return;
+            }
+        }
+
+    }
+
     public void addQueueNext(Song song) {
         if (song == null) {
             return;
         }
         initQueue();
+        deleteIfExist(song);
         if (mQueue.size() > mQueueIndex) {
             mQueue.add(mQueueIndex + 1, song);
         } else {
@@ -98,6 +116,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
             return;
         }
         initQueue();
+        deleteIfExist(song);
         mQueue.addLast(song);
     }
 
@@ -310,5 +329,9 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     public PlayerStatus getStatus() {
         return status;
+    }
+
+    public LinkedList<Song> getQueue() {
+        return mQueue;
     }
 }

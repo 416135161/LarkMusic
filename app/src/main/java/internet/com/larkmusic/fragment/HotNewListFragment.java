@@ -121,6 +121,14 @@ public class HotNewListFragment extends EventFragment {
         mTvCount = header.findViewById(R.id.tv_count);
         mTvTitle = header.findViewById(R.id.tv_title);
         mIvHeader = header.findViewById(R.id.iv_header);
+        header.findViewById(R.id.view_play_all).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mAdapter.getCount() > 0) {
+                    EventBus.getDefault().post(new ActionSelectSong(mAdapter.getSongs()));
+                }
+            }
+        });
 
         View footer = new View(getContext());
         footer.setMinimumHeight(50);
