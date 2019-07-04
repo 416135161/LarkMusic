@@ -96,4 +96,7 @@ public class HotNewListAdapter extends BaseAdapter {
         this.songs = Songs;
     }
 
+    public List<Song> getSongs() {
+        return songs;
+    }
 }

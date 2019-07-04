@@ -15,7 +15,7 @@ public final class Config {
     private Config() {
     }
 
-    final public static int COUNT = 3;
+    final public static int COUNT = 4;
     public static int PLAY_ADS_COUNT = 0;
     public static int MAX_PLAY_COUNT = 6;
     public static int SEARCH_COUNT = 40;
