@@ -84,15 +84,15 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         initeddd();
         mList = new ArrayList<>();                  //ImageView数据
         mList.add(R.mipmap.banner_default);
-        mList.add(R.mipmap.banner_default);
 
 
         mTitles = new ArrayList<>();                //title数据
         mTitles.add("");
-        mTitles.add("");
+
 
         mBannerView.setImages(mList)        //ImageView数据
                 .setIndcatorTitles(mTitles) //title数据
+                .setAutoPlay(false)
                 .start();
         CommonUtil.setTvBoldFace(mTvTitle);
         showDialog();
