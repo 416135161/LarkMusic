@@ -81,7 +81,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initeddd();
+        initRefreshLayout();
         mList = new ArrayList<>();                  //ImageView数据
         mList.add(R.mipmap.banner_default);
 
@@ -101,7 +101,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
 
     }
 
-    private void initeddd() {
+    private void initRefreshLayout() {
         refreshLayout.setSize(SwipeRefreshLayout.LARGE);
         refreshLayout.setProgressViewOffset(true, -0, 100);
         refreshLayout.setProgressViewEndTarget(true, 180);
