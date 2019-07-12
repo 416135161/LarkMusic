@@ -197,14 +197,14 @@
             >
 
             <ImageView
-                android:id="@+id/iv_favorite"
+                android:id="@+id/iv_recycle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:src="@mipmap/icon_favorite_normal"
+                android:src="@mipmap/icon_recycle_all"
                 />
 
 
@@ -214,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="30dp"
-                android:layout_toRightOf="@id/iv_favorite"
+                android:layout_toRightOf="@id/iv_recycle"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:src="@mipmap/icon_last_song"
@@ -251,21 +251,32 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="30dp"
-                android:layout_toLeftOf="@id/iv_recycle"
+                android:layout_toLeftOf="@id/iv_list"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:src="@mipmap/icon_next_song"
                 />
 
             <ImageView
-                android:id="@+id/iv_recycle"
+                android:id="@+id/iv_list"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:src="@mipmap/icon_recycle_all"
+                android:src="@mipmap/ic_play_list"
+                />
+
+            <ImageView
+                android:id="@+id/iv_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@mipmap/icon_favorite_normal"
                 />
 
         </RelativeLayout>

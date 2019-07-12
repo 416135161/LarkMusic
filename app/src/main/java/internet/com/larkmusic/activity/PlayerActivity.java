@@ -35,6 +35,7 @@ import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.animations.RotateAnimation;
 import internet.com.larkmusic.base.EventActivity;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.fragment.PlayingListDialog;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayMode;
 import internet.com.larkmusic.util.FavoriteService;
@@ -225,6 +226,10 @@ public class PlayerActivity extends EventActivity {
         EventBus.getDefault().post(actionPlayEvent);
     }
 
+    @OnClick(R.id.iv_list)
+    void onClickList(View view) {
+        new PlayingListDialog().show(getSupportFragmentManager(), PlayingListDialog.class.getName());
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPlayerInform(ActionPlayerInformEvent event) {

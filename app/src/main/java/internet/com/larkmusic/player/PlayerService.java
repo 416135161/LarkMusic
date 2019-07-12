@@ -22,6 +22,7 @@ import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.activity.MainActivity;
+import internet.com.larkmusic.activity.PlayerActivity;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.receiver.MediaButtonIntentReceiver;
 
@@ -159,7 +160,7 @@ public class PlayerService extends Service {
         contentViews.setOnClickPendingIntent(R.id.iv_last, retrievePlaybackAction(PREVIOUS_ACTION));
         contentViews.setOnClickPendingIntent(R.id.iv_next, retrievePlaybackAction(NEXT_ACTION));
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, PlayerActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, intent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
