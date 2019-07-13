@@ -18,6 +18,7 @@ import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.GetSongCallBack;
 import internet.com.larkmusic.util.CloudDataUtil;
+import internet.com.larkmusic.util.FileUtils;
 import internet.com.larkmusic.util.RecentSongService;
 
 /**
@@ -130,32 +131,42 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         play(getNowPlaying());
     }
 
-    private void play(final Song song) {
-        CloudDataUtil.getSongFromCloud(song, new GetSongCallBack() {
-            @Override
-            public void onSongGetOk() {
-                try {
-                    mMediaPlayer.reset();
-                    mMediaPlayer.setDataSource(song.getPlayUrl());
-                    mMediaPlayer.prepareAsync();
-                    sendPlayerInformation(PlayerStatus.PREPARE);
-                    cancelTimer();
-                    RecentSongService.getInstance().saveSong(song);
-                } catch (IOException e) {
-                    e.printStackTrace();
+    private void play(Song song) {
+        pause();
+        if (song.isLocal() && FileUtils.isFileExist(song.getPlayUrl())) {
+            doPlay(song);
+        } else {
+            CloudDataUtil.getSongFromCloud(song, new GetSongCallBack() {
+                @Override
+                public void onSongGetOk(Song song) {
+                    doPlay(song);
                 }
+
+                @Override
+                public void onSongGetFail() {
+
+                }
+            });
+        }
+    }
+
+    private void doPlay(Song song) {
+        try {
+            mMediaPlayer.reset();
+            mMediaPlayer.setDataSource(song.getPlayUrl());
+            mMediaPlayer.prepareAsync();
+            sendPlayerInformation(PlayerStatus.PREPARE);
+            cancelTimer();
+            if(!song.isLocal()){
+                RecentSongService.getInstance().saveSong(song);
             }
-
-            @Override
-            public void onSongGetFail() {
-
-            }
-        });
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void pause() {
-        if (mMediaPlayer != null) {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
             cancelTimer();
             sendPlayerInformation(PlayerStatus.STOP);
@@ -258,7 +269,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     private int getPreviousIndex() {
-        if(mQueue.size() == 1){
+        if (mQueue.size() == 1) {
             return 0;
         }
         mQueueIndex = (mQueueIndex - 1) % mQueue.size();

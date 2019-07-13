@@ -26,6 +26,8 @@ public class Song implements Serializable{
 
     private String portrait;
 
+    private boolean isLocal;
+
 
     public String getSongName() {
         if(!TextUtils.isEmpty(songName) && songName.matches(".*\\(.*")){
@@ -94,5 +96,13 @@ public class Song implements Serializable{
 
     public void setPortrait(String portrait) {
         this.portrait = portrait;
+    }
+
+    public boolean isLocal() {
+        return isLocal;
+    }
+
+    public void setLocal(boolean local) {
+        isLocal = local;
     }
 }

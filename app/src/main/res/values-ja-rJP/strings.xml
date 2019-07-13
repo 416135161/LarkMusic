@@ -26,6 +26,7 @@
 
     <string name="title_recent">最近プレイした</string>
     <string name="title_my_favorite">お気に入り</string>
+    <string name="title_local_music">地元の音楽</string>
     <string name="title_favorite_music">好きな曲</string>
     <string name="title_favorite_album">お気に入りのアルバム</string>
 
@@ -50,8 +51,10 @@
 
     <string name="me_recent"></string>
     <string name="playing_list">プレイリスト</string>
+    <string name="down_load">ダウンロード</string>
     <string name="play_next">次のプレイ</string>
     <string name="play_later">後で遊ぶ</string>
     <string name="add_to_favorite">お気に入りに追加</string>
-
+    <string name="please_pull_refresh">リフレッシュしてください！</string>
+    <string name="can_not_download">ダウンロードを提供できません!</string>
 </resources>

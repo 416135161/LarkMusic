@@ -8,11 +8,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -84,12 +86,8 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         initRefreshLayout();
         mList = new ArrayList<>();                  //ImageView数据
         mList.add(R.mipmap.banner_default);
-
-
         mTitles = new ArrayList<>();                //title数据
         mTitles.add("");
-
-
         mBannerView.setImages(mList)        //ImageView数据
                 .setIndcatorTitles(mTitles) //title数据
                 .setAutoPlay(false)
@@ -172,6 +170,8 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 new4.refreshView(event.trackList.get(4));
                 new5.refreshView(event.trackList.get(5));
                 mNewList = (ArrayList<Song>) event.trackList;
+            }else {
+                Toast.makeText(getContext(), getString(R.string.please_pull_refresh), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -183,13 +183,17 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         refreshLayout.setRefreshing(false);
         if (event.type == ActionHotSongs.TYPE_HOME) {
             if (event != null && event.trackList != null && event.trackList.size() >= 6) {
-                hot0.refreshView(event.trackList.get(0));
-                hot1.refreshView(event.trackList.get(1));
-                hot2.refreshView(event.trackList.get(2));
-                hot3.refreshView(event.trackList.get(3));
-                hot4.refreshView(event.trackList.get(4));
-                hot5.refreshView(event.trackList.get(5));
+                List<Song> subList = event.trackList.subList(0, 6);
+                Collections.shuffle(subList);
+                hot0.refreshView(subList.get(0));
+                hot1.refreshView(subList.get(1));
+                hot2.refreshView(subList.get(2));
+                hot3.refreshView(subList.get(3));
+                hot4.refreshView(subList.get(4));
+                hot5.refreshView(subList.get(5));
                 mHotList = (ArrayList<Song>) event.trackList;
+            }else {
+                Toast.makeText(getContext(), getString(R.string.please_pull_refresh), Toast.LENGTH_SHORT).show();
             }
         }
 

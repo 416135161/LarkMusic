@@ -6,8 +6,8 @@
     android:background="@drawable/operate_dlg_bg"
     android:orientation="vertical"
     android:paddingLeft="20dp"
-    android:paddingRight="20dp"
     android:paddingTop="20dp"
+    android:paddingRight="20dp"
     >
 
     <LinearLayout
@@ -51,61 +51,84 @@
         </LinearLayout>
     </LinearLayout>
 
+
     <internet.com.larkmusic.view.MyTextView
         android:id="@+id/tv_next"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:drawableLeft="@mipmap/ic_play_next"
         android:drawablePadding="15dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/play_next"
         android:textColor="#ff666666"
         android:textSize="14sp"
+
         />
 
     <internet.com.larkmusic.view.MyTextView
         android:id="@+id/tv_later"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:drawableLeft="@mipmap/ic_play_later"
         android:drawablePadding="15dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/play_later"
         android:textColor="#ff666666"
         android:textSize="14sp"
+
         />
 
     <internet.com.larkmusic.view.MyTextView
         android:id="@+id/tv_add_list"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:drawableLeft="@mipmap/ic_add_to_play"
         android:drawablePadding="15dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/add_to_favorite"
         android:textColor="#ff666666"
         android:textSize="14sp"
+
+        />
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@mipmap/ic_download"
+        android:drawablePadding="15dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="@string/down_load"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+
         />
 
     <internet.com.larkmusic.view.MyTextView
         android:id="@+id/tv_delete"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:drawableLeft="@mipmap/ic_delete"
         android:drawablePadding="15dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="Delete"
         android:textColor="#ff666666"
         android:textSize="14sp"
         android:visibility="gone"
+
         />
 
     <internet.com.larkmusic.view.MyTextView
         android:id="@+id/tv_close"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="15dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/operate_dlg_cancel_btn_bg"
         android:gravity="center"
         android:text="Cancel"

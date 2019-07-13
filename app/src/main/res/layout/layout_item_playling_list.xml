@@ -12,7 +12,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+
         >
 
         <TextView
@@ -57,11 +57,12 @@
 
         <ImageView
             android:id="@+id/iv_delete"
-            android:layout_width="20dp"
+            android:layout_width="54dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
+            android:paddingLeft="14dp"
             android:scaleType="fitEnd"
-            android:src="@mipmap/ic_delete"
+            android:src="@mipmap/ic_cancel"
+            android:paddingRight="20dp"
             />
     </LinearLayout>
 
