@@ -26,6 +26,7 @@
 
     <string name="title_recent">Recently Played</string>
     <string name="title_my_favorite">My Favorite</string>
+    <string name="title_local_music">Local Music</string>
     <string name="title_favorite_music">Favorite Music</string>
     <string name="title_favorite_album">Favorite Album</string>
 
@@ -51,8 +52,11 @@
 
     <string name="me_recent"></string>
     <string name="playing_list">Play List</string>
+    <string name="down_load">Download</string>
     <string name="play_next">Play Next</string>
     <string name="play_later">Play Later</string>
     <string name="add_to_favorite">Add to Favorite</string>
+    <string name="please_pull_refresh">Please pull refresh !</string>
+    <string name="can_not_download">Unable to provide download !</string>
 
 </resources>

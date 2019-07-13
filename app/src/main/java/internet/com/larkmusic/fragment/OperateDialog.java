@@ -6,10 +6,16 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.greenrobot.eventbus.EventBus;
 
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionDownLoad;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.network.GetSongCallBack;
 import internet.com.larkmusic.player.MusicPlayer;
+import internet.com.larkmusic.util.CloudDataUtil;
 import internet.com.larkmusic.util.FavoriteService;
 
 /**
@@ -41,6 +47,8 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
         ImageView ivSinger = rootView.findViewById(R.id.iv_singer);
         TextView tvSong = rootView.findViewById(R.id.tv_song);
         TextView tvSinger = rootView.findViewById(R.id.tv_singer);
+        TextView tvDownload = rootView.findViewById(R.id.tv_download);
+        tvDownload.setOnClickListener(this);
         TextView tvNext = rootView.findViewById(R.id.tv_next);
         tvNext.setOnClickListener(this);
         TextView tvLater = rootView.findViewById(R.id.tv_later);
@@ -64,20 +72,42 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_download:
+                CloudDataUtil.getSongFromCloud(song, new GetSongCallBack() {
+                    @Override
+                    public void onSongGetOk(Song song) {
+                        EventBus.getDefault().post(new ActionDownLoad(song));
+                        dismiss();
+                    }
+                    @Override
+                    public void onSongGetFail() {
+                        Toast.makeText(getContext(), getString(R.string.can_not_download), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
             case R.id.tv_next:
                 MusicPlayer.getPlayer().addQueueNext(song);
+                dismiss();
                 break;
             case R.id.tv_later:
                 MusicPlayer.getPlayer().addQueueLater(song);
+                dismiss();
                 break;
             case R.id.tv_add_list:
                 FavoriteService.getInstance().saveSong(song, true);
+                dismiss();
                 break;
             case R.id.tv_delete:
                 break;
-            case R.id.tv_cancel:
+            case R.id.tv_close:
+                dismiss();
                 break;
         }
-        dismiss();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

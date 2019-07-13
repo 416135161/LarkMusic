@@ -117,9 +117,21 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
     }
 
 
+
+
     @OnClick(R.id.view_library)
     void onClickFavoriteLibrary(View view) {
 
+    }
+
+    @OnClick(R.id.view_local)
+    void onClickLocalSong(View view) {
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+        Fragment fragment = new LocalSongsFragment();
+        transaction.add(R.id.view_container, fragment);
+        transaction.addToBackStack("");
+        transaction.commit();
     }
 
     @Override

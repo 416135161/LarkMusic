@@ -8,16 +8,23 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Environment;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
+import com.arialyy.aria.core.Aria;
+import com.arialyy.aria.util.FileUtil;
+
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import butterknife.OnClick;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionDownLoad;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.PlayerStatus;
@@ -25,6 +32,7 @@ import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.activity.PlayerActivity;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.receiver.MediaButtonIntentReceiver;
+import internet.com.larkmusic.util.FileUtils;
 
 public class PlayerService extends Service {
 
@@ -107,6 +115,20 @@ public class PlayerService extends Service {
             updateNotification(event.song);
         }
 
+    }
+
+    @Subscribe
+    public void onEventDownLoad(ActionDownLoad actionDownLoad) {
+        Song song = actionDownLoad.song;
+        String playUrl = song.getPlayUrl();
+        String downloadPath = Environment.getExternalStorageDirectory().getPath() + "/" + getPackageName() + "/"
+                + song.getSongName() + playUrl.substring(playUrl.lastIndexOf("."));
+        if (!FileUtils.isFileExist(downloadPath)) {
+            Aria.download(this)
+                    .load(playUrl)     //读取下载地址
+                    .setFilePath(downloadPath)
+                    .start();
+        }
     }
 
     @Override

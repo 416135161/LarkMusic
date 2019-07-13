@@ -18,7 +18,7 @@ import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.bean.songDetailResponse.SongDetailKuGou;
 import internet.com.larkmusic.network.Config;
-import internet.com.larkmusic.network.DetailIntercepter;
+import internet.com.larkmusic.network.DetailInterceptor;
 import internet.com.larkmusic.network.GetSongCallBack;
 import internet.com.larkmusic.network.HttpUtil;
 import internet.com.larkmusic.network.QueryInterceptor;
@@ -181,7 +181,7 @@ public final class CloudDataUtil {
             return;
         }
         EventBus.getDefault().post(new ActionStartLoading());
-        StreamService ss = HttpUtil.getApiService(Config.HOST_GET_SONG, new DetailIntercepter());
+        StreamService ss = HttpUtil.getApiService(Config.HOST_GET_SONG, new DetailInterceptor());
         Call<SongDetailKuGou> call = ss.getSongDetailKuGou(song.getHash());
         call.enqueue(new Callback<SongDetailKuGou>() {
 
@@ -190,13 +190,13 @@ public final class CloudDataUtil {
                 EventBus.getDefault().post(new ActionStopLoading());
                 if (response.isSuccessful() && response.body() != null && response.body().getErr_code() == 0) {
                     Song data = TransformUtil.detailResponse2Song(response.body());
-                    song.setImgUrl(data.getImgUrl());
+                    //对原来的歌曲对象赋值
                     song.setPlayUrl(data.getPlayUrl());
-                    song.setDuration(data.getDuration());
                     song.setLrc(data.getLrc());
                     song.setPortrait(data.getPortrait());
+                    song.setImgUrl(data.getImgUrl());
                     if (callBack != null) {
-                        callBack.onSongGetOk();
+                        callBack.onSongGetOk(data);
                     }
                     CloudDataUtil.saveSongImg(data.getHash(), data.getImgUrl());
                 } else {
