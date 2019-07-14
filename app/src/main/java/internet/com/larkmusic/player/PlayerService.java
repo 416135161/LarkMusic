@@ -32,6 +32,7 @@ import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.activity.PlayerActivity;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.receiver.MediaButtonIntentReceiver;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.FileUtils;
 
 public class PlayerService extends Service {
@@ -120,13 +121,11 @@ public class PlayerService extends Service {
     @Subscribe
     public void onEventDownLoad(ActionDownLoad actionDownLoad) {
         Song song = actionDownLoad.song;
-        String playUrl = song.getPlayUrl();
-        String downloadPath = Environment.getExternalStorageDirectory().getPath() + "/" + getPackageName() + "/"
-                + song.getSongName() + playUrl.substring(playUrl.lastIndexOf("."));
-        if (!FileUtils.isFileExist(downloadPath)) {
+        String filePath = CommonUtil.getSongSavePath(song.getHash());
+        if (!FileUtils.isFileExist(filePath)) {
             Aria.download(this)
-                    .load(playUrl)     //读取下载地址
-                    .setFilePath(downloadPath)
+                    .load(song.getPlayUrl())     //读取下载地址
+                    .setFilePath(filePath)
                     .start();
         }
     }

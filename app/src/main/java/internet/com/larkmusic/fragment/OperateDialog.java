@@ -16,7 +16,9 @@ import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.GetSongCallBack;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.util.CloudDataUtil;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.FavoriteService;
+import internet.com.larkmusic.util.FileUtils;
 
 /**
  * Created by sjning
@@ -73,17 +75,24 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_download:
-                CloudDataUtil.getSongFromCloud(song, new GetSongCallBack() {
-                    @Override
-                    public void onSongGetOk(Song song) {
-                        EventBus.getDefault().post(new ActionDownLoad(song));
-                        dismiss();
-                    }
-                    @Override
-                    public void onSongGetFail() {
-                        Toast.makeText(getContext(), getString(R.string.can_not_download), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                // 先判断是否已经下载，如果已经下载则直接关闭，如果没有下载则去请求下载地址下载
+                String downloadPath = CommonUtil.getSongSavePath(song.getHash());
+                if (!FileUtils.isFileExist(downloadPath)) {
+                    CloudDataUtil.getSongFromCloud(song, new GetSongCallBack() {
+                        @Override
+                        public void onSongGetOk(Song song) {
+                            EventBus.getDefault().post(new ActionDownLoad(song));
+                            dismiss();
+                        }
+
+                        @Override
+                        public void onSongGetFail() {
+                            Toast.makeText(getContext(), getString(R.string.can_not_download), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    dismiss();
+                }
                 break;
             case R.id.tv_next:
                 MusicPlayer.getPlayer().addQueueNext(song);

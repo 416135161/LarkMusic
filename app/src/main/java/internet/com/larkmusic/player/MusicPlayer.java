@@ -13,11 +13,13 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import internet.com.larkmusic.action.ActionDownLoad;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.GetSongCallBack;
 import internet.com.larkmusic.util.CloudDataUtil;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.FileUtils;
 import internet.com.larkmusic.util.RecentSongService;
 
@@ -60,6 +62,13 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
             public void onPrepared(MediaPlayer mediaPlayer) {
                 mMediaPlayer.start();
                 informPlayingState();
+            }
+        });
+
+        mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
+                return false;
             }
         });
 
@@ -133,20 +142,29 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     private void play(Song song) {
         pause();
+        //如果是本地歌曲直接播放
         if (song.isLocal() && FileUtils.isFileExist(song.getPlayUrl())) {
             doPlay(song);
         } else {
-            CloudDataUtil.getSongFromCloud(song, new GetSongCallBack() {
-                @Override
-                public void onSongGetOk(Song song) {
-                    doPlay(song);
-                }
+            //先看是否已经下载过此歌曲，1、如果下载过则播放本地歌曲，2、如果没有则去服务器请求下载地址下载并播放
+            String filePath = CommonUtil.getSongSavePath(song.getHash());
+            if (FileUtils.isFileExist(filePath)) {
+                song.setPlayUrl(filePath);
+                doPlay(song);
+            } else {
+                CloudDataUtil.getSongFromCloud(song, new GetSongCallBack() {
+                    @Override
+                    public void onSongGetOk(Song song) {
+                        doPlay(song);
+                        EventBus.getDefault().post(new ActionDownLoad(song));
+                    }
 
-                @Override
-                public void onSongGetFail() {
+                    @Override
+                    public void onSongGetFail() {
 
-                }
-            });
+                    }
+                });
+            }
         }
     }
 
@@ -157,7 +175,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
             mMediaPlayer.prepareAsync();
             sendPlayerInformation(PlayerStatus.PREPARE);
             cancelTimer();
-            if(!song.isLocal()){
+            if (!song.isLocal()) {
                 RecentSongService.getInstance().saveSong(song);
             }
         } catch (IOException e) {
