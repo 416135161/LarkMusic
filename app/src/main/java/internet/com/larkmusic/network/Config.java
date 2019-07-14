@@ -36,6 +36,7 @@ public final class Config {
     public static String FROM;
     public static String FROM_US = "0";
     public static String FROM_JAPAN = "1";
+    public static String FROM_CHINESE = "2";
     /**
      * 欧美资源分类
      */
@@ -55,6 +56,19 @@ public final class Config {
             FROM = FROM_JAPAN;
         } else {
             FROM = FROM_US;
+        }
+    }
+
+    public static String getFrom() {
+        Locale locale = Locale.getDefault();
+        // 获取当前系统语言
+        String lang = locale.getLanguage();
+        if (TextUtils.equals(lang, "ja")) {
+            return FROM_JAPAN;
+        } else if (TextUtils.equals(lang, "zh")) {
+            return FROM_CHINESE;
+        } else {
+            return FROM_US;
         }
     }
 
