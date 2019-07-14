@@ -21,6 +21,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -122,14 +123,8 @@ public class SearchFragment extends EventFragment {
 
     private void initTrending() {
         mValues = new ArrayList<>();
-        //欧美歌手
-        mValues.add("Alan Walker");
-        mValues.add("Taylor Swift");
-        mValues.add("The Chainsmokers");
-        mValues.add("Olly Murs");
-        mValues.add("Vicetone");
         //日本歌手
-        if (Config.FROM == Config.FROM_JAPAN) {
+        if (Config.getFrom() == Config.FROM_JAPAN) {
             mValues.add("ボーカロイド");
             mValues.add("泽野弘之");
             mValues.add("手嶌葵");
@@ -138,6 +133,24 @@ public class SearchFragment extends EventFragment {
             mValues.add("石原さとみ");
             mValues.add("新垣結衣");
             Collections.shuffle(mValues);
+        } else if (Config.getFrom() == Config.FROM_CHINESE) {
+            mValues.add("林俊杰");
+            mValues.add("薛之谦");
+            mValues.add("周杰伦");
+            mValues.add("张杰");
+            mValues.add("刘德华");
+            mValues.add("邓紫棋");
+            mValues.add("陈雪凝");
+            mValues.add("庄心妍");
+            mValues.add("孙露");
+            mValues.add("张靓颖");
+        } else {
+            //欧美歌手
+            mValues.add("Alan Walker");
+            mValues.add("Taylor Swift");
+            mValues.add("The Chainsmokers");
+            mValues.add("Olly Murs");
+            mValues.add("Vicetone");
         }
 
         //往容器内添加TextView数据

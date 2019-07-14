@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Free Music</string>
+
+    <string name="hall_title">音乐</string>
+    <string name="search_title">搜索</string>
+    <string name="library_title">曲库</string>
+    <string name="me_title">我的</string>
+
+    <string name="title_new">新歌榜</string>
+    <string name="title_hot">热歌榜</string>
+    <string name="title_albums">歌单</string>
+    <string name="title_more">更多</string>
+    <string name="title_song_count">播放全部（%1$d）</string>
+    <string name="title_genres">流派</string>
+
+    <string name="genres_us">欧美</string>
+    <string name="genres_japan">日本</string>
+    <string name="genres_pop">流行</string>
+    <string name="genres_rock">摇滚</string>
+    <string name="genres_electronic">电音</string>
+    <string name="genres_country">乡村音乐</string>
+    <string name="lrc_nothing">暂无歌词</string>
+    <string name="tv_cancel">取消</string>
+    <string name="title_trending">搜索推荐</string>
+    <string name="title_history">搜索历史</string>
+
+    <string name="title_recent">最近播放</string>
+    <string name="title_my_favorite">我收藏的</string>
+    <string name="title_local_music">本地歌曲</string>
+    <string name="title_favorite_music">喜爱的音乐</string>
+    <string name="title_favorite_album">喜爱的专辑</string>
+
+    <string name="text_please_rate">请为应用打分</string>
+    <string name="text_sure">确定</string>
+    <string name="text_cancel">取消</string>
+
+
+    <!--public static String FROM_US = "0";-->
+    <!--public static String FROM_JAPAN = "1";-->
+    <!--欧美资源分类-->
+    <!--public static final int EUROP_POP = 1051;-->
+    <!--public static final int EUROP_COUNTRY = 1065;-->
+    <!--public static final int EUROP_ELECTRONIC = 1053;-->
+    <!--public static final int EUROP_ROCK = 1055;-->
+    <string name="from_us">0</string>
+    <string name="from_japan">1</string>
+    <string name="from_pop">1051</string>
+    <string name="from_country">1065</string>
+    <string name="from_electronic">1053</string>
+    <string name="from_rock">1055</string>
+
+
+    <string name="me_recent"></string>
+    <string name="playing_list">正在播放</string>
+    <string name="down_load">下载</string>
+    <string name="play_next">加入下一个播放</string>
+    <string name="play_later">加入播放列表</string>
+    <string name="add_to_favorite">添加收藏</string>
+    <string name="please_pull_refresh">请下拉刷新 !</string>
+    <string name="can_not_download">此歌曲不提供下载 !</string>
+
+</resources>
