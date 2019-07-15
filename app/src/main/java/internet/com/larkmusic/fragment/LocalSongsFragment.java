@@ -21,7 +21,6 @@ import internet.com.larkmusic.adapter.LocalListAdapter;
 import internet.com.larkmusic.base.BaseFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.util.AudioUtils;
-import internet.com.larkmusic.util.RecentSongService;
 
 /**
  * Created by sjning
@@ -63,7 +62,7 @@ public class LocalSongsFragment extends BaseFragment {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(final Void... unused) {
-                List<Song> songList = AudioUtils.getAllSongs(getActivity());
+                List<Song> songList = AudioUtils.getAllSongs();
                 mAdapter.setPlayList(songList);
                 return null;
             }

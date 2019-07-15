@@ -1,10 +1,11 @@
 package internet.com.larkmusic.player;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.text.TextUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.litepal.LitePal;
+import org.litepal.crud.callback.FindCallback;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -32,7 +33,6 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     private PlayerStatus status = PlayerStatus.STOP;
     private ManagedMediaPlayer mMediaPlayer;
-    private Context mContext;
     private LinkedList<Song> mQueue;
     private int mQueueIndex;
     private PlayMode mPlayMode;
@@ -140,8 +140,8 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         play(getNowPlaying());
     }
 
-    private void play(Song song) {
-        pause();
+    private void play(final Song song) {
+        stop();
         //如果是本地歌曲直接播放
         if (song.isLocal() && FileUtils.isFileExist(song.getPlayUrl())) {
             doPlay(song);
@@ -150,7 +150,17 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
             String filePath = CommonUtil.getSongSavePath(song.getHash());
             if (FileUtils.isFileExist(filePath)) {
                 song.setPlayUrl(filePath);
-                doPlay(song);
+                LitePal.where("hash = ?", song.getHash()).findFirstAsync(Song.class).listen(new FindCallback<Song>() {
+                    @Override
+                    public void onFinish(Song songDB) {
+                        if (songDB != null) {
+                            song.setImgUrl(songDB.getImgUrl());
+                            song.setPortrait(songDB.getPortrait());
+                            song.setLrc(songDB.getLrc());
+                        }
+                        doPlay(song);
+                    }
+                });
             } else {
                 CloudDataUtil.getSongFromCloud(song, new GetSongCallBack() {
                     @Override
@@ -180,6 +190,14 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void stop() {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
+            cancelTimer();
+            sendPlayerInformation(PlayerStatus.STOP);
         }
     }
 
@@ -304,7 +322,6 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
             mMediaPlayer.release();
         }
         mMediaPlayer = null;
-        mContext = null;
         player = null;
     }
 

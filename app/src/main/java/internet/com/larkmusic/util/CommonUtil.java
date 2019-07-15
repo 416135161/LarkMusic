@@ -71,7 +71,7 @@ public final class CommonUtil {
         return "";
     }
 
-    private static String getLocalSavePath() {
+    public static String getLocalSavePath() {
         return Environment.getExternalStorageDirectory().getPath() + "/" +
                 MusicApplication.getInstance().getPackageName() + "/";
     }
