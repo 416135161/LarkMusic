@@ -2,6 +2,9 @@ package internet.com.larkmusic.bean;
 
 import android.text.TextUtils;
 
+import org.litepal.annotation.Column;
+import org.litepal.crud.LitePalSupport;
+
 import java.io.Serializable;
 
 /**
@@ -9,30 +12,24 @@ import java.io.Serializable;
  * created on: 2019/5/12 下午8:57
  * description:
  */
-public class Song implements Serializable{
-    private String songName;
-
-    public int duration;
-
-    private String playUrl;
-
-    private String imgUrl;
-
+public class Song extends LitePalSupport implements Serializable {
+    @Column(unique = true, defaultValue = "unknown")
     private String hash;
-
+    private String songName;
+    public int duration;
+    private String playUrl;
+    private String imgUrl;
     private String singerName;
-
     private String lrc;
-
     private String portrait;
-
+    @Column(ignore = true)
     private boolean isLocal;
 
 
     public String getSongName() {
-        if(!TextUtils.isEmpty(songName) && songName.matches(".*\\(.*")){
+        if (!TextUtils.isEmpty(songName) && songName.matches(".*\\(.*")) {
             songName = songName.substring(0, songName.indexOf("("));
-        }else if(!TextUtils.isEmpty(songName) && songName.matches(".*\\【.*")){
+        } else if (!TextUtils.isEmpty(songName) && songName.matches(".*\\【.*")) {
             songName = songName.substring(0, songName.indexOf("【"));
         }
         return songName;

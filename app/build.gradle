@@ -64,5 +64,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:17.2.0'
     implementation 'com.arialyy.aria:aria-core:3.6.4'
     annotationProcessor 'com.arialyy.aria:aria-compiler:3.6.4'
-
+    implementation 'org.litepal.android:java:3.0.0'
 }

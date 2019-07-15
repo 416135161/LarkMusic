@@ -3,6 +3,8 @@ package internet.com.larkmusic.app;
 import android.app.Application;
 import android.graphics.Typeface;
 
+import org.litepal.LitePal;
+
 import internet.com.larkmusic.network.Config;
 
 /**
@@ -18,6 +20,7 @@ public class MusicApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        LitePal.initialize(this);
         try {
             Config.tf4 = Typeface.createFromAsset(getAssets(), "fonts/Intro_Cond_Light.otf");
             Config.tf3 = Typeface.createFromAsset(getAssets(), "fonts/Gidole-Regular.ttf");

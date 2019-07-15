@@ -4,7 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
+import org.litepal.LitePal;
+
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import internet.com.larkmusic.bean.Song;
 
@@ -27,7 +31,7 @@ public class AudioUtils {
 
         Cursor cursor = context.getContentResolver().query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                new String[] { MediaStore.Audio.Media._ID,
+                new String[]{MediaStore.Audio.Media._ID,
                         MediaStore.Audio.Media.DISPLAY_NAME,
                         MediaStore.Audio.Media.TITLE,
                         MediaStore.Audio.Media.DURATION,
@@ -36,10 +40,10 @@ public class AudioUtils {
                         MediaStore.Audio.Media.YEAR,
                         MediaStore.Audio.Media.MIME_TYPE,
                         MediaStore.Audio.Media.SIZE,
-                        MediaStore.Audio.Media.DATA },
+                        MediaStore.Audio.Media.DATA},
                 MediaStore.Audio.Media.MIME_TYPE + "=? or "
                         + MediaStore.Audio.Media.MIME_TYPE + "=?",
-                new String[] { "audio/mpeg", "audio/x-ms-wma" }, null);
+                new String[]{"audio/mpeg", "audio/x-ms-wma"}, null);
 
         songs = new ArrayList<Song>();
 
@@ -92,5 +96,20 @@ public class AudioUtils {
         return songs;
     }
 
+    public static List<Song> getAllSongs() {
+        List<File> fileList = FileUtils.listFilesInDir(CommonUtil.getLocalSavePath());
+        List<Song> songs = new ArrayList<>();
+        for (File file : fileList) {
+            String fileName = file.getName();
+            String hash = fileName.substring(0, fileName.indexOf("."));
+            Song song = LitePal.where("hash = ?", hash).findFirst(Song.class);
+            if (song != null) {
+                song.setLocal(true);
+                song.setPlayUrl(file.getAbsolutePath());
+                songs.add(song);
+            }
+        }
+        return songs;
+    }
 
 }
