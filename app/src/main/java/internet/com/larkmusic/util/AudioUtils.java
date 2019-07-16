@@ -97,16 +97,18 @@ public class AudioUtils {
     }
 
     public static List<Song> getAllSongs() {
-        List<File> fileList = FileUtils.listFilesInDir(CommonUtil.getLocalSavePath());
         List<Song> songs = new ArrayList<>();
-        for (File file : fileList) {
-            String fileName = file.getName();
-            String hash = fileName.substring(0, fileName.indexOf("."));
-            Song song = LitePal.where("hash = ?", hash).findFirst(Song.class);
-            if (song != null) {
-                song.setLocal(true);
-                song.setPlayUrl(file.getAbsolutePath());
-                songs.add(song);
+        List<File> fileList = FileUtils.listFilesInDir(CommonUtil.getLocalSavePath());
+        if (fileList != null && fileList.size() > 0) {
+            for (File file : fileList) {
+                String fileName = file.getName();
+                String hash = fileName.substring(0, fileName.indexOf("."));
+                Song song = LitePal.where("hash = ?", hash).findFirst(Song.class);
+                if (song != null) {
+                    song.setLocal(true);
+                    song.setPlayUrl(file.getAbsolutePath());
+                    songs.add(song);
+                }
             }
         }
         return songs;

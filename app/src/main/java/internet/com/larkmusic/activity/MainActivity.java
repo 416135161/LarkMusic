@@ -72,6 +72,16 @@ public class MainActivity extends AdsBaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         onClickViewHall();
+        initSavedState();
+    }
+
+    private void initSavedState() {
+        if (MusicPlayer.getPlayer().getNowPlaying() != null && !MusicPlayer.getPlayer().isPlaying()) {
+            ActionPlayerInformEvent actionPlayerInformEvent = new ActionPlayerInformEvent();
+            actionPlayerInformEvent.song = MusicPlayer.getPlayer().getNowPlaying();
+            actionPlayerInformEvent.action = PlayerStatus.STOP;
+            onEventPlayerInform(actionPlayerInformEvent);
+        }
     }
 
     @OnClick(R.id.view_hall)
@@ -262,6 +272,7 @@ public class MainActivity extends AdsBaseActivity {
             ivSingerIndicator.setVisibility(View.VISIBLE);
         } else if (event.action == PlayerStatus.STOP) {
             ivPlayStop.setImageResource(R.mipmap.ic_home_play);
+            tvSong.setText(event.song.getSongName());
             ivSingerIndicator.setVisibility(View.GONE);
         } else if (event.action == PlayerStatus.PREPARE) {
             RotateAnimation.create().with(ivSingerIndicator)
