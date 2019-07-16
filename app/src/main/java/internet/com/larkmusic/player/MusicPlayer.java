@@ -3,6 +3,9 @@ package internet.com.larkmusic.player;
 import android.media.MediaPlayer;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
 import org.litepal.crud.callback.FindCallback;
@@ -17,6 +20,7 @@ import java.util.TimerTask;
 import internet.com.larkmusic.action.ActionDownLoad;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.PlayerStatus;
+import internet.com.larkmusic.bean.SavedStateBean;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.GetSongCallBack;
 import internet.com.larkmusic.util.CloudDataUtil;
@@ -76,6 +80,19 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         mQueueIndex = 0;
 
         mPlayMode = PlayMode.LOOP;
+        initSavedState();
+    }
+
+    private void initSavedState() {
+        SavedStateBean currentStateBean = LitePal.where("tag = ?", SavedStateBean.TAG_STATE).findFirst(SavedStateBean.class);
+        if (currentStateBean != null) {
+            mQueueIndex = currentStateBean.getIndex();
+            List<Song> songList = new Gson().fromJson(currentStateBean.getCurrentPlayList(), new TypeToken<List<Song>>() {
+            }.getType());
+            if (songList != null && songList.size() > 0) {
+                mQueue.addAll(songList);
+            }
+        }
     }
 
     public void addQueue(List<Song> songs, boolean playNow) {
@@ -318,11 +335,22 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     public void release() {
+        saveCurrentState();
         if (mMediaPlayer != null) {
             mMediaPlayer.release();
         }
         mMediaPlayer = null;
         player = null;
+    }
+
+    private void saveCurrentState() {
+        if (mQueue != null && mQueue.size() > 0) {
+            SavedStateBean currentStateBean = new SavedStateBean();
+            currentStateBean.setTag(SavedStateBean.TAG_STATE);
+            currentStateBean.setIndex(MusicPlayer.getPlayer().mQueueIndex);
+            currentStateBean.setCurrentPlayList(new Gson().toJson(mQueue));
+            currentStateBean.saveOrUpdate("tag = ?", SavedStateBean.TAG_STATE);
+        }
     }
 
     public boolean isPlaying() {

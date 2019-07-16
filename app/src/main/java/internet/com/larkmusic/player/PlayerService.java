@@ -1,5 +1,6 @@
 package internet.com.larkmusic.player;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,27 +9,23 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.os.Environment;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
 import com.arialyy.aria.core.Aria;
-import com.arialyy.aria.util.FileUtil;
-
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.OnClick;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionDownLoad;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.PlayerStatus;
-import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.activity.PlayerActivity;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.receiver.MediaButtonIntentReceiver;
@@ -36,6 +33,8 @@ import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.FileUtils;
 
 public class PlayerService extends Service {
+    public static final int NOTICE_ID = 100;
+
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -50,6 +49,11 @@ public class PlayerService extends Service {
         }
         registerHeadsetReceiver(this);
         initNotification();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+
+        } else {
+            startForeground(NOTICE_ID, new Notification());
+        }
     }
 
     @Override
@@ -60,6 +64,7 @@ public class PlayerService extends Service {
         }
         return START_STICKY;
     }
+
 
     private void handleAction(String action) {
         if (TextUtils.equals(action, PREVIOUS_ACTION)) {
@@ -142,7 +147,11 @@ public class PlayerService extends Service {
             EventBus.getDefault().unregister(this);
         }
         unregisterHeadsetReceiver(this);
+        Intent intent = new Intent(getApplicationContext(), PlayerService.class);
+        startService(intent);
     }
+
+
 
     public void registerHeadsetReceiver(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);// 另说context.AUDIO_SERVICE

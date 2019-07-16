@@ -16,6 +16,7 @@ import android.widget.Toast;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.animations.PulseAnimation;
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayerService;
 
 /**
@@ -72,6 +73,10 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void startHomeActivity() {
+        int delayTime = 1500;
+        if (MusicPlayer.getPlayer().isPlaying()) {
+            delayTime = 600;
+        }
         PulseAnimation.create().with(findViewById(R.id.splash_img))
                 .setDuration(300)
                 .setRepeatCount(4)
@@ -84,7 +89,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-        }, 1500);
+        }, delayTime);
     }
 
     public void requestPermissions() {
@@ -100,10 +105,10 @@ public class SplashActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, permissions, PERMISSIONS_REQUEST_CODE);
     }
 
-    private void startService(){
+    private void startService() {
         //启动服务
-        Intent intent = new Intent() ;
-        intent.setClass(this , PlayerService.class) ;
-        startService(intent) ;
+        Intent intent = new Intent();
+        intent.setClass(this, PlayerService.class);
+        startService(intent);
     }
 }

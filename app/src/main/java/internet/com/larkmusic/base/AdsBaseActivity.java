@@ -98,11 +98,12 @@ public class AdsBaseActivity extends EventActivity {
 
     protected void doFinish() {
         if (MusicPlayer.getPlayer() != null && MusicPlayer.getPlayer().isPlaying()) {
-            startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME));
+//            startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME));
+            finish();
         } else {
             finish();
-            Intent intent = new Intent() ;
-            intent.setClass(this , PlayerService.class) ;
+            Intent intent = new Intent();
+            intent.setClass(this, PlayerService.class);
             stopService(intent);
         }
     }
