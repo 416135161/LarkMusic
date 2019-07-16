@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Music Box</string>
 
-    <string name="hall_title">Hall</string>
+    <string name="hall_title">Discover</string>
     <string name="search_title">Search</string>
     <string name="library_title">Library</string>
     <string name="me_title">Me</string>

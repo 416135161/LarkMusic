@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Music Box</string>
 
-    <string name="hall_title">音乐</string>
+    <string name="hall_title">发现</string>
     <string name="search_title">搜索</string>
     <string name="library_title">曲库</string>
     <string name="me_title">我的</string>

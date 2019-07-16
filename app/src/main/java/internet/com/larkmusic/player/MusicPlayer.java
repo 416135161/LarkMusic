@@ -109,7 +109,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         } else {
             mQueue.addAll(songs);
         }
-
+        saveCurrentState();
     }
 
     public void deleteIfExist(Song song) {
@@ -119,6 +119,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         for (int i = mQueue.size() - 1; i >= 0; i--) {
             if (TextUtils.equals(song.getHash(), mQueue.get(i).getHash())) {
                 mQueue.remove(i);
+                saveCurrentState();
                 return;
             }
         }
@@ -136,6 +137,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         } else {
             mQueue.addLast(song);
         }
+        saveCurrentState();
     }
 
     public void addQueueLater(Song song) {
@@ -145,6 +147,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         initQueue();
         deleteIfExist(song);
         mQueue.addLast(song);
+        saveCurrentState();
     }
 
     private void initQueue() {
