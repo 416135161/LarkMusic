@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -270,6 +271,8 @@ public class MainActivity extends AdsBaseActivity {
             ivPlayStop.setImageResource(R.mipmap.ic_home_pause);
             tvSong.setText(event.song.getSongName());
             ivSingerIndicator.setVisibility(View.VISIBLE);
+            Animation animation = ivSingerIndicator.getAnimation();
+
         } else if (event.action == PlayerStatus.STOP) {
             ivPlayStop.setImageResource(R.mipmap.ic_home_play);
             tvSong.setText(event.song.getSongName());
@@ -278,6 +281,7 @@ public class MainActivity extends AdsBaseActivity {
             RotateAnimation.create().with(ivSingerIndicator)
                     .setDuration(6000)
                     .start();
+
             tvSong.setText(event.song.getSongName());
             ivSingerIndicator.setVisibility(View.VISIBLE);
         }

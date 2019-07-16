@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Free Music</string>
 
-    <string name="hall_title">ホール</string>
-    <string name="search_title">サーチ</string>
+    <string name="hall_title">発見</string>
+    <string name="search_title">検索する</string>
     <string name="library_title">曲リスト</string>
     <string name="me_title">私の</string>
 
