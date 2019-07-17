@@ -1,5 +1,6 @@
 package internet.com.larkmusic.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -41,6 +42,7 @@ import internet.com.larkmusic.fragment.PlayingListDialog;
 import internet.com.larkmusic.fragment.SearchFragment;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.player.MusicPlayer;
+import internet.com.larkmusic.player.PlayerService;
 import internet.com.larkmusic.util.SpHelper;
 
 public class MainActivity extends AdsBaseActivity {
@@ -74,6 +76,13 @@ public class MainActivity extends AdsBaseActivity {
         ButterKnife.bind(this);
         onClickViewHall();
         initSavedState();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = new Intent(getApplicationContext(), PlayerService.class);
+        startService(intent);
     }
 
     private void initSavedState() {

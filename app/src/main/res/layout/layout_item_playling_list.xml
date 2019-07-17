@@ -36,20 +36,22 @@
                 android:id="@+id/tv_song"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="Let you love me"
                 android:textColor="@color/text_666"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:singleLine="true"
-                android:ellipsize="end"
                 />
 
             <TextView
                 android:id="@+id/tv_singer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dimest"
+                android:ellipsize="end"
                 android:paddingLeft="5dp"
+                android:singleLine="true"
+                android:text="Dimest"
                 android:textColor="@color/text_999"
                 android:textSize="12sp"
                 />
@@ -58,11 +60,11 @@
         <ImageView
             android:id="@+id/iv_delete"
             android:layout_width="54dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:paddingLeft="14dp"
-            android:scaleType="fitEnd"
-            android:src="@mipmap/ic_cancel"
             android:paddingRight="20dp"
+            android:scaleType="center"
+            android:src="@mipmap/ic_cancel"
             />
     </LinearLayout>
 

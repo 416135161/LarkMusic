@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 
+import org.litepal.LitePal;
+
 import java.io.File;
 import java.util.List;
 
@@ -79,6 +81,17 @@ public final class CommonUtil {
     public static String getSongSavePath(String hash) {
         return getLocalSavePath()
                 + hash.trim() + ".mp3";
+    }
+
+
+    public static String getDBImage(String hash) {
+
+        Song song = LitePal.where("hash = ?", hash).findFirst(Song.class);
+        if (song != null) {
+            return song.getImgUrl();
+        } else {
+            return null;
+        }
     }
 
 }

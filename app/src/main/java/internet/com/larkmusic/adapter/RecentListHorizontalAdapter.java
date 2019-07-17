@@ -2,6 +2,7 @@ package internet.com.larkmusic.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.util.CommonUtil;
 
 /**
  * Created by sjning
@@ -45,6 +47,9 @@ public class RecentListHorizontalAdapter extends RecyclerView.Adapter<RecentList
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         Song t = songList.get(position);
+        if (TextUtils.isEmpty(t.getImgUrl())) {
+            t.setImgUrl(CommonUtil.getDBImage(t.getHash()));
+        }
         Picasso.with(ctx)
                 .load(t.getImgUrl())
                 .error(R.mipmap.ic_song_cover_default)

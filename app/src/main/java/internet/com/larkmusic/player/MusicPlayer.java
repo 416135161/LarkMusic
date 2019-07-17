@@ -194,7 +194,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
                     @Override
                     public void onSongGetFail() {
-                        Toast.makeText(MusicApplication.getInstance(), MusicApplication.getInstance().getString(R.string.can_not_download), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MusicApplication.getInstance(), MusicApplication.getInstance().getString(R.string.can_not_play), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
