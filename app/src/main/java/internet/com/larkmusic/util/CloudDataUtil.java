@@ -15,6 +15,7 @@ import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionStartLoading;
 import internet.com.larkmusic.action.ActionStopLoading;
 import internet.com.larkmusic.bean.Album;
+import internet.com.larkmusic.bean.PlayUrlResponse;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.bean.songDetailResponse.SongDetailKuGou;
 import internet.com.larkmusic.network.Config;
@@ -209,6 +210,44 @@ public final class CloudDataUtil {
 
             @Override
             public void onFailure(Call<SongDetailKuGou> call, Throwable t) {
+                EventBus.getDefault().post(new ActionStopLoading());
+                if (callBack != null) {
+                    callBack.onSongGetFail();
+                }
+            }
+
+        });
+    }
+
+    //获取歌曲详情
+    public static void getSongPlayUrl(final Song song, final GetSongCallBack callBack) {
+        if (song == null) {
+            return;
+        }
+        EventBus.getDefault().post(new ActionStartLoading());
+        StreamService ss = HttpUtil.getApiService(Config.HOST_GET_PLAY_URL, null);
+        Call<PlayUrlResponse> call = ss.getPlayUrl(song.getHash());
+        call.enqueue(new Callback<PlayUrlResponse>() {
+
+            @Override
+            public void onResponse(Call<PlayUrlResponse> call, Response<PlayUrlResponse> response) {
+                EventBus.getDefault().post(new ActionStopLoading());
+                if (response.isSuccessful() && response.body() != null && !TextUtils.isEmpty(response.body().getPlayUrl())) {
+                    //对原来的歌曲对象赋值
+                    song.setPlayUrl(response.body().getPlayUrl());
+                    if (callBack != null) {
+                        callBack.onSongGetOk(song);
+                    }
+                } else {
+                    if (callBack != null) {
+                        callBack.onSongGetFail();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<PlayUrlResponse> call, Throwable t) {
                 EventBus.getDefault().post(new ActionStopLoading());
                 if (callBack != null) {
                     callBack.onSongGetFail();

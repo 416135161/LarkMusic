@@ -78,7 +78,7 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
                 // 先判断是否已经下载，如果已经下载则直接关闭，如果没有下载则去请求下载地址下载
                 String downloadPath = CommonUtil.getSongSavePath(song.getHash());
                 if (!FileUtils.isFileExist(downloadPath)) {
-                    CloudDataUtil.getSongFromCloud(song, new GetSongCallBack() {
+                    CloudDataUtil.getSongPlayUrl(song, new GetSongCallBack() {
                         @Override
                         public void onSongGetOk(Song song) {
                             EventBus.getDefault().post(new ActionDownLoad(song));

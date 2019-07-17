@@ -98,8 +98,7 @@ public class AdsBaseActivity extends EventActivity {
 
     protected void doFinish() {
         if (MusicPlayer.getPlayer() != null && MusicPlayer.getPlayer().isPlaying()) {
-//            startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME));
-            finish();
+            startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME));
         } else {
             finish();
             Intent intent = new Intent();

@@ -47,8 +47,8 @@ public class RecentListHorizontalAdapter extends RecyclerView.Adapter<RecentList
         Song t = songList.get(position);
         Picasso.with(ctx)
                 .load(t.getImgUrl())
-                .error(R.mipmap.ic_song_default)
-                .placeholder(R.mipmap.ic_song_default)
+                .error(R.mipmap.ic_song_cover_default)
+                .placeholder(R.mipmap.ic_song_cover_default)
                 .into(holder.art);
         holder.title.setText(t.getSongName());
     }

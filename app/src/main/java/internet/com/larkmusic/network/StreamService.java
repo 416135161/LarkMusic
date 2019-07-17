@@ -3,6 +3,7 @@ package internet.com.larkmusic.network;
 import java.util.ArrayList;
 
 import internet.com.larkmusic.bean.Album;
+import internet.com.larkmusic.bean.PlayUrlResponse;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.bean.songDetailResponse.SongDetailKuGou;
 import retrofit2.Call;
@@ -102,6 +103,15 @@ public interface StreamService {
      */
     @GET("/music/save/img")
     Call<Boolean> saveSongImg(@Query("hash") String hash, @Query("img")String img);
+
+    /**
+     * 获取歌曲播放地址
+     * http://39.107.89.143/fm/ck/playmusic/gettest.do?hash=5C344B6DC0EE370652FC5DF0EC005AA2
+     * @param hash
+     * @return
+     */
+    @GET("/fm/ck/playmusic/gettest.do")
+    Call<PlayUrlResponse> getPlayUrl(@Query("hash") String hash);
 
 
 }

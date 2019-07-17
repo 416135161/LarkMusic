@@ -53,6 +53,8 @@
                 android:text="Let you love me"
                 android:textColor="@color/text_666"
                 android:textSize="14sp"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textStyle="bold"
                 />
 
