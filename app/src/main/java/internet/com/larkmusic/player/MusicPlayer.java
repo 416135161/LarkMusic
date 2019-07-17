@@ -2,6 +2,7 @@ package internet.com.larkmusic.player;
 
 import android.media.MediaPlayer;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -17,9 +18,11 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionDownLoad;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.PlayerStatus;
+import internet.com.larkmusic.app.MusicApplication;
 import internet.com.larkmusic.bean.SavedStateBean;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.GetSongCallBack;
@@ -191,7 +194,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
                     @Override
                     public void onSongGetFail() {
-
+                        Toast.makeText(MusicApplication.getInstance(), MusicApplication.getInstance().getString(R.string.can_not_download), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

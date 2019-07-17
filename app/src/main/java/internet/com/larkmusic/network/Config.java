@@ -29,6 +29,8 @@ public final class Config {
     public static final String GENIUS = "genius";
     public static String HOST_GET_SONG = "http://wwwapi.kugou.com";
     public static String HOST_GET_PLAY_URL = "http://39.107.89.143";
+    public static String HOST_GET_LRC = "http://lyrics.kugou.com";
+    public static String HOST_GET_IMAGE = "http://kmr.service.kugou.com";
     //测试
 //    public static final String API_HOST = "http://101.200.200.156:8080";
     //生产
