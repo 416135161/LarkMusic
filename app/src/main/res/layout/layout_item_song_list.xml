@@ -65,6 +65,8 @@
                 android:paddingLeft="5dp"
                 android:textColor="@color/text_999"
                 android:textSize="12sp"
+                android:singleLine="true"
+                android:ellipsize="end"
                 />
         </LinearLayout>
 

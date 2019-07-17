@@ -182,7 +182,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
                     }
                 });
             } else {
-                CloudDataUtil.getSongFromCloud(song, new GetSongCallBack() {
+                CloudDataUtil.getSongPlayUrl(song, new GetSongCallBack() {
                     @Override
                     public void onSongGetOk(Song song) {
                         doPlay(song);
