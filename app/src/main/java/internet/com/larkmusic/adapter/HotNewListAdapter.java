@@ -1,6 +1,7 @@
 package internet.com.larkmusic.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.listener.MyClickListener;
+import internet.com.larkmusic.util.CommonUtil;
 
 /**
  * Created by sjning
@@ -62,6 +64,9 @@ public class HotNewListAdapter extends BaseAdapter {
         holder.title.setText(song.getSongName());
         holder.artist.setText(song.getSingerName());
         holder.no.setText((i + 1) + "");
+        if (TextUtils.isEmpty(song.getImgUrl())) {
+            song.setImgUrl(CommonUtil.getDBImage(song.getHash()));
+        }
         Picasso.with(context)
                 .load(song.getImgUrl())
                 .error(R.mipmap.ic_song_default)

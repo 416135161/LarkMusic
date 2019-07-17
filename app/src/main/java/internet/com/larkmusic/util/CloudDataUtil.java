@@ -244,6 +244,7 @@ public final class CloudDataUtil {
                     //对原来的歌曲对象赋值
                     song.setPlayUrl(response.body().getPlayUrl());
                     song.saveOrUpdate("hash = ?", song.getHash());
+                    getSongImage(song);
                     getSongLrc(song, null);
                     if (callBack != null) {
                         callBack.onSongGetOk(song);
@@ -284,7 +285,7 @@ public final class CloudDataUtil {
                         && response.body().getCandidates().size() > 0) {
                     SearchLrcResponse.CandidatesBean candidatesBean = response.body().getCandidates().get(0);
                     getLrc(song, candidatesBean.getAccesskey(), candidatesBean.getId(), callBack);
-                    getSongImage(song);
+
                 } else {
                     if (callBack != null) {
                         callBack.onLrcGetFail();

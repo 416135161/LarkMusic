@@ -146,8 +146,6 @@ public class PlayerService extends Service {
             EventBus.getDefault().unregister(this);
         }
         unregisterHeadsetReceiver(this);
-        Intent intent = new Intent(getApplicationContext(), PlayerService.class);
-        startService(intent);
     }
 
 
