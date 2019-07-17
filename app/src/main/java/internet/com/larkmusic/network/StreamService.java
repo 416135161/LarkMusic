@@ -3,11 +3,17 @@ package internet.com.larkmusic.network;
 import java.util.ArrayList;
 
 import internet.com.larkmusic.bean.Album;
+import internet.com.larkmusic.bean.GetImageRequest;
+import internet.com.larkmusic.bean.GetImageResponse;
+import internet.com.larkmusic.bean.GetLrcResponse;
 import internet.com.larkmusic.bean.PlayUrlResponse;
+import internet.com.larkmusic.bean.SearchLrcResponse;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.bean.songDetailResponse.SongDetailKuGou;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -102,16 +108,43 @@ public interface StreamService {
      * @return
      */
     @GET("/music/save/img")
-    Call<Boolean> saveSongImg(@Query("hash") String hash, @Query("img")String img);
+    Call<Boolean> saveSongImg(@Query("hash") String hash, @Query("img") String img);
 
     /**
      * 获取歌曲播放地址
      * http://39.107.89.143/fm/ck/playmusic/gettest.do?hash=5C344B6DC0EE370652FC5DF0EC005AA2
+     *
      * @param hash
      * @return
      */
     @GET("/fm/ck/playmusic/gettest.do")
     Call<PlayUrlResponse> getPlayUrl(@Query("hash") String hash);
 
+    /**
+     * http://lyrics.kugou.com/search?ver=1&man=yes&client=pc&hash=8CC5C1FECB66087DCC05CBCE01E72CB4
+     *
+     * @param hash
+     * @return
+     */
+    @GET("/search?ver=1&man=yes&client=pc")
+    Call<SearchLrcResponse> searchLrc(@Query("hash") String hash);
+
+    /**
+     * http://lyrics.kugou.com/download?ver=1&client=pc&id=10515303&accesskey=3A20F6A1933DE370EBA0187297F5477D&fmt=lrc&charset=utf8
+     *
+     * @param accesskey
+     * @param id
+     * @return
+     */
+    @GET("/download?ver=1&client=pc&fmt=lrc&charset=utf8")
+    Call<GetLrcResponse> getLrc(@Query("accesskey") String accesskey, @Query("id") String id);
+
+    /**
+     *
+     * @param content
+     * @return
+     */
+    @POST("/v1/album/audio")
+    Call<GetImageResponse> getSongImg(@Body GetImageRequest content);
 
 }

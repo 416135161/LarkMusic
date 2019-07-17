@@ -58,5 +58,6 @@
     <string name="add_to_favorite">添加收藏</string>
     <string name="please_pull_refresh">请下拉刷新 !</string>
     <string name="can_not_download">此歌曲不提供下载 !</string>
+    <string name="can_not_play">此歌曲不能播放 !</string>
 
 </resources>

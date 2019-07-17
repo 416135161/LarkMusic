@@ -90,7 +90,7 @@
                     android:src="@mipmap/icon_back"
                     />
 
-                <ImageView
+                <com.itheima.roundedimageview.RoundedImageView
                     android:id="@+id/iv_song_bg"
                     android:layout_width="315dp"
                     android:layout_height="315dp"
@@ -98,6 +98,10 @@
                     android:layout_marginTop="28dp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/icon_player_main_default"
+                    app:riv_border_color="#333333"
+                    app:riv_border_width="0dip"
+                    app:riv_corner_radius="3dp"
+                    app:riv_oval="false"
                     />
 
                 <TextView
@@ -133,6 +137,7 @@
                 android:layout_marginTop="345dp"
                 android:src="@mipmap/ic_singer_default"
                 app:civ_border_width="0dp"
+                android:visibility="invisible"
                 />
         </FrameLayout>
     </FrameLayout>

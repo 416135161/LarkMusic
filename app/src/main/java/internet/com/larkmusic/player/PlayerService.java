@@ -128,7 +128,6 @@ public class PlayerService extends Service {
         Song song = actionDownLoad.song;
         String filePath = CommonUtil.getSongSavePath(song.getHash());
         if (!FileUtils.isFileExist(filePath)) {
-            song.save();
             Aria.download(this)
                     .load(song.getPlayUrl())     //读取下载地址
                     .setFilePath(filePath)

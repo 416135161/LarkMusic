@@ -57,4 +57,6 @@
     <string name="add_to_favorite">お気に入りに追加</string>
     <string name="please_pull_refresh">リフレッシュしてください！</string>
     <string name="can_not_download">ダウンロードを提供できません!</string>
+    <string name="can_not_play">この曲は再生できません !</string>
+
 </resources>

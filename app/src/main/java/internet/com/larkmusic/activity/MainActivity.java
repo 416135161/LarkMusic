@@ -287,12 +287,12 @@ public class MainActivity extends AdsBaseActivity {
         }
         Song song = event.song;
         Picasso.with(this)
-                .load(song.getPortrait())
+                .load(song.getImgUrl())
                 .error(R.mipmap.ic_singer_default)
                 .placeholder(R.mipmap.ic_singer_default)
                 .into(ivSinger);
         Picasso.with(this)
-                .load(song.getPortrait())
+                .load(song.getImgUrl())
                 .error(R.mipmap.ic_singer_default)
                 .placeholder(R.mipmap.ic_singer_default)
                 .into(ivSingerIndicator);
