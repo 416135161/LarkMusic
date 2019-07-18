@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alin.lib.bannerlib.listener.OnBannerClickListener;
+import com.alin.lib.bannerlib.view.BannerImageView;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -92,6 +95,21 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 .setIndcatorTitles(mTitles) //title数据
                 .setAutoPlay(false)
                 .start();
+        mBannerView.setOnBannerClickListener(new OnBannerClickListener() {
+            @Override
+            public void onBannerClickListener(BannerImageView imageView, Object model, int position) {
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+                HotNewListFragment.TYPE = HotNewListFragment.TYPE_NEW;
+                Fragment fragment = new HotNewListFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("from", Config.FROM == Config.FROM_JAPAN ? Config.FROM_US : Config.FROM_JAPAN);
+                fragment.setArguments(bundle);
+                transaction.add(R.id.view_container, fragment);
+                transaction.addToBackStack("");
+                transaction.commit();
+            }
+        });
         CommonUtil.setTvBoldFace(mTvTitle);
         showDialog();
         CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
@@ -170,7 +188,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 new4.refreshView(event.trackList.get(4));
                 new5.refreshView(event.trackList.get(5));
                 mNewList = (ArrayList<Song>) event.trackList;
-            }else {
+            } else {
                 Toast.makeText(getContext(), getString(R.string.please_pull_refresh), Toast.LENGTH_SHORT).show();
             }
         }
@@ -192,7 +210,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 hot4.refreshView(subList.get(4));
                 hot5.refreshView(subList.get(5));
                 mHotList = (ArrayList<Song>) event.trackList;
-            }else {
+            } else {
                 Toast.makeText(getContext(), getString(R.string.please_pull_refresh), Toast.LENGTH_SHORT).show();
             }
         }

@@ -3,6 +3,8 @@ package internet.com.larkmusic.app;
 import android.app.Application;
 import android.graphics.Typeface;
 
+import com.facebook.ads.AudienceNetworkAds;
+
 import org.litepal.LitePal;
 
 import internet.com.larkmusic.network.Config;
@@ -28,6 +30,8 @@ public class MusicApplication extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        AudienceNetworkAds.isInAdsProcess(this);
+        AudienceNetworkAds.initialize(this);
 
     }
 

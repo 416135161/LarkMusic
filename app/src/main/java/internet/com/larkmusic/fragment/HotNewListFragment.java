@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -26,7 +24,6 @@ import internet.com.larkmusic.adapter.HotNewListAdapter;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
-import internet.com.larkmusic.util.BlurTransformation;
 import internet.com.larkmusic.util.CloudDataUtil;
 
 /**
@@ -68,15 +65,8 @@ public class HotNewListFragment extends EventFragment {
         initHeaderAndFooter();
         initView();
         if (TYPE == TYPE_NEW) {
-
             mIvHeader.setImageResource(R.mipmap.ic_new_header_bg);
         } else {
-            CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, Config.FROM);
-            Picasso.with(getContext())
-                    .load(R.mipmap.ic_hot_header_bg)
-                    .error(R.mipmap.ic_song_default)
-                    .placeholder(R.mipmap.ic_song_default)
-                    .into(mIvHeader);
             mIvHeader.setImageResource(R.mipmap.ic_hot_header_bg);
         }
 
@@ -88,9 +78,9 @@ public class HotNewListFragment extends EventFragment {
         } else {
             showDialog();
             if (TYPE == TYPE_NEW) {
-                CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_LIST, Config.FROM);
+                CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_LIST, from);
             } else {
-                CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, Config.FROM);
+                CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, from);
             }
         }
     }
