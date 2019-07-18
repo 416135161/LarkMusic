@@ -244,8 +244,12 @@ public final class CloudDataUtil {
                     //对原来的歌曲对象赋值
                     song.setPlayUrl(response.body().getPlayUrl());
                     song.saveOrUpdate("hash = ?", song.getHash());
-                    getSongImage(song);
-                    getSongLrc(song, null);
+                    if (TextUtils.isEmpty(song.getImgUrl())) {
+                        getSongImage(song);
+                    }
+                    if (TextUtils.isEmpty(song.getLrc())) {
+                        getSongLrc(song, null);
+                    }
                     if (callBack != null) {
                         callBack.onSongGetOk(song);
                     }
@@ -393,8 +397,8 @@ public final class CloudDataUtil {
                     //对原来的歌曲对象赋值
                     if (response.body().getData().get(0) != null
                             && response.body().getData().get(0).size() > 0
-                    && !TextUtils.isEmpty(response.body().getData().get(0).get(0).getSizable_cover())) {
-                        song.setImgUrl(response.body().getData().get(0).get(0).getSizable_cover().replace("{size}","400"));
+                            && !TextUtils.isEmpty(response.body().getData().get(0).get(0).getSizable_cover())) {
+                        song.setImgUrl(response.body().getData().get(0).get(0).getSizable_cover().replace("{size}", "400"));
                         song.saveOrUpdate("hash = ?", song.getHash());
                     }
 

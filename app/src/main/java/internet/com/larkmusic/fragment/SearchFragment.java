@@ -125,14 +125,17 @@ public class SearchFragment extends EventFragment {
         mValues = new ArrayList<>();
         //日本歌手
         if (Config.getFrom() == Config.FROM_JAPAN) {
-            mValues.add("ボーカロイド");
-            mValues.add("泽野弘之");
-            mValues.add("手嶌葵");
-            mValues.add("山下智久");
-            mValues.add("おぐり しゅん");
-            mValues.add("石原さとみ");
+            mValues.add("DAISHI DANCE");
+            mValues.add("花澤香菜");
+            mValues.add("澤野弘之");
+            mValues.add("久石譲");
+            mValues.add("倉木麻衣");
+            mValues.add("majiko");
+            mValues.add("RADWIMPS");
             mValues.add("新垣結衣");
-            Collections.shuffle(mValues);
+            mValues.add("Aimer");
+            mValues.add("DJ OKAWARI");
+            mValues.add("高梨康治 ");
         } else if (Config.getFrom() == Config.FROM_CHINESE) {
             mValues.add("林俊杰");
             mValues.add("薛之谦");
@@ -151,6 +154,11 @@ public class SearchFragment extends EventFragment {
             mValues.add("The Chainsmokers");
             mValues.add("Olly Murs");
             mValues.add("Vicetone");
+            mValues.add("Taylor Swift");
+            mValues.add("Zella Day");
+            mValues.add("Shawn Mendes");
+            mValues.add("Charlie Puth");
+            mValues.add("Sia");
         }
 
         //往容器内添加TextView数据

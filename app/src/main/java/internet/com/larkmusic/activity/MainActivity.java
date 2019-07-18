@@ -33,6 +33,8 @@ import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.animations.RotateAnimation;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.base.AdsBaseActivity;
+import internet.com.larkmusic.base.BaseActivity;
+import internet.com.larkmusic.base.MainBaseActivity;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.fragment.HallFragment;
 import internet.com.larkmusic.fragment.LibraryFragment;
@@ -45,7 +47,7 @@ import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayerService;
 import internet.com.larkmusic.util.SpHelper;
 
-public class MainActivity extends AdsBaseActivity {
+public class MainActivity extends MainBaseActivity {
 
     @BindView(R.id.iv_hall)
     ImageView ivHall;
