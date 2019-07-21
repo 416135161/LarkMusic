@@ -3,6 +3,7 @@ package internet.com.larkmusic.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
@@ -21,11 +24,8 @@ import internet.com.larkmusic.adapter.RecentListHorizontalAdapter;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.BaseFragment;
-import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.listener.ClickItemTouchListener;
-import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.util.RecentSongService;
-import internet.com.larkmusic.util.SpHelper;
 
 /**
  * Created by sjning
@@ -132,6 +132,17 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
         transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
         transaction.commit();
+
+    }
+
+    @OnClick(R.id.view_playlist)
+    void onClickPlayList(View view){
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+        Fragment fragment = new PlayListFragment();
+        transaction.add(R.id.view_container, fragment);
+        transaction.addToBackStack("");
+        transaction.commit();
     }
 
     @Override
@@ -139,4 +150,16 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
         return BackHandlerHelper.handleBackPress(this);
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){
+            List<Fragment> fragments = getChildFragmentManager().getFragments();
+            if(fragments  != null && fragments.size() > 0){
+                for(Fragment fragment: fragments){
+                    fragment.getFragmentManager().popBackStack();
+                }
+            }
+        }
+    }
 }

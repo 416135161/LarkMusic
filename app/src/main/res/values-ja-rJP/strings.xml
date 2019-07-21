@@ -59,4 +59,10 @@
     <string name="can_not_download">ダウンロードを提供できません!</string>
     <string name="can_not_play">この曲は再生できません !</string>
 
+    <string name="play_list_title">プレイリスト</string>
+    <string name="add_play_list">プレイリストを作成する</string>
+    <string name="add_to_play_list">プレイリストに追加する</string>
+    <string name="add_play_list_hint">プレイリスト名</string>
+    <string name="add_play_list_emputy_tip">プレイリスト名を入力してください</string>
+
 </resources>

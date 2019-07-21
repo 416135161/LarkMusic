@@ -2,12 +2,17 @@ package internet.com.larkmusic.fragment;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.lang.reflect.Field;
 
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionSelectSong;
@@ -18,7 +23,7 @@ import internet.com.larkmusic.player.MusicPlayer;
 /**
  * Created by sjning
  * created on: 2019-07-04 16:10
- * description:
+ * description:正在播放中的歌曲
  */
 public class PlayingListDialog extends BottomSheetDialogFragment {
 
@@ -31,10 +36,32 @@ public class PlayingListDialog extends BottomSheetDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
         View view = View.inflate(getContext(), R.layout.layout_playing_list, null);
         initView(view);
         dialog.setContentView(view);
+
+        try {
+            Field mBehaviorField = dialog.getClass().getDeclaredField("behavior");
+            mBehaviorField.setAccessible(true);
+            final BottomSheetBehavior behavior = (BottomSheetBehavior) mBehaviorField.get(dialog);
+            behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                @Override
+                public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                    if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    }
+                }
+
+                @Override
+                public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                }
+            });
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         ((View) view.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
         return dialog;
     }

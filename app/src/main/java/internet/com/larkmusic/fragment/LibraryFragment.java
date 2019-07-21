@@ -1,9 +1,13 @@
 package internet.com.larkmusic.fragment;
 
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.View;
+
+import java.util.List;
 
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
@@ -47,5 +51,18 @@ public class LibraryFragment extends BaseFragment implements FragmentBackHandler
             R.id.b_pop, R.id.b_electronic, R.id.b_rock})
     void onClickBottom(View view) {
         ((GenreListItemView) view).onClick(getChildFragmentManager().beginTransaction());
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            List<Fragment> fragments = getChildFragmentManager().getFragments();
+            if (fragments != null && fragments.size() > 0) {
+                for (Fragment fragment : fragments) {
+                    fragment.getFragmentManager().popBackStack();
+                }
+            }
+        }
     }
 }

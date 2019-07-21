@@ -10,12 +10,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.litepal.LitePal;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.adapter.HotNewListAdapter;
 import internet.com.larkmusic.base.BaseFragment;
+import internet.com.larkmusic.bean.PlayListBean;
+import internet.com.larkmusic.bean.PlayListRelationBean;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.util.FavoriteService;
 import internet.com.larkmusic.util.RecentSongService;
@@ -30,6 +37,7 @@ public class RecentLoveFragment extends BaseFragment {
     public static int TYPE_RECENT = 0;
     public static int TYPE_FAVORITE_SONG = 1;
     public static int TYPE_FAVORITE_ALBUM = 2;
+    public static int TYPE_PLAY_LIST = 3;
 
     @BindView(R.id.rv_songs)
     ListView mRvSongs;
@@ -50,6 +58,8 @@ public class RecentLoveFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         type = getArguments().getInt("from", TYPE_RECENT);
+
+
     }
 
     @Override
@@ -84,6 +94,25 @@ public class RecentLoveFragment extends BaseFragment {
             mIvIcon.setImageResource(R.mipmap.ic_favorite_tip);
         } else if (type == TYPE_FAVORITE_ALBUM) {
             mTvTitle.setText(R.string.title_favorite_album);
+        } else if (type == TYPE_PLAY_LIST) {
+            PlayListBean playListBean = (PlayListBean) getArguments().getSerializable("data");
+            mTvTitle.setText(playListBean.getName());
+            mIvHeader.setImageResource(R.mipmap.ic_favorite_header_bg);
+            mIvIcon.setImageResource(R.mipmap.ic_favorite_tip);
+            List<PlayListRelationBean> playListRelationBeanList = LitePal.where("playListName = ?", playListBean.getName())
+                    .find(PlayListRelationBean.class);
+            if (playListRelationBeanList != null && playListRelationBeanList.size() > 0) {
+                List<Song> songList = new ArrayList<>();
+                for (PlayListRelationBean playListRelationBean : playListRelationBeanList) {
+                    Song song = LitePal.where("hash = ?", playListRelationBean.getSongHash()).findFirst(Song.class);
+                    if (song != null) {
+                        songList.add(song);
+                    }
+                }
+                Collections.reverse(songList);
+                mAdapter.setPlayList(songList);
+            }
+
         }
         mAdapter.notifyDataSetChanged();
         mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));

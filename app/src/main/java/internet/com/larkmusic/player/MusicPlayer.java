@@ -87,15 +87,20 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     private void initSavedState() {
-        SavedStateBean currentStateBean = LitePal.where("tag = ?", SavedStateBean.TAG_STATE).findFirst(SavedStateBean.class);
-        if (currentStateBean != null) {
-            mQueueIndex = currentStateBean.getIndex();
-            List<Song> songList = new Gson().fromJson(currentStateBean.getCurrentPlayList(), new TypeToken<List<Song>>() {
-            }.getType());
-            if (songList != null && songList.size() > 0) {
-                mQueue.addAll(songList);
+        LitePal.where("tag = ?", SavedStateBean.TAG_STATE).findFirstAsync(SavedStateBean.class).listen(new FindCallback<SavedStateBean>() {
+            @Override
+            public void onFinish(SavedStateBean savedStateBean) {
+                if (savedStateBean != null) {
+                    mQueueIndex = savedStateBean.getIndex();
+                    List<Song> songList = new Gson().fromJson(savedStateBean.getCurrentPlayList(), new TypeToken<List<Song>>() {
+                    }.getType());
+                    if (songList != null && songList.size() > 0) {
+                        mQueue.addAll(songList);
+                    }
+                }
             }
-        }
+        });
+
     }
 
     public void addQueue(List<Song> songs, boolean playNow) {
@@ -182,6 +187,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
                             song.setLrc(songDB.getLrc());
                         }
                         doPlay(song);
+                        CloudDataUtil.checkImageAndLrc(song);
                     }
                 });
             } else {
@@ -332,6 +338,9 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
             return 0;
         }
         mQueueIndex = (mQueueIndex - 1) % mQueue.size();
+        if (mQueueIndex < 0 || (mQueueIndex - 1) >= mQueue.size()) {
+            mQueueIndex = 0;
+        }
         return mQueueIndex;
     }
 

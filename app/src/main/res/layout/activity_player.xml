@@ -30,12 +30,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:ellipsize="marquee"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
+                android:singleLine="true"
                 android:textColor="#ff3c3d57"
                 android:textSize="20sp"
-                android:ellipsize="marquee"
-                android:singleLine="true"
                 tools:text="Acer"
                 />
 
@@ -55,16 +55,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="20dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 app:currentIndicateLrcColor="#ffffff"
+                app:indicatorLineColor="@color/colorPrimary"
                 app:lrcCurrentTextColor="#ffffffff"
                 app:lrcNormalTextColor="#c82a3033"
                 app:lrcTextSize="16sp"
-                app:indicatorLineColor="@color/colorPrimary"
                 app:noLrcTextColor="@color/colorPrimaryDark"
                 />
         </LinearLayout>
@@ -82,10 +82,10 @@
 
                 <ImageView
                     android:id="@+id/iv_back"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="15dp"
+                    android:paddingLeft="13dp"
+                    android:paddingTop="15dp"
                     android:scaleType="fitStart"
                     android:src="@mipmap/icon_back"
                     />
@@ -109,10 +109,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="13dp"
-                    tools:text="Ace"
+                    android:layout_marginRight="15dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="#ff3c3d57"
                     android:textSize="20sp"
+                    tools:text="Ace"
                     />
 
                 <TextView
@@ -120,10 +124,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
-                    tools:text="Else"
+                    android:layout_marginRight="15dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="#ff78858c"
                     android:textSize="14sp"
+                    tools:text="Else"
                     />
 
             </LinearLayout>
@@ -133,11 +141,11 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_gravity="right"
-                android:layout_marginRight="65dp"
                 android:layout_marginTop="345dp"
+                android:layout_marginRight="65dp"
                 android:src="@mipmap/ic_singer_default"
-                app:civ_border_width="0dp"
                 android:visibility="invisible"
+                app:civ_border_width="0dp"
                 />
         </FrameLayout>
     </FrameLayout>
@@ -155,8 +163,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
             android:thumb="@drawable/custom_progress_bar_thumb"
             />
 
@@ -278,11 +286,22 @@
                 android:id="@+id/iv_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:src="@mipmap/icon_favorite_normal"
                 />
+
+            <ImageView
+                android:id="@+id/iv_playlist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@mipmap/ic_playlist"
+                />
+
 
         </RelativeLayout>
     </LinearLayout>

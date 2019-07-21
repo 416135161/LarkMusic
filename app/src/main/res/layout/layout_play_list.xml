@@ -1,0 +1,44 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/operate_dlg_bg"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    >
+
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_add_play_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:drawableLeft="@mipmap/ic_playlist"
+        android:drawablePadding="15dp"
+        android:gravity="center"
+        android:text="@string/add_play_list"
+        android:textColor="@color/text_333"
+        android:textSize="18sp"
+        />
+
+    <View
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#22000000"
+        ></View>
+
+    <ListView
+        android:id="@+id/rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="10dp"
+        android:divider="@color/transparent"
+        android:dividerHeight="1px"
+        android:scrollbars="none"
+        android:visibility="visible"
+        >
+    </ListView>
+
+
+</LinearLayout>
