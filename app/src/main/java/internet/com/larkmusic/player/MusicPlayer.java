@@ -259,7 +259,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     public Song getNowPlaying() {
-        if (mQueue.isEmpty()) {
+        if (mQueue.isEmpty() || mQueueIndex < 0 || mQueueIndex >= mQueue.size()) {
             return null;
         }
         return mQueue.get(mQueueIndex);
