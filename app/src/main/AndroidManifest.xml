@@ -1,49 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
           package="internet.com.larkmusic">
 
     <application
         android:name=".app.MusicApplication"
         android:allowBackup="true"
-        android:appComponentFactory=""
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
-        tools:replace="android:appComponentFactory"
         >
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="internet.com.larkmusic.activity.SplashActivity"
             android:screenOrientation="portrait"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name="internet.com.larkmusic.activity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             >
         </activity>
         <activity
-            android:name=".activity.PlayerActivity"
+            android:name="internet.com.larkmusic.activity.PlayerActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             >
 
         </activity>
 
-        <service android:name=".player.PlayerService"
+        <service android:name="internet.com.larkmusic.player.PlayerService"
                  android:enabled="true"
 
             ></service>
 
-        <receiver android:name=".receiver.MediaButtonIntentReceiver">
+        <receiver android:name="internet.com.larkmusic.receiver.MediaButtonIntentReceiver">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.MEDIA_BUTTON"/>
                 <action android:name="android.media.AUDIO_BECOMING_NOISY"/>

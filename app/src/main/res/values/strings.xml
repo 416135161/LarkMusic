@@ -60,4 +60,10 @@
     <string name="can_not_download">Unable to provide download !</string>
     <string name="can_not_play">Unable to play this track !</string>
 
+    <string name="play_list_title">PlayList</string>
+    <string name="add_play_list">Create PlayList</string>
+    <string name="add_to_play_list">Add to PlayList</string>
+    <string name="add_play_list_hint">playlist name</string>
+    <string name="add_play_list_emputy_tip">Please input playlist name</string>
+
 </resources>

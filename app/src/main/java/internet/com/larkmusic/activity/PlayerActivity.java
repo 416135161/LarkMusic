@@ -35,6 +35,7 @@ import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.animations.RotateAnimation;
 import internet.com.larkmusic.base.EventActivity;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.fragment.PlayListDialog;
 import internet.com.larkmusic.fragment.PlayingListDialog;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayMode;
@@ -161,6 +162,11 @@ public class PlayerActivity extends EventActivity {
         viewTop.setVisibility(View.VISIBLE);
     }
 
+    @OnClick(R.id.iv_back)
+    void onClickViewBack(View view) {
+        finish();
+    }
+
     @OnClick({R.id.iv_favorite})
     void onClickFavorite(View view) {
         if (ivFavorite.getTag(R.id.tag_key_favorite_check) == null) {
@@ -229,6 +235,11 @@ public class PlayerActivity extends EventActivity {
     @OnClick(R.id.iv_list)
     void onClickList(View view) {
         new PlayingListDialog().show(getSupportFragmentManager(), PlayingListDialog.class.getName());
+    }
+
+    @OnClick(R.id.iv_playlist)
+    void onClickPlayList(View view) {
+        new PlayListDialog().setSong(MusicPlayer.getPlayer().getNowPlaying()).show(getSupportFragmentManager(), PlayListDialog.class.getName());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -244,12 +244,7 @@ public final class CloudDataUtil {
                     //对原来的歌曲对象赋值
                     song.setPlayUrl(response.body().getPlayUrl());
                     song.saveOrUpdate("hash = ?", song.getHash());
-                    if (TextUtils.isEmpty(song.getImgUrl())) {
-                        getSongImage(song);
-                    }
-                    if (TextUtils.isEmpty(song.getLrc())) {
-                        getSongLrc(song, null);
-                    }
+                    checkImageAndLrc(song);
                     if (callBack != null) {
                         callBack.onSongGetOk(song);
                     }
@@ -400,6 +395,7 @@ public final class CloudDataUtil {
                             && !TextUtils.isEmpty(response.body().getData().get(0).get(0).getSizable_cover())) {
                         song.setImgUrl(response.body().getData().get(0).get(0).getSizable_cover().replace("{size}", "400"));
                         song.saveOrUpdate("hash = ?", song.getHash());
+                        CloudDataUtil.saveSongImg(song.getHash(), song.getImgUrl());
                     }
 
                 }
@@ -411,6 +407,15 @@ public final class CloudDataUtil {
             }
 
         });
+    }
+
+    public static void checkImageAndLrc(Song song){
+        if (TextUtils.isEmpty(song.getImgUrl())) {
+            getSongImage(song);
+        }
+        if (TextUtils.isEmpty(song.getLrc())) {
+            getSongLrc(song, null);
+        }
     }
 
 }

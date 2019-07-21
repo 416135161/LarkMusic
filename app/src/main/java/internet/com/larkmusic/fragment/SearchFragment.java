@@ -161,6 +161,8 @@ public class SearchFragment extends EventFragment {
             mValues.add("Sia");
         }
 
+        mEtSearch.setHint(mValues.get(0));
+
         //往容器内添加TextView数据
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 0, 16, 16);
@@ -217,6 +219,15 @@ public class SearchFragment extends EventFragment {
         View v = getActivity().getWindow().peekDecorView();
         if (null != v) {
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            mEtSearch.setText("");
+            mViewCondition.setVisibility(View.VISIBLE);
         }
     }
 

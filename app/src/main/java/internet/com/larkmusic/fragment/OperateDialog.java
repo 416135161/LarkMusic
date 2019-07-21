@@ -2,6 +2,8 @@ package internet.com.larkmusic.fragment;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.lang.reflect.Field;
 
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionDownLoad;
@@ -62,6 +66,8 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
         TextView tvClose = rootView.findViewById(R.id.tv_close);
         tvClose.setOnClickListener(this);
 
+        rootView.findViewById(R.id.tv_playlist).setOnClickListener(this);
+
         if (song != null) {
             tvSong.setText(song.getSongName());
             tvSinger.setText(song.getSingerName());
@@ -108,6 +114,10 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
                 break;
             case R.id.tv_delete:
                 break;
+            case R.id.tv_playlist:
+                new PlayListDialog().setSong(song).show(getFragmentManager(), PlayListDialog.class.getName());
+                dismiss();
+                break;
             case R.id.tv_close:
                 dismiss();
                 break;
@@ -119,4 +129,5 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
     public void onDestroy() {
         super.onDestroy();
     }
+
 }
