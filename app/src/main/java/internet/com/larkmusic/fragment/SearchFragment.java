@@ -113,12 +113,12 @@ public class SearchFragment extends EventFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPosting(ActionSearchSongs event) {
-        closeDialog();
         if (event != null && event.result != null && event.result.size() > 0) {
+            mRvSongs.smoothScrollToPosition(0);
             mAdapter.setPlayList(event.result);
             mAdapter.notifyDataSetChanged();
-
         }
+        closeDialog();
     }
 
     private void initTrending() {

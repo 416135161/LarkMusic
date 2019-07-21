@@ -44,7 +44,7 @@ public class RecentSongService {
             return;
         }
 
-        if (SpHelper.recentSongs == null){
+        if (SpHelper.recentSongs == null) {
             getSongList();
         }
 
@@ -63,6 +63,19 @@ public class RecentSongService {
         SpHelper.getDefault().putString(SpHelper.KEY_RECENT_SONGS, new Gson().toJson(SpHelper.recentSongs));
 
     }
+
+    public void deleteSong(Song song) {
+        for (int i = 0; i < SpHelper.recentSongs.size(); i++) {
+            Song item = SpHelper.recentSongs.get(i);
+            //如果已保存则，从保存中删除
+            if (TextUtils.equals(item.getHash(), song.getHash())) {
+                SpHelper.recentSongs.remove(i);
+                SpHelper.getDefault().putString(SpHelper.KEY_RECENT_SONGS, new Gson().toJson(SpHelper.recentSongs));
+                return;
+            }
+        }
+    }
+
     private Song cloneSong(Song song) {
         Song newSong = new Song();
         newSong.setSingerName(song.getSingerName());

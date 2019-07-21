@@ -6,12 +6,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:background="@drawable/item_list_bg"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
+
         >
 
         <TextView
@@ -31,7 +32,7 @@
             android:background="@drawable/song_item_bg"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_song_default"
-            android:visibility="gone"
+            android:visibility="visible"
             app:riv_border_color="#333333"
             app:riv_border_width="0dip"
             app:riv_corner_radius="3dp"
@@ -42,7 +43,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginLeft="10dp"
 
             >
 
@@ -53,9 +53,9 @@
                 android:text="Let you love me"
                 android:textColor="@color/text_666"
                 android:textSize="14sp"
-                android:textStyle="bold"
                 android:singleLine="true"
                 android:ellipsize="end"
+                android:textStyle="bold"
                 />
 
             <TextView
@@ -63,15 +63,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dimest"
-                android:textColor="@color/text_999"
-                android:textSize="12sp"
                 android:singleLine="true"
                 android:ellipsize="end"
+                android:paddingLeft="5dp"
+                android:textColor="@color/text_999"
+                android:textSize="12sp"
                 />
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/iv_operate"
+            android:id="@+id/iv_delete"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:paddingLeft="14dp"

@@ -117,8 +117,6 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
     }
 
 
-
-
     @OnClick(R.id.view_library)
     void onClickFavoriteLibrary(View view) {
 
@@ -136,7 +134,7 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
     }
 
     @OnClick(R.id.view_playlist)
-    void onClickPlayList(View view){
+    void onClickPlayList(View view) {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         Fragment fragment = new PlayListFragment();
@@ -153,13 +151,10 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(hidden){
-            List<Fragment> fragments = getChildFragmentManager().getFragments();
-            if(fragments  != null && fragments.size() > 0){
-                for(Fragment fragment: fragments){
-                    fragment.getFragmentManager().popBackStack();
-                }
-            }
+        if (hidden) {
+            if (getChildFragmentManager().getFragments() != null
+                    && getChildFragmentManager().getFragments().size() > 0)
+                getChildFragmentManager().popBackStack();
         }
     }
 }
