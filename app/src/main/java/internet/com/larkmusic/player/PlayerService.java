@@ -12,6 +12,8 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
@@ -47,6 +49,7 @@ public class PlayerService extends Service {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        registerPhoneStateListener();
         registerHeadsetReceiver(this);
         initNotification();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
@@ -148,7 +151,13 @@ public class PlayerService extends Service {
         unregisterHeadsetReceiver(this);
     }
 
-
+    private void registerPhoneStateListener() {
+        CustomPhoneStateListener customPhoneStateListener = new CustomPhoneStateListener(this);
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager != null) {
+            telephonyManager.listen(customPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+        }
+    }
 
     public void registerHeadsetReceiver(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);// 另说context.AUDIO_SERVICE
