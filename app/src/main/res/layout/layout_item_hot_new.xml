@@ -74,9 +74,9 @@
         <ImageView
             android:id="@+id/iv_operate"
             android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
-            android:scaleType="fitEnd"
+            android:layout_height="match_parent"
+            android:paddingLeft="14dp"
+            android:scaleType="center"
             android:src="@mipmap/ic_song_operate"
             android:paddingRight="20dp"
             />

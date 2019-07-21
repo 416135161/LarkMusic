@@ -69,9 +69,8 @@ public class PlayListFragment extends BaseFragment implements FragmentBackHandle
                     PlayListBean playListBean = (PlayListBean) mAdapter.getItem(i);
                     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                     transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-                    Fragment fragment = new RecentLoveFragment();
+                    Fragment fragment = new PlayListSongsFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putInt("from", RecentLoveFragment.TYPE_PLAY_LIST);
                     bundle.putSerializable("data", playListBean);
                     fragment.setArguments(bundle);
                     transaction.add(R.id.view_container, fragment);

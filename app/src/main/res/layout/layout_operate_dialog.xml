@@ -121,7 +121,7 @@
         android:drawablePadding="15dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
-        android:text="Delete"
+        android:text="@string/operate_delete"
         android:textColor="#ff666666"
         android:textSize="14sp"
         android:visibility="gone"

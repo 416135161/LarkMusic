@@ -57,12 +57,10 @@ public class LibraryFragment extends BaseFragment implements FragmentBackHandler
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (hidden) {
-            List<Fragment> fragments = getChildFragmentManager().getFragments();
-            if (fragments != null && fragments.size() > 0) {
-                for (Fragment fragment : fragments) {
-                    fragment.getFragmentManager().popBackStack();
-                }
-            }
+            if (getChildFragmentManager().getFragments() != null
+                    && getChildFragmentManager().getFragments().size() > 0)
+                getChildFragmentManager().popBackStack();
         }
     }
+
 }

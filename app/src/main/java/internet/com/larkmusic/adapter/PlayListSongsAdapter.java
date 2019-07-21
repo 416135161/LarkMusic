@@ -1,5 +1,6 @@
 package internet.com.larkmusic.adapter;
 
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,25 +10,30 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
+import com.squareup.picasso.Picasso;
+
+import org.litepal.LitePal;
 
 import java.util.List;
 
 import internet.com.larkmusic.R;
-import internet.com.larkmusic.action.ActionShowOperateDlg;
+import internet.com.larkmusic.bean.PlayListRelationBean;
 import internet.com.larkmusic.bean.Song;
-import internet.com.larkmusic.player.MusicPlayer;
-import internet.com.larkmusic.util.RecentSongService;
+import internet.com.larkmusic.fragment.OperateDialog;
+import internet.com.larkmusic.util.CommonUtil;
 
 /**
  * Created by sjning
- * created on: 2019-07-04 16:26
+ * created on: 2019-07-21 21:20
  * description:
  */
-public class PlayingListAdapter extends BaseAdapter {
+public class PlayListSongsAdapter extends BaseAdapter {
 
     private List<Song> songs;
     private Context context;
+    private String playListName;
+
+    private FragmentManager mFragmentManager;
 
     @Override
     public int getCount() {
@@ -55,7 +61,7 @@ public class PlayingListAdapter extends BaseAdapter {
         MyViewHolder holder;
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.layout_item_playling_list, null, true);
+            convertView = inflater.inflate(R.layout.layout_item_play_list_songs, null, true);
             holder = new MyViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -64,31 +70,27 @@ public class PlayingListAdapter extends BaseAdapter {
         final Song song = songs.get(i);
         holder.title.setText(song.getSongName());
         holder.artist.setText(song.getSingerName());
-        if (MusicPlayer.getPlayer().getNowPlaying() != null &&
-                TextUtils.equals(MusicPlayer.getPlayer().getNowPlaying().getHash(), song.getHash())) {
-            holder.no.setTextColor(context.getResources().getColor(R.color.text_red));
-            holder.title.setTextColor(context.getResources().getColor(R.color.text_red));
-            holder.artist.setTextColor(context.getResources().getColor(R.color.text_red));
-            holder.delete.setVisibility(View.INVISIBLE);
-        } else {
-            holder.no.setTextColor(context.getResources().getColor(R.color.text_666));
-            holder.title.setTextColor(context.getResources().getColor(R.color.text_666));
-            holder.artist.setTextColor(context.getResources().getColor(R.color.text_999));
-            holder.delete.setVisibility(View.VISIBLE);
-        }
-
         holder.no.setText((i + 1) + "");
-        holder.delete.setOnClickListener(new MyClickListener(song, i));
+        if (TextUtils.isEmpty(song.getImgUrl())) {
+            song.setImgUrl(CommonUtil.getDBImage(song.getHash()));
+        }
+        Picasso.with(context)
+                .load(song.getImgUrl())
+                .error(R.mipmap.ic_song_default)
+                .placeholder(R.mipmap.ic_song_default)
+                .into(holder.art);
+        holder.ivDelete.setOnClickListener(new MyClickListener(song, i));
         return convertView;
     }
 
     public class MyViewHolder {
 
-        ImageView delete;
+        ImageView art, ivDelete;
         TextView no, title, artist;
 
         public MyViewHolder(View view) {
-            delete = view.findViewById(R.id.iv_delete);
+            art = view.findViewById(R.id.iv_icon);
+            ivDelete = view.findViewById(R.id.iv_delete);
             no = view.findViewById(R.id.tv_no);
             title = view.findViewById(R.id.tv_song);
             artist = view.findViewById(R.id.tv_singer);
@@ -100,7 +102,7 @@ public class PlayingListAdapter extends BaseAdapter {
     }
 
 
-    public PlayingListAdapter(Context ctx, List<Song> Songs) {
+    public PlayListSongsAdapter(Context ctx, List<Song> Songs) {
         super();
         context = ctx;
         this.songs = Songs;
@@ -108,6 +110,14 @@ public class PlayingListAdapter extends BaseAdapter {
 
     public List<Song> getSongs() {
         return songs;
+    }
+
+    public void setPlayListName(String playListName) {
+        this.playListName = playListName;
+    }
+
+    public void setFragmentManager(FragmentManager fragmentManager) {
+        this.mFragmentManager = fragmentManager;
     }
 
     public class MyClickListener implements View.OnClickListener {
@@ -122,11 +132,21 @@ public class PlayingListAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View view) {
-            songs.remove(position);
-            notifyDataSetChanged();
-            MusicPlayer.getPlayer().deleteIfExist(song);
-            RecentSongService.getInstance().deleteSong(song);
+            new OperateDialog().setSong(song).
+                    setShowDelete(true).
+                    setOnDeleteListener(new OperateDialog.OnDeleteListener() {
+                        @Override
+                        public void onDelete(Song song) {
+                            songs.remove(position);
+                            notifyDataSetChanged();
+                            LitePal.deleteAll(PlayListRelationBean.class, "playListName = ? AND songHash = ?",
+                                    playListName, song.getHash());
+
+                        }
+                    }).
+                    show(mFragmentManager, OperateDialog.class.getName());
+
+
         }
     }
-
 }

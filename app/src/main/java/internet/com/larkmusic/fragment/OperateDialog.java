@@ -2,8 +2,6 @@ package internet.com.larkmusic.fragment;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,8 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.lang.reflect.Field;
 
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionDownLoad;
@@ -32,11 +28,16 @@ import internet.com.larkmusic.util.FileUtils;
 public class OperateDialog extends BottomSheetDialogFragment implements View.OnClickListener {
     Song song;
 
+    boolean showDelete;
+    OnDeleteListener onDeleteListener;
+
     public OperateDialog() {
     }
 
-    public void setSong(Song song) {
+
+    public OperateDialog setSong(Song song) {
         this.song = song;
+        return this;
     }
 
     @Override
@@ -65,9 +66,11 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
         tvDelete.setOnClickListener(this);
         TextView tvClose = rootView.findViewById(R.id.tv_close);
         tvClose.setOnClickListener(this);
-
         rootView.findViewById(R.id.tv_playlist).setOnClickListener(this);
-
+        if (showDelete) {
+            tvDelete.setVisibility(View.VISIBLE);
+            rootView.findViewById(R.id.tv_playlist).setVisibility(View.GONE);
+        }
         if (song != null) {
             tvSong.setText(song.getSongName());
             tvSinger.setText(song.getSingerName());
@@ -113,6 +116,10 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
                 dismiss();
                 break;
             case R.id.tv_delete:
+                if (onDeleteListener != null) {
+                    onDeleteListener.onDelete(song);
+                }
+                dismiss();
                 break;
             case R.id.tv_playlist:
                 new PlayListDialog().setSong(song).show(getFragmentManager(), PlayListDialog.class.getName());
@@ -125,9 +132,23 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
 
     }
 
+    public OperateDialog setShowDelete(boolean showDelete) {
+        this.showDelete = showDelete;
+        return this;
+    }
+
+    public OperateDialog setOnDeleteListener(OnDeleteListener onDeleteListener) {
+        this.onDeleteListener = onDeleteListener;
+        return this;
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    public interface OnDeleteListener {
+        void onDelete(Song song);
     }
 
 }
