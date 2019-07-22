@@ -5,11 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.player.MusicPlayer;
+import internet.com.larkmusic.util.HistoryService;
+import internet.com.larkmusic.util.RecentSongService;
 
 /**
  * Created by sjning
@@ -55,16 +60,18 @@ public class HistoryAdapter extends BaseAdapter {
         }
         String name = nameList.get(i);
         holder.title.setText(name);
+        holder.ivDelete.setOnClickListener(new MyClickListener(nameList.get(i), i));
         return convertView;
     }
 
     public class MyViewHolder {
         TextView title;
+        ImageView ivDelete;
 
         public MyViewHolder(View view) {
 
             title = view.findViewById(R.id.tv_song);
-
+            ivDelete = view.findViewById(R.id.iv_delete);
         }
     }
 
@@ -76,6 +83,24 @@ public class HistoryAdapter extends BaseAdapter {
     public HistoryAdapter(Context ctx) {
         super();
         context = ctx;
+    }
+
+    public class MyClickListener implements View.OnClickListener {
+
+        private String history;
+        private int position;
+
+        public MyClickListener(String history, int position) {
+            this.history = history;
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View view) {
+            HistoryService.getInstance().removeSong(history);
+            notifyDataSetChanged();
+
+        }
     }
 
 }

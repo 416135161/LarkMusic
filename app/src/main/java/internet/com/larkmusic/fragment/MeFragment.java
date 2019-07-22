@@ -148,13 +148,4 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
         return BackHandlerHelper.handleBackPress(this);
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden) {
-            if (getChildFragmentManager().getFragments() != null
-                    && getChildFragmentManager().getFragments().size() > 0)
-                getChildFragmentManager().popBackStack();
-        }
-    }
 }
