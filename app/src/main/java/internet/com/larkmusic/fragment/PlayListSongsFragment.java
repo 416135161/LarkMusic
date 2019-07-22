@@ -92,6 +92,8 @@ public class PlayListSongsFragment extends BaseFragment {
             mAdapter.setPlayListName(playListBean.getName());
             mAdapter.setPlayList(songList);
             mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
+        }else {
+            mTvCount.setText(String.format(getString(R.string.title_song_count), 0));
         }
         mAdapter.notifyDataSetChanged();
         mAdapter.registerDataSetObserver(new DataSetObserver() {
