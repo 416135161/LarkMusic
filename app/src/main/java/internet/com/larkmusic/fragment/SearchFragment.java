@@ -3,6 +3,9 @@ package internet.com.larkmusic.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +42,7 @@ import internet.com.larkmusic.util.HistoryService;
 import internet.com.larkmusic.view.FlowLayout;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static android.content.Context.TELECOM_SERVICE;
 import static android.support.annotation.Dimension.SP;
 
 /**
@@ -55,6 +59,8 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     View mViewCondition;
     @BindView(R.id.flow)
     FlowLayout mFlowLayout;
+    @BindView(R.id.tv_delete)
+    TextView mTvDelete;
     SearchListAdapter mAdapter;
     HistoryAdapter mHistoryAdapter;
 
@@ -100,6 +106,26 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
                 return false;
             }
         });
+        mEtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s.toString())) {
+                    mTvDelete.setVisibility(View.INVISIBLE);
+                } else {
+                    mTvDelete.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         initTrending();
         View footer = new View(getContext());
         footer.setMinimumHeight(50);
@@ -111,6 +137,11 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     void onClickCancel() {
         mEtSearch.setText("");
         mViewCondition.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.tv_delete)
+    void onClickDelete() {
+        mEtSearch.setText("");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
