@@ -30,6 +30,7 @@ import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.adapter.HistoryAdapter;
 import internet.com.larkmusic.adapter.SearchListAdapter;
+import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
@@ -45,7 +46,7 @@ import static android.support.annotation.Dimension.SP;
  * created on: 2019/5/7 下午8:06
  * description:
  */
-public class SearchFragment extends EventFragment {
+public class SearchFragment extends EventFragment implements FragmentBackHandler {
     @BindView(R.id.rv_songs)
     ListView mRvSongs;
     @BindView(R.id.et_search)
@@ -103,6 +104,7 @@ public class SearchFragment extends EventFragment {
         View footer = new View(getContext());
         footer.setMinimumHeight(50);
         mRvSongs.addFooterView(footer);
+        mRvHistory.addFooterView(footer);
     }
 
     @OnClick(R.id.tv_cancel)
@@ -193,6 +195,7 @@ public class SearchFragment extends EventFragment {
 
     private void doSearch(String key) {
         mEtSearch.setText(key);
+        mEtSearch.setSelection(key.length());
         mViewCondition.setVisibility(View.GONE);
         hideInput();
         showDialog();
@@ -231,4 +234,13 @@ public class SearchFragment extends EventFragment {
         }
     }
 
+    @Override
+    public boolean onBackPressed() {
+        if (mViewCondition.getVisibility() != View.VISIBLE) {
+            mEtSearch.setText("");
+            mViewCondition.setVisibility(View.VISIBLE);
+            return true;
+        }
+        return false;
+    }
 }

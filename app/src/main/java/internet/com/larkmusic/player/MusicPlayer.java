@@ -410,8 +410,13 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         status = action;
         ActionPlayerInformEvent actionPlayerInformEvent = new ActionPlayerInformEvent();
         if (action == PlayerStatus.STOP || action == PlayerStatus.PLAYING) {
-            actionPlayerInformEvent.currentTime = mMediaPlayer.getCurrentPosition();
-            actionPlayerInformEvent.duration = mMediaPlayer.getDuration();
+            try {
+                actionPlayerInformEvent.currentTime = mMediaPlayer.getCurrentPosition();
+                actionPlayerInformEvent.duration = mMediaPlayer.getDuration();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         actionPlayerInformEvent.action = action;
         actionPlayerInformEvent.song = getNowPlaying();
@@ -426,4 +431,5 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     public LinkedList<Song> getQueue() {
         return mQueue;
     }
+
 }

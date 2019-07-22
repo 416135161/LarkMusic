@@ -61,4 +61,21 @@ public class HistoryService {
 
     }
 
+    public void removeSong(String name) {
+        if (SpHelper.searchHistory == null || name == null) {
+            return;
+        }
+
+        for (int i = 0; i < SpHelper.searchHistory.size(); i++) {
+            String item = SpHelper.searchHistory.get(i);
+            //如果已保存，则返回
+            if (TextUtils.equals(item, name)) {
+                SpHelper.searchHistory.remove(i);
+                break;
+            }
+        }
+        SpHelper.getDefault().putString(SpHelper.KEY_SEARCH_HISTORY, new Gson().toJson(SpHelper.searchHistory));
+
+    }
+
 }
