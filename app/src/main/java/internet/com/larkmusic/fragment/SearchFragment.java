@@ -127,10 +127,13 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
             }
         });
         initTrending();
-        View footer = new View(getContext());
-        footer.setMinimumHeight(50);
-        mRvSongs.addFooterView(footer);
-        mRvHistory.addFooterView(footer);
+        View footer1 = new View(getContext());
+        footer1.setMinimumHeight(50);
+        mRvSongs.addFooterView(footer1);
+
+        View footer2 = new View(getContext());
+        footer2.setMinimumHeight(50);
+        mRvHistory.addFooterView(footer2);
     }
 
     @OnClick(R.id.tv_cancel)
@@ -225,6 +228,9 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     }
 
     private void doSearch(String key) {
+        if(TextUtils.isEmpty(key)){
+            return;
+        }
         mEtSearch.setText(key);
         mEtSearch.setSelection(key.length());
         mViewCondition.setVisibility(View.GONE);

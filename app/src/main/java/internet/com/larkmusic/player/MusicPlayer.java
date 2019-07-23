@@ -170,6 +170,9 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     private void play(final Song song) {
         stop();
+        if (song == null) {
+            return;
+        }
         //如果是本地歌曲直接播放
         if (song.isLocal() && FileUtils.isFileExist(song.getPlayUrl())) {
             doPlay(song);
