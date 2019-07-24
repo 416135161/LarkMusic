@@ -55,7 +55,7 @@ public class PlayListDialog extends BottomSheetDialogFragment {
         dialog.setContentView(view);
 
         try {
-            Field mBehaviorField = dialog.getClass().getDeclaredField("mBehavior");
+            Field mBehaviorField = dialog.getClass().getDeclaredField("behavior");
             mBehaviorField.setAccessible(true);
             final BottomSheetBehavior behavior = (BottomSheetBehavior) mBehaviorField.get(dialog);
             behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -128,7 +128,7 @@ public class PlayListDialog extends BottomSheetDialogFragment {
                                     playListBean.saveOrUpdate("name = ?", playListBean.getName());
                                     refreshView();
                                 } else {
-                                    Toast.makeText(getContext(), R.string.add_play_list_emputy_tip, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), R.string.add_play_list_empty_tip, Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })

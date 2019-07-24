@@ -42,7 +42,7 @@ public class PlayingListDialog extends BottomSheetDialogFragment {
         dialog.setContentView(view);
 
         try {
-            Field mBehaviorField = dialog.getClass().getDeclaredField("mBehavior");
+            Field mBehaviorField = dialog.getClass().getDeclaredField("behavior");
             mBehaviorField.setAccessible(true);
             final BottomSheetBehavior behavior = (BottomSheetBehavior) mBehaviorField.get(dialog);
             behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {

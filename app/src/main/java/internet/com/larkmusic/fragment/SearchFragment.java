@@ -140,6 +140,7 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     void onClickCancel() {
         mEtSearch.setText("");
         mViewCondition.setVisibility(View.VISIBLE);
+        hideInput();
     }
 
     @OnClick(R.id.tv_delete)

@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@drawable/item_list_bg"
-        android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
@@ -54,10 +53,9 @@
                 android:ellipsize="end"
                 android:paddingLeft="5dp"
                 android:singleLine="true"
-                android:text="Dimest"
+                android:text="0"
                 android:textColor="@color/text_999"
                 android:textSize="14sp"
-                android:visibility="gone"
                 />
         </LinearLayout>
 

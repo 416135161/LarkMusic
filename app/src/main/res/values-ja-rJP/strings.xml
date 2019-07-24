@@ -64,6 +64,6 @@
     <string name="add_play_list">プレイリストを作成する</string>
     <string name="add_to_play_list">プレイリストに追加する</string>
     <string name="add_play_list_hint">プレイリスト名</string>
-    <string name="add_play_list_emputy_tip">プレイリスト名を入力してください</string>
-
+    <string name="add_play_list_empty_tip">プレイリスト名を入力してください</string>
+    <string name="play_list_song_count">%1$d 曲</string>
 </resources>

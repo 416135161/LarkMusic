@@ -65,6 +65,6 @@
     <string name="add_play_list">Create PlayList</string>
     <string name="add_to_play_list">Add to PlayList</string>
     <string name="add_play_list_hint">playlist name</string>
-    <string name="add_play_list_emputy_tip">Please input playlist name</string>
-
+    <string name="add_play_list_empty_tip">Please input playlist name</string>
+    <string name="play_list_song_count">%1$d song</string>
 </resources>

@@ -10,10 +10,14 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.litepal.LitePal;
+import org.litepal.crud.callback.CountCallback;
+
 import java.util.List;
 
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.bean.PlayListBean;
+import internet.com.larkmusic.bean.PlayListRelationBean;
 
 /**
  * Created by sjning
@@ -48,7 +52,7 @@ public class PlayListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
-        MyViewHolder holder;
+        final MyViewHolder holder;
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.layout_item_play_list, null, true);
@@ -59,7 +63,14 @@ public class PlayListAdapter extends BaseAdapter {
         }
         final PlayListBean playListBean = playListBeans.get(i);
         holder.name.setText(playListBean.getName());
-        holder.no.setText(playListBean.getSongAmount() + "");
+        LitePal.where("playListName = ?", playListBean.getName()).countAsync(PlayListRelationBean.class).listen(new CountCallback() {
+            @Override
+            public void onFinish(int count) {
+                playListBean.setSongAmount(count);
+                holder.no.setText(String.format(context.getString(R.string.play_list_song_count), playListBean.getSongAmount()));
+
+            }
+        });
         Picasso.with(context)
                 .load(playListBean.getIcon())
                 .error(R.mipmap.ic_folder)
