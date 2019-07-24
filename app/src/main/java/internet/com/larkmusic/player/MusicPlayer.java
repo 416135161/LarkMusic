@@ -213,7 +213,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
                         saveCurrentState();
                         //如果队列里面还有歌曲且处于停止状态，则播放下一首
                         if (mQueue.size() > 0 && !isPlaying()) {
-                            next();
+                            play();
                         }
                         Toast.makeText(MusicApplication.getInstance(), MusicApplication.getInstance().getString(R.string.can_not_play), Toast.LENGTH_SHORT).show();
                     }
