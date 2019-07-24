@@ -111,9 +111,15 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         }
         if (playNow) {
             initQueue();
-            mQueue.addAll(0, songs);
-            mQueueIndex = 0;
-            play(getNowPlaying());
+            //一次加入多首歌曲
+            if (songs.size() > 1) {
+                mQueue.addAll(0, songs);
+                mQueueIndex = 0;
+                stop();
+                play(getNowPlaying());
+            } else { //单曲选择播放
+                play(songs.get(0));
+            }
         } else {
             mQueue.addAll(songs);
         }
@@ -165,11 +171,11 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     public void play() {
+        stop();
         play(getNowPlaying());
     }
 
     private void play(final Song song) {
-        stop();
         if (song == null) {
             return;
         }
@@ -203,6 +209,12 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
                     @Override
                     public void onSongGetFail() {
+                        deleteIfExist(song);
+                        saveCurrentState();
+                        //如果队列里面还有歌曲且处于停止状态，则播放下一首
+                        if (mQueue.size() > 0 && !isPlaying()) {
+                            next();
+                        }
                         Toast.makeText(MusicApplication.getInstance(), MusicApplication.getInstance().getString(R.string.can_not_play), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -211,6 +223,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     private void doPlay(Song song) {
+        refreshQueue(song);
         try {
             mMediaPlayer.reset();
             mMediaPlayer.setDataSource(song.getPlayUrl());
@@ -224,6 +237,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
             e.printStackTrace();
         }
     }
+
 
     public void stop() {
         if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
@@ -249,10 +263,12 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     public void next() {
+        stop();
         play(getNextSong());
     }
 
     public void previous() {
+        stop();
         play(getPreviousSong());
     }
 
@@ -433,6 +449,18 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     public LinkedList<Song> getQueue() {
         return mQueue;
+    }
+
+    private void refreshQueue(Song song) {
+        initQueue();
+        for (int i = 0; i < mQueue.size(); i++) {
+            if (TextUtils.equals(song.getHash(), mQueue.get(i).getHash())) {
+                mQueueIndex = i;
+                return;
+            }
+        }
+        mQueue.add(0, song);
+        mQueueIndex = 0;
     }
 
 }

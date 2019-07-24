@@ -45,6 +45,7 @@ import internet.com.larkmusic.fragment.SearchFragment;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayerService;
+import internet.com.larkmusic.util.CloudDataUtil;
 import internet.com.larkmusic.util.SpHelper;
 
 public class MainActivity extends MainBaseActivity {
@@ -196,6 +197,8 @@ public class MainActivity extends MainBaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventSelectSong(ActionSelectSong event) {
+
+
         List<Song> songList = new ArrayList<>();
         if (event.song != null) {
             songList.add(event.song);
@@ -203,14 +206,11 @@ public class MainActivity extends MainBaseActivity {
         if (event.songList != null && event.songList.size() > 0) {
             songList.addAll(event.songList);
         }
+
         ActionPlayEvent actionPlayEvent = new ActionPlayEvent();
         actionPlayEvent.setAction(ActionPlayEvent.Action.PLAY);
         actionPlayEvent.setQueue(songList);
         EventBus.getDefault().post(actionPlayEvent);
-        if (viewPlayer.getVisibility() == View.GONE) {
-            viewPlayer.setVisibility(View.VISIBLE);
-            ivSinger.setVisibility(View.VISIBLE);
-        }
         showAd();
     }
 

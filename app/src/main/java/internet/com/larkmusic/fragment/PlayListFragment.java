@@ -100,7 +100,7 @@ public class PlayListFragment extends BaseFragment implements FragmentBackHandle
                             playListBean.saveOrUpdate("name = ?", playListBean.getName());
                             refreshView();
                         } else {
-                            Toast.makeText(getContext(), R.string.add_play_list_emputy_tip, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.add_play_list_empty_tip, Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
