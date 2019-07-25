@@ -208,11 +208,11 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         }
         for (int i = 0; i < mValues.size(); i++) {
             TextView tv = new TextView(this.getActivity());
-            tv.setPadding(20, 5, 20, 5);
+            tv.setPadding(20, 8, 20, 8);
             tv.setText(mValues.get(i));
             tv.setMaxEms(10);
-            tv.setTextColor(0xff333333);
-            tv.setTextSize(SP, 12);
+            tv.setTextColor(0xff666666);
+            tv.setTextSize(SP, 10);
             tv.setSingleLine();
             tv.setBackgroundResource(R.drawable.item_flow_bg);
             tv.setLayoutParams(layoutParams);
