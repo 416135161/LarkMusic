@@ -83,6 +83,10 @@ public class PlayingListDialog extends BottomSheetDialogFragment {
                 }, 1000);
             }
         });
+
+        View footer = new View(getContext());
+        footer.setMinimumHeight(50);
+        mListView.addFooterView(footer);
     }
 
 
