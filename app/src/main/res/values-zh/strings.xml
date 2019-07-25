@@ -61,6 +61,7 @@
     <string name="can_not_download">此歌曲不提供下载 !</string>
     <string name="can_not_play">此歌曲不能播放 !</string>
 
+    <string name="btn_cancle">取消</string>
     <string name="play_list_title">歌单</string>
     <string name="add_play_list">创建歌单</string>
     <string name="add_play_list_hint">输入歌单名称</string>

@@ -12,6 +12,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionDownLoad;
+import internet.com.larkmusic.app.MusicApplication;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.GetSongCallBack;
 import internet.com.larkmusic.player.MusicPlayer;
@@ -96,7 +97,7 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
 
                         @Override
                         public void onSongGetFail() {
-                            Toast.makeText(getContext(), getString(R.string.can_not_download), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MusicApplication.getInstance(), MusicApplication.getInstance().getString(R.string.can_not_download), Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {

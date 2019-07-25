@@ -21,7 +21,7 @@
     <string name="genres_country">COUNTRY</string>
     <string name="lrc_nothing">内容なし</string>
     <string name="tv_cancel">キャンセル</string>
-    <string name="title_trending">おすすめ</string>
+    <string name="title_trending">人気のある検索</string>
     <string name="title_history">検索履歴</string>
 
     <string name="title_recent">最近プレイした</string>
@@ -60,6 +60,7 @@
     <string name="can_not_download">ダウンロードを提供できません!</string>
     <string name="can_not_play">この曲は再生できません !</string>
 
+    <string name="btn_cancle">閉じる</string>
     <string name="play_list_title">プレイリスト</string>
     <string name="add_play_list">プレイリストを作成する</string>
     <string name="add_to_play_list">プレイリストに追加する</string>

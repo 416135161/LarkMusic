@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
-                android:text="My Genres"
+                android:text="@string/title_genres"
                 android:textColor="@color/text_15"
                 android:textSize="20sp"
                 />
