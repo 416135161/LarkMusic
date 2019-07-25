@@ -3,293 +3,305 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        >
-
-        <internet.com.larkmusic.view.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/me_title"
-            android:textColor="#fffe3939"
-            android:textSize="28sp"
-            />
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
             >
 
             <internet.com.larkmusic.view.MyTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_recent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/me_title"
+                android:textColor="#fffe3939"
+                android:textSize="28sp"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                >
+
+                <internet.com.larkmusic.view.MyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_recent"
+                    android:textColor="#ff151515"
+                    android:textSize="20sp"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_weight="1"
+                    />
+
+                <internet.com.larkmusic.view.MyTextView
+                    android:id="@+id/tv_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:text="@string/title_more"
+                    android:textColor="#ff999999"
+                    android:textSize="13sp"
+                    />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_recent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="18dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/view_playlist"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@mipmap/ic_playlist_me"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+
+                    <internet.com.larkmusic.view.MyTextView
+                        android:id="@+id/tv_playlist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/play_list_title"
+                        android:textColor="@color/text_666"
+                        android:textSize="14sp"
+                        />
+
+                    <internet.com.larkmusic.view.MyTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 Albums"
+                        android:textColor="@color/text_999"
+                        android:textSize="12sp"
+                        android:visibility="gone"
+                        />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_arrow_right"
+                    />
+
+            </LinearLayout>
+
+            <internet.com.larkmusic.view.MyTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/title_my_favorite"
                 android:textColor="#ff151515"
                 android:textSize="20sp"
+                android:visibility="visible"
                 />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_weight="1"
-                />
+            <LinearLayout
+                android:id="@+id/view_song"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@mipmap/ic_favorite_song"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+
+                    <internet.com.larkmusic.view.MyTextView
+                        android:id="@+id/tv_song"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_favorite_music"
+                        android:textColor="@color/text_666"
+                        android:textSize="14sp"
+                        />
+
+                    <internet.com.larkmusic.view.MyTextView
+                        android:id="@+id/tv_song_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30 "
+                        android:textColor="@color/text_999"
+                        android:textSize="12sp"
+                        />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_arrow_right"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_library"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:visibility="gone"
+                >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@mipmap/ic_favorite_album"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+
+                    <internet.com.larkmusic.view.MyTextView
+                        android:id="@+id/tv_library"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_favorite_album"
+                        android:textColor="@color/text_666"
+                        android:textSize="14sp"
+                        />
+
+                    <internet.com.larkmusic.view.MyTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 Albums"
+                        android:textColor="@color/text_999"
+                        android:textSize="12sp"
+                        />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_arrow_right"
+                    />
+
+            </LinearLayout>
 
             <internet.com.larkmusic.view.MyTextView
-                android:id="@+id/tv_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="15dp"
-                android:text="@string/title_more"
-                android:textColor="#ff999999"
-                android:textSize="13sp"
-                />
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_recent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="18dp"
-            />
-
-        <internet.com.larkmusic.view.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/title_my_favorite"
-            android:textColor="#ff151515"
-            android:textSize="20sp"
-            />
-
-        <LinearLayout
-            android:id="@+id/view_song"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            >
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@mipmap/ic_favorite_song"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/title_local_music"
+                android:textColor="#ff151515"
+                android:textSize="20sp"
+                android:visibility="visible"
                 />
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-
-                <internet.com.larkmusic.view.MyTextView
-                    android:id="@+id/tv_song"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_favorite_music"
-                    android:textColor="@color/text_666"
-                    android:textSize="14sp"
-                    />
-
-                <internet.com.larkmusic.view.MyTextView
-                    android:id="@+id/tv_song_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="30 Songs"
-                    android:textColor="@color/text_999"
-                    android:textSize="12sp"
-                    />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_arrow_right"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/view_library"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:visibility="gone"
-            >
-
-            <ImageView
-                android:layout_width="40dp"
+                android:id="@+id/view_local"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:src="@mipmap/ic_favorite_album"
-                />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:visibility="visible"
+                android:layout_marginBottom="20dp"
                 >
 
-                <internet.com.larkmusic.view.MyTextView
-                    android:id="@+id/tv_library"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_favorite_album"
-                    android:textColor="@color/text_666"
-                    android:textSize="14sp"
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@mipmap/ic_favorite_album"
                     />
 
-                <internet.com.larkmusic.view.MyTextView
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+
+                    <internet.com.larkmusic.view.MyTextView
+                        android:id="@+id/tv_local"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_local_music"
+                        android:textColor="@color/text_666"
+                        android:textSize="14sp"
+                        />
+
+                    <internet.com.larkmusic.view.MyTextView
+                        android:id="@+id/tv_local_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All Songs"
+                        android:textColor="@color/text_999"
+                        android:textSize="12sp"
+                        android:visibility="visible"
+                        />
+                </LinearLayout>
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 Albums"
-                    android:textColor="@color/text_999"
-                    android:textSize="12sp"
+                    android:src="@mipmap/ic_arrow_right"
                     />
+
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_arrow_right"
-                />
 
         </LinearLayout>
-
-        <internet.com.larkmusic.view.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/title_local_music"
-            android:textColor="#ff151515"
-            android:textSize="20sp"
-            android:visibility="gone"
-            />
-        <LinearLayout
-            android:id="@+id/view_local"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:visibility="gone"
-            >
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@mipmap/ic_favorite_album"
-                />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-
-                <internet.com.larkmusic.view.MyTextView
-                    android:id="@+id/tv_local"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_local_music"
-                    android:textColor="@color/text_666"
-                    android:textSize="14sp"
-                    />
-
-                <internet.com.larkmusic.view.MyTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="All Songs"
-                    android:textColor="@color/text_999"
-                    android:textSize="12sp"
-                    />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_arrow_right"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/view_playlist"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            >
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@mipmap/ic_favorite_album"
-                />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-
-                <internet.com.larkmusic.view.MyTextView
-                    android:id="@+id/tv_playlist"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/play_list_title"
-                    android:textColor="@color/text_666"
-                    android:textSize="14sp"
-                    />
-
-                <internet.com.larkmusic.view.MyTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0 Albums"
-                    android:textColor="@color/text_999"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_arrow_right"
-                />
-
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
     <FrameLayout
         android:id="@+id/view_container"

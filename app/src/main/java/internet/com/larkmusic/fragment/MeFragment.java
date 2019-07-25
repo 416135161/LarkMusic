@@ -1,5 +1,6 @@
 package internet.com.larkmusic.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,7 +25,10 @@ import internet.com.larkmusic.adapter.RecentListHorizontalAdapter;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.BaseFragment;
+import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.listener.ClickItemTouchListener;
+import internet.com.larkmusic.util.AudioUtils;
+import internet.com.larkmusic.util.FavoriteService;
 import internet.com.larkmusic.util.RecentSongService;
 
 /**
@@ -45,6 +49,9 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
     TextView mTvSong;
     @BindView(R.id.tv_song_count)
     TextView mTvSongCount;
+    @BindView(R.id.tv_local_count)
+    TextView mTvLocalCount;
+
     RecentListHorizontalAdapter mRecentAdapter;
 
     @Override
@@ -97,6 +104,22 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
         if (mRecentAdapter != null) {
             mRecentAdapter.notifyDataSetChanged();
         }
+        int favoriteCount = FavoriteService.getInstance().getSongList().size();
+        mTvSongCount.setText(String.format(getString(R.string.play_list_song_count), favoriteCount));
+
+        new AsyncTask<Void, Void, Integer>() {
+            @Override
+            protected Integer doInBackground(final Void... unused) {
+                List<Song> songList = AudioUtils.getAllSongs();
+                return songList.size();
+            }
+
+            @Override
+            protected void onPostExecute(Integer aVoid) {
+                mTvLocalCount.setText(String.format(getString(R.string.play_list_song_count), aVoid));
+            }
+        }.execute();
+
     }
 
     @OnClick(R.id.view_song)

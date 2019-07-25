@@ -76,8 +76,8 @@ public class PlayListSongsFragment extends BaseFragment {
         });
         PlayListBean playListBean = (PlayListBean) getArguments().getSerializable("data");
         mTvTitle.setText(playListBean.getName());
-        mIvHeader.setImageResource(R.mipmap.ic_favorite_header_bg);
-        mIvIcon.setImageResource(R.mipmap.ic_favorite_tip);
+        mIvHeader.setImageResource(R.mipmap.ic_playlist_header_bg);
+        mIvIcon.setImageResource(R.mipmap.ic_playlist_tip);
         List<PlayListRelationBean> playListRelationBeanList = LitePal.where("playListName = ?", playListBean.getName())
                 .find(PlayListRelationBean.class);
         if (playListRelationBeanList != null && playListRelationBeanList.size() > 0) {

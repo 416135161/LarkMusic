@@ -299,7 +299,7 @@
                 android:layout_alignParentRight="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:src="@mipmap/ic_playlist"
+                android:src="@mipmap/ic_playlist_small"
                 />
 
 
