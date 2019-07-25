@@ -13,12 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:drawableLeft="@mipmap/ic_playlist"
-        android:drawablePadding="15dp"
+        android:drawableLeft="@mipmap/ic_playlist_add"
+        android:drawablePadding="5dp"
         android:gravity="center"
         android:text="@string/add_play_list"
-        android:textColor="@color/text_333"
-        android:textSize="18sp"
+        android:textColor="@color/text_666"
+        android:textSize="16sp"
         />
 
     <View
