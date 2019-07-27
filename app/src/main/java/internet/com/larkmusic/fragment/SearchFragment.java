@@ -151,7 +151,9 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPosting(ActionSearchSongs event) {
         if (event != null && event.result != null && event.result.size() > 0) {
-            mRvSongs.smoothScrollToPosition(0);
+            if(mAdapter.getCount() > 10){
+                mRvSongs.smoothScrollToPosition(0);
+            }
             mAdapter.setPlayList(event.result);
             mAdapter.notifyDataSetChanged();
         }

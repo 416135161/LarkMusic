@@ -25,6 +25,7 @@ import internet.com.larkmusic.base.BaseFragment;
 import internet.com.larkmusic.bean.PlayListBean;
 import internet.com.larkmusic.bean.PlayListRelationBean;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.network.netnew.bean.PlayUrlRequest;
 
 /**
  * Created by sjning
@@ -85,6 +86,7 @@ public class PlayListSongsFragment extends BaseFragment {
             for (PlayListRelationBean playListRelationBean : playListRelationBeanList) {
                 Song song = LitePal.where("hash = ?", playListRelationBean.getSongHash()).findFirst(Song.class);
                 if (song != null) {
+                    song.playUrlRequest = LitePal.where("songmid = ?", song.getHash()).findFirst(PlayUrlRequest.class);
                     songList.add(song);
                 }
             }

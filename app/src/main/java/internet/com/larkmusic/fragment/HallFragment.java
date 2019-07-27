@@ -30,6 +30,7 @@ import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.util.CloudDataUtil;
 import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.view.HotNewView;
@@ -112,9 +113,10 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         });
         CommonUtil.setTvBoldFace(mTvTitle);
         showDialog();
-        CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
-        CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
-
+//        CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
+//        CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
+        NewCloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
+        NewCloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
     }
 
     private void initRefreshLayout() {
@@ -128,8 +130,11 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
-                CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
+//                CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
+//                CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
+                NewCloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
+                NewCloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
+
             }
         });
 
