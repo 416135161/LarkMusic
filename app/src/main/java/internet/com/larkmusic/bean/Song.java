@@ -7,6 +7,9 @@ import org.litepal.crud.LitePalSupport;
 
 import java.io.Serializable;
 
+import internet.com.larkmusic.network.netnew.bean.NewListResponse;
+import internet.com.larkmusic.network.netnew.bean.PlayUrlRequest;
+
 /**
  * Created by sjning
  * created on: 2019/5/12 下午8:57
@@ -24,7 +27,8 @@ public class Song extends LitePalSupport implements Serializable {
     private String portrait;
     @Column(ignore = true)
     private boolean isLocal;
-
+    @Column(ignore = true)
+    public PlayUrlRequest playUrlRequest;
 
     public String getSongName() {
         if (!TextUtils.isEmpty(songName) && songName.matches(".*\\(.*")) {
@@ -101,5 +105,13 @@ public class Song extends LitePalSupport implements Serializable {
 
     public void setLocal(boolean local) {
         isLocal = local;
+    }
+
+    @Override
+    public boolean saveOrUpdate(String... conditions) {
+        if(playUrlRequest != null){
+            playUrlRequest.saveOrUpdate("songmid = ?", playUrlRequest.songmid);
+        }
+        return super.saveOrUpdate(conditions);
     }
 }

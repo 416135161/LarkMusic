@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -63,6 +64,7 @@ public class LocalSongsFragment extends BaseFragment {
             @Override
             protected Void doInBackground(final Void... unused) {
                 List<Song> songList = AudioUtils.getAllSongs();
+                Collections.reverse(songList);
                 mAdapter.setPlayList(songList);
                 return null;
             }

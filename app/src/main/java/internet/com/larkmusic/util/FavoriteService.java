@@ -92,6 +92,7 @@ public class FavoriteService {
         newSong.setImgUrl(song.getImgUrl());
         newSong.setHash(song.getHash());
         newSong.setSongName(song.getSongName());
+        newSong.playUrlRequest = song.playUrlRequest;
         return newSong;
     }
 

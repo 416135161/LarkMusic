@@ -43,6 +43,7 @@ import internet.com.larkmusic.fragment.OperateDialog;
 import internet.com.larkmusic.fragment.PlayingListDialog;
 import internet.com.larkmusic.fragment.SearchFragment;
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayerService;
 import internet.com.larkmusic.util.CloudDataUtil;
@@ -84,8 +85,6 @@ public class MainActivity extends MainBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Intent intent = new Intent(getApplicationContext(), PlayerService.class);
-        startService(intent);
     }
 
     private void initSavedState() {

@@ -51,8 +51,6 @@ public class PlayerActivity extends EventActivity {
     public static final String INTENT_KEY_SONG = "intent_key_song";
     @BindView(R.id.lrc_view)
     com.lauzy.freedom.library.LrcView lrcView;
-    @BindView(R.id.iv_singer)
-    ImageView ivSinger;
     @BindView(R.id.tv_song)
     TextView tvSong;
     @BindView(R.id.tv_song1)
@@ -83,7 +81,7 @@ public class PlayerActivity extends EventActivity {
     @BindView(R.id.view_lrc)
     LinearLayout viewLrc;
     @BindView(R.id.view_top)
-    FrameLayout viewTop;
+    LinearLayout viewTop;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -281,17 +279,13 @@ public class PlayerActivity extends EventActivity {
             initFavorite(event.song);
         }
         Song song = event.song;
-        Picasso.with(this)
-                .load(song.getPortrait())
-                .error(R.mipmap.ic_singer_default)
-                .placeholder(R.mipmap.ic_singer_default)
-                .into(ivSinger);
-        Picasso.with(this)
-                .load(song.getImgUrl())
-                .error(R.mipmap.icon_player_main_default)
-                .placeholder(R.mipmap.icon_player_main_default)
-                .into(ivSongBg);
-
+        if(!TextUtils.isEmpty(song.getImgUrl())){
+            Picasso.with(this)
+                    .load(song.getImgUrl().replace("90x90", "300x300"))
+                    .error(R.mipmap.icon_player_main_default)
+                    .placeholder(R.mipmap.icon_player_main_default)
+                    .into(ivSongBg);
+        }
 
     }
 

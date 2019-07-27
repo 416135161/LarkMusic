@@ -31,6 +31,7 @@ import internet.com.larkmusic.network.GetSongCallBack;
 import internet.com.larkmusic.network.HttpUtil;
 import internet.com.larkmusic.network.QueryInterceptor;
 import internet.com.larkmusic.network.StreamService;
+import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -231,6 +232,11 @@ public final class CloudDataUtil {
         if (song == null) {
             return;
         }
+        if (song.playUrlRequest != null) {
+            NewCloudDataUtil.getSongPlayUrl(song, callBack);
+            return;
+        }
+
         EventBus.getDefault().post(new ActionStartLoading());
         StreamService ss = HttpUtil.getApiService(Config.HOST_GET_PLAY_URL, null);
         Call<PlayUrlResponse> call = ss.getPlayUrl(song.getHash());
@@ -409,12 +415,17 @@ public final class CloudDataUtil {
         });
     }
 
-    public static void checkImageAndLrc(Song song){
+    public static void checkImageAndLrc(Song song) {
         if (TextUtils.isEmpty(song.getImgUrl())) {
             getSongImage(song);
         }
         if (TextUtils.isEmpty(song.getLrc())) {
-            getSongLrc(song, null);
+            if (song.playUrlRequest == null) {
+                getSongLrc(song, null);
+            } else {
+                NewCloudDataUtil.getLrc(song, null);
+            }
+
         }
     }
 
