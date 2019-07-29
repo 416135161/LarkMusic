@@ -9,12 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import internet.com.larkmusic.R;
-import internet.com.larkmusic.action.ActionShowOperateDlg;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.util.RecentSongService;
@@ -78,20 +77,27 @@ public class PlayingListAdapter extends BaseAdapter {
         }
 
         holder.no.setText((i + 1) + "");
+        Picasso.with(context)
+                .load(song.getImgUrl())
+                .error(R.mipmap.ic_song_default)
+                .placeholder(R.mipmap.ic_song_default)
+                .into(holder.art);
         holder.delete.setOnClickListener(new MyClickListener(song, i));
         return convertView;
     }
 
     public class MyViewHolder {
 
-        ImageView delete;
+        ImageView delete, art;
         TextView no, title, artist;
 
         public MyViewHolder(View view) {
+            art = view.findViewById(R.id.iv_icon);
             delete = view.findViewById(R.id.iv_delete);
             no = view.findViewById(R.id.tv_no);
             title = view.findViewById(R.id.tv_song);
             artist = view.findViewById(R.id.tv_singer);
+
         }
     }
 

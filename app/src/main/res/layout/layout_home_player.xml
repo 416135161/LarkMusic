@@ -22,7 +22,8 @@
     <internet.com.larkmusic.view.MyTextView
         android:id="@+id/tv_song"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
         android:text="Where have you gone"

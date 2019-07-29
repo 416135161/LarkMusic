@@ -6,5 +6,5 @@ package internet.com.larkmusic.action;
  * description:
  */
 public enum PlayerStatus {
-    PLAYING, PREPARE, STOP
+    PLAYING, PREPARE, STOP, RESET
 }

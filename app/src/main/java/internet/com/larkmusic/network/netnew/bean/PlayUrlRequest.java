@@ -28,7 +28,7 @@ public class PlayUrlRequest extends LitePalSupport implements Serializable {
     public String songName;
     public String singermid;
     public String singername;
-    public String flac;
+    public String flac = "0";
     public String albummid;
     public String albumname;
 

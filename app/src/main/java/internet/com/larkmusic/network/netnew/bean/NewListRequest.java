@@ -8,7 +8,12 @@ import java.io.Serializable;
  * description:
  */
 public class NewListRequest extends BaseRequest implements Serializable {
+    public static final String japan = "4";
+    public static final String chinese = "1";
+    public static final String us = "3";
+
     public String type = "4";
     public String start = "0";
     public String pageSize = "40";
+
 }

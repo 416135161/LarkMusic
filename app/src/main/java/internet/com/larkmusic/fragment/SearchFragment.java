@@ -37,6 +37,7 @@ import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.util.CloudDataUtil;
 import internet.com.larkmusic.util.HistoryService;
 import internet.com.larkmusic.view.FlowLayout;
@@ -239,8 +240,8 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         mViewCondition.setVisibility(View.GONE);
         hideInput();
         showDialog();
-        CloudDataUtil.searchSongs(key);
-
+//        CloudDataUtil.searchSongs(key);
+        NewCloudDataUtil.searchSongs(key);
     }
 
     /**

@@ -196,8 +196,6 @@ public class MainActivity extends MainBaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventSelectSong(ActionSelectSong event) {
-
-
         List<Song> songList = new ArrayList<>();
         if (event.song != null) {
             songList.add(event.song);
