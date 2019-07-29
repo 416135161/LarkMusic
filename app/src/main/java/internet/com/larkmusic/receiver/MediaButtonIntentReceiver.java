@@ -69,40 +69,34 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
             lastAction.code = keycode;
             lastAction.time = System.currentTimeMillis();
         }
-        ActionPlayEvent actionPlayEvent = new ActionPlayEvent();
         switch (keycode) {
             case KeyEvent.KEYCODE_MEDIA_STOP:
-                actionPlayEvent.setAction(ActionPlayEvent.Action.STOP);
-                EventBus.getDefault().post(actionPlayEvent);
+                MusicPlayer.getPlayer().pause();
                 break;
             case KeyEvent.KEYCODE_HEADSETHOOK:
             case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
                 if (MusicPlayer.getPlayer().isPlaying()) {
-                    actionPlayEvent.setAction(ActionPlayEvent.Action.STOP);
+                    MusicPlayer.getPlayer().pause();
                 } else {
                     if (MusicPlayer.getPlayer().isPause()) {
-                        actionPlayEvent.setAction(ActionPlayEvent.Action.RESUME);
+                        MusicPlayer.getPlayer().resume();
                     } else {
-                        actionPlayEvent.setAction(ActionPlayEvent.Action.PLAY);
+                        MusicPlayer.getPlayer().play();
                     }
                 }
-                EventBus.getDefault().post(actionPlayEvent);
+
                 break;
             case KeyEvent.KEYCODE_MEDIA_NEXT:
-                actionPlayEvent.setAction(ActionPlayEvent.Action.NEXT);
-                EventBus.getDefault().post(actionPlayEvent);
+                MusicPlayer.getPlayer().next();
                 break;
             case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
-                actionPlayEvent.setAction(ActionPlayEvent.Action.PREVIOUS);
-                EventBus.getDefault().post(actionPlayEvent);
+                MusicPlayer.getPlayer().previous();
                 break;
             case KeyEvent.KEYCODE_MEDIA_PAUSE:
-                actionPlayEvent.setAction(ActionPlayEvent.Action.STOP);
-                EventBus.getDefault().post(actionPlayEvent);
+                MusicPlayer.getPlayer().pause();
                 break;
             case KeyEvent.KEYCODE_MEDIA_PLAY:
-                actionPlayEvent.setAction(ActionPlayEvent.Action.PLAY);
-                EventBus.getDefault().post(actionPlayEvent);
+                MusicPlayer.getPlayer().play();
                 break;
         }
     }

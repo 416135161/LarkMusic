@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              xmlns:zhy="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
@@ -88,6 +86,7 @@
         android:layout_height="40dp"
         android:gravity="center"
         android:orientation="horizontal"
+        android:paddingRight="60dp"
         >
 
         <TextView
@@ -95,8 +94,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="歌曲"
+            android:paddingRight="35dp"
+            android:gravity="center_vertical|right"
+            android:text="@string/search_type_song"
             android:textColor="@color/text_red"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -106,9 +106,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
             android:layout_marginBottom="10dp"
             android:background="@color/line_divider"
             />
@@ -118,9 +116,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="歌手"
-            android:textColor="@color/text_333"
+            android:paddingLeft="35dp"
+            android:gravity="center_vertical|left"
+            android:text="@string/search_type_singer"
+            android:textColor="@color/text_999"
             android:textSize="16sp"
             android:textStyle="bold"
 

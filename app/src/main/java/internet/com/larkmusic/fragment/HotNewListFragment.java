@@ -25,6 +25,7 @@ import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
+import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
 import internet.com.larkmusic.util.CloudDataUtil;
 
 /**
@@ -47,7 +48,7 @@ public class HotNewListFragment extends EventFragment {
     ImageView mIvHeader;
 
 
-    String from;
+    String from, rankId;
 
     @Override
     protected int getLayoutId() {
@@ -58,6 +59,7 @@ public class HotNewListFragment extends EventFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         from = getArguments().getString("from", Config.FROM_US);
+        rankId = getArguments().getString("rankId", BillBoardMusicListRequest.RANK_Japan_TOP);
     }
 
     @Override
@@ -82,7 +84,7 @@ public class HotNewListFragment extends EventFragment {
                 CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_LIST, from);
             } else {
 //                CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, from);
-                NewCloudDataUtil.getBillBoardSongs(ActionHotSongs.TYPE_LIST, from);
+                NewCloudDataUtil.getBillBoardSongs(ActionHotSongs.TYPE_LIST, from, rankId);
             }
         }
     }

@@ -243,13 +243,9 @@ public class NewCloudDataUtil {
     }
 
     //获取热歌
-    public static void getBillBoardSongs(final int type, final String from) {
+    public static void getBillBoardSongs(final int type, final String from, String rankId) {
         BillBoardMusicListRequest request = new BillBoardMusicListRequest();
-        if (from == Config.FROM_JAPAN) {
-            request.rankId = BillBoardMusicListRequest.RANK_Japan_TOP;
-        } else {
-            request.rankId = BillBoardMusicListRequest.RANK_Europe_US;
-        }
+        request.rankId = rankId;
         Call<BillBoardSongsResponse> call = HttpUtil.getNewApi().getBillBoardMusicList(request);
         call.enqueue(new Callback<BillBoardSongsResponse>() {
             @Override

@@ -8,12 +8,9 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
@@ -28,10 +25,8 @@ import internet.com.larkmusic.action.ActionDownLoad;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.PlayerStatus;
-import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.activity.PlayerActivity;
 import internet.com.larkmusic.bean.Song;
-import internet.com.larkmusic.receiver.MediaButtonIntentReceiver;
 import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.FileUtils;
 
@@ -50,8 +45,7 @@ public class PlayerService extends Service {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        registerPhoneStateListener();
-        registerHeadsetReceiver(this);
+
         initNotification();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
 
@@ -149,28 +143,12 @@ public class PlayerService extends Service {
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
-        unregisterHeadsetReceiver(this);
+
     }
 
-    private void registerPhoneStateListener() {
-        CustomPhoneStateListener customPhoneStateListener = new CustomPhoneStateListener(this);
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        if (telephonyManager != null) {
-            telephonyManager.listen(customPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
-        }
-    }
 
-    public void registerHeadsetReceiver(Context context) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);// 另说context.AUDIO_SERVICE
-        ComponentName name = new ComponentName(context.getPackageName(), MediaButtonIntentReceiver.class.getName());// 另说MediaButtonReceiver.class.getName()
-        audioManager.registerMediaButtonEventReceiver(name);
-    }
 
-    public void unregisterHeadsetReceiver(Context context) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        ComponentName name = new ComponentName(context.getPackageName(), MediaButtonIntentReceiver.class.getName());
-        audioManager.unregisterMediaButtonEventReceiver(name);
-    }
+
 
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mBuilder;

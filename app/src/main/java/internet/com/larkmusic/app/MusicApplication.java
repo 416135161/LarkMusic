@@ -1,13 +1,17 @@
 package internet.com.larkmusic.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Typeface;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 
 import com.facebook.ads.AudienceNetworkAds;
 
 import org.litepal.LitePal;
 
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.player.CustomPhoneStateListener;
 
 /**
  * Created by sjning
@@ -32,7 +36,15 @@ public class MusicApplication extends Application {
         }
         AudienceNetworkAds.isInAdsProcess(this);
         AudienceNetworkAds.initialize(this);
+        registerPhoneStateListener();
+    }
 
+    private void registerPhoneStateListener() {
+        CustomPhoneStateListener customPhoneStateListener = new CustomPhoneStateListener(this);
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager != null) {
+            telephonyManager.listen(customPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+        }
     }
 
     public static MusicApplication getInstance() {
