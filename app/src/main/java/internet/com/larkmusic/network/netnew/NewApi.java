@@ -12,6 +12,7 @@ import internet.com.larkmusic.network.netnew.bean.NewListRequest;
 import internet.com.larkmusic.network.netnew.bean.NewListResponse;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlRequest;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlResponse;
+import internet.com.larkmusic.network.netnew.bean.SearchSingerResponse;
 import internet.com.larkmusic.network.netnew.bean.SearchSongResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -28,6 +29,7 @@ public interface NewApi {
 
     String HOST = "http://47.104.178.7:80/";
     String HOST_LRC = "https://c.y.qq.com/";
+    String HOST_SINGER_SEARCH = "http://s.plcloud.music.qq.com/";
 
     /**
      * 新歌
@@ -79,6 +81,10 @@ public interface NewApi {
      */
     @GET("/soso/fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=sizer.yqq.song_next&searchid=&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&p=0&n=100&g_tk=&jsonpCallback=&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0")
     Call<SearchSongResponse> searchSong(@Query("w") String keyword);
+
+
+    @GET("/fcgi-bin/smartbox_new.fcg?utf8=1&is_xml=0")
+    Call<SearchSingerResponse> searchSinger(@Query("key") String keyword);
 
 
 }

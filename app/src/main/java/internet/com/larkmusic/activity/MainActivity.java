@@ -85,6 +85,15 @@ public class MainActivity extends MainBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Intent intent = new Intent();
+        intent.setClass(this, PlayerService.class);
+        startService(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MusicPlayer.getPlayer().release();
     }
 
     private void initSavedState() {
