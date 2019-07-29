@@ -3,6 +3,8 @@ package internet.com.larkmusic.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -22,9 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,21 +32,22 @@ import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionSearchSinger;
 import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionSelectSong;
+import internet.com.larkmusic.action.ActionSingerSongs;
 import internet.com.larkmusic.adapter.HistoryAdapter;
 import internet.com.larkmusic.adapter.SearchListAdapter;
 import internet.com.larkmusic.adapter.SingerListAdapter;
+import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.EventFragment;
+import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.network.netnew.bean.SearchSingerResponse;
-import internet.com.larkmusic.util.CloudDataUtil;
 import internet.com.larkmusic.util.HistoryService;
 import internet.com.larkmusic.view.FlowLayout;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
-import static android.content.Context.TELECOM_SERVICE;
 import static android.support.annotation.Dimension.SP;
 
 /**
@@ -107,8 +108,8 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         mRvSinger.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
+                showDialog();
+                NewCloudDataUtil.getSingerSongs((SearchSingerResponse.DataBean.SingerBean.Singer) mSingerAdapter.getItem(i));
             }
         });
         mHistoryAdapter = new HistoryAdapter(getContext());
@@ -174,6 +175,24 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         mEtSearch.setText("");
     }
 
+    @OnClick(R.id.tv_song_type)
+    void onClickSongType() {
+        searchType = searchTypeSong;
+        mTvSongType.setTextColor(getResources().getColor(R.color.text_red));
+        mTvSingerType.setTextColor(getResources().getColor(R.color.text_333));
+        mRvSinger.setVisibility(View.GONE);
+        mRvSongs.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.tv_singer_type)
+    void onClickSingerType() {
+        searchType = searchTypeSinger;
+        mTvSongType.setTextColor(getResources().getColor(R.color.text_333));
+        mTvSingerType.setTextColor(getResources().getColor(R.color.text_red));
+        mRvSongs.setVisibility(View.GONE);
+        mRvSinger.setVisibility(View.VISIBLE);
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPosting(ActionSearchSongs event) {
         if (event != null && event.result != null && event.result.size() > 0) {
@@ -198,22 +217,24 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         closeDialog();
     }
 
-    @OnClick(R.id.tv_song_type)
-    void onClickSongType() {
-        searchType = searchTypeSong;
-        mTvSongType.setTextColor(getResources().getColor(R.color.text_red));
-        mTvSingerType.setTextColor(getResources().getColor(R.color.text_333));
-        mRvSinger.setVisibility(View.GONE);
-        mRvSongs.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick(R.id.tv_singer_type)
-    void onClickSingerType() {
-        searchType = searchTypeSinger;
-        mTvSongType.setTextColor(getResources().getColor(R.color.text_333));
-        mTvSingerType.setTextColor(getResources().getColor(R.color.text_red));
-        mRvSongs.setVisibility(View.GONE);
-        mRvSinger.setVisibility(View.VISIBLE);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventPosting(ActionSingerSongs event) {
+        if (event != null && event.result != null && event.result.size() > 0) {
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+            Fragment fragment = new SongListFragment();
+            Bundle bundle = new Bundle();
+            Album album = new Album();
+            album.setName(event.singer.name);
+            album.setImgUrl(event.singer.pic);
+            bundle.putSerializable("album", album);
+            bundle.putSerializable("songs", event.result);
+            fragment.setArguments(bundle);
+            transaction.add(R.id.view_container, fragment);
+            transaction.addToBackStack("");
+            transaction.commit();
+        }
+        closeDialog();
     }
 
     private void initTrending() {
@@ -337,6 +358,9 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
 
     @Override
     public boolean onBackPressed() {
+        if( BackHandlerHelper.handleBackPress(this)){
+            return true;
+        }
         if (mViewCondition.getVisibility() != View.VISIBLE) {
             mEtSearch.setText("");
             mViewCondition.setVisibility(View.VISIBLE);

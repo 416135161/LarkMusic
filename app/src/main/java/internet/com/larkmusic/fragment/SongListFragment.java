@@ -76,8 +76,15 @@ public class SongListFragment extends EventFragment {
                 .error(R.mipmap.ic_song_default)
                 .placeholder(R.mipmap.ic_song_default)
                 .into(mIvIcon);
-        showDialog();
-        CloudDataUtil.getPlayList(album.getId() + "", from);
+        if (getArguments().getSerializable("songs") != null) {
+            ArrayList<Song> songs = (ArrayList<Song>) getArguments().getSerializable("songs");
+            mAdapter.setPlayList(songs);
+            mAdapter.notifyDataSetChanged();
+            mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
+        } else {
+            showDialog();
+            CloudDataUtil.getPlayList(album.getId() + "", from);
+        }
     }
 
     private void initView() {

@@ -14,6 +14,7 @@ import internet.com.larkmusic.network.netnew.bean.PlayUrlRequest;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlResponse;
 import internet.com.larkmusic.network.netnew.bean.SearchSingerResponse;
 import internet.com.larkmusic.network.netnew.bean.SearchSongResponse;
+import internet.com.larkmusic.network.netnew.bean.SingerSongsResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -85,6 +86,14 @@ public interface NewApi {
 
     @GET("/fcgi-bin/smartbox_new.fcg?utf8=1&is_xml=0")
     Call<SearchSingerResponse> searchSinger(@Query("key") String keyword);
+
+    /**
+     * 获取歌手下的歌曲
+     * @param keyword
+     * @return
+     */
+    @GET("/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?inCharset=utf-8&outCharset=utf-8&g_tk=5239908145&format&jsonp&platform=h5page&order=listen&from=h5&notice=0&uin=0&needNewCode=1&begin=0&num=100")
+    Call<SingerSongsResponse> getSingerSongs(@Query("singerid") String keyword);
 
 
 }
