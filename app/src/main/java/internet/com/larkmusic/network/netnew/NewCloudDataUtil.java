@@ -11,6 +11,7 @@ import java.util.List;
 
 import internet.com.larkmusic.action.ActionHotSongs;
 import internet.com.larkmusic.action.ActionNewSongs;
+import internet.com.larkmusic.action.ActionSearchSinger;
 import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionStartLoading;
 import internet.com.larkmusic.action.ActionStopLoading;
@@ -28,6 +29,7 @@ import internet.com.larkmusic.network.netnew.bean.NewListRequest;
 import internet.com.larkmusic.network.netnew.bean.NewListResponse;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlRequest;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlResponse;
+import internet.com.larkmusic.network.netnew.bean.SearchSingerResponse;
 import internet.com.larkmusic.network.netnew.bean.SearchSongResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -337,13 +339,43 @@ public class NewCloudDataUtil {
                     }
 
                     EventBus.getDefault().post(new ActionSearchSongs(songList));
-                }else {
+                } else {
                     EventBus.getDefault().post(new ActionSearchSongs(null));
                 }
             }
 
             @Override
             public void onFailure(Call<SearchSongResponse> call, Throwable t) {
+                EventBus.getDefault().post(new ActionSearchSongs(null));
+            }
+
+        });
+
+    }
+
+    /**
+     * 搜歌手
+     *
+     * @param key
+     */
+    public static void searchSinger(String key) {
+        Call<SearchSingerResponse> call = HttpUtil.getRetrofit(NewApi.HOST_SINGER_SEARCH, new SingerInterceptor()).create(NewApi.class).searchSinger(key);
+
+        call.enqueue(new Callback<SearchSingerResponse>() {
+
+            @Override
+            public void onResponse(Call<SearchSingerResponse> call, Response<SearchSingerResponse> response) {
+                if (response.isSuccessful() && response.body() != null
+                        && response.body().data != null && response.body().data.singer != null
+                        && response.body().data.singer.itemlist != null && response.body().data.singer.itemlist.size() > 0) {
+                    EventBus.getDefault().post(new ActionSearchSinger(response.body().data.singer.itemlist));
+                } else {
+                    EventBus.getDefault().post(new ActionSearchSongs(null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchSingerResponse> call, Throwable t) {
                 EventBus.getDefault().post(new ActionSearchSongs(null));
             }
 

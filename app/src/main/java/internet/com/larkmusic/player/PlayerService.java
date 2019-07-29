@@ -28,6 +28,7 @@ import internet.com.larkmusic.action.ActionDownLoad;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.PlayerStatus;
+import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.activity.PlayerActivity;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.receiver.MediaButtonIntentReceiver;
@@ -56,6 +57,7 @@ public class PlayerService extends Service {
 
         } else {
             startForeground(NOTICE_ID, new Notification());
+
         }
     }
 
@@ -141,7 +143,6 @@ public class PlayerService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MusicPlayer.getPlayer().release();
         if (mNotificationManager != null) {
             mNotificationManager.cancelAll();
         }

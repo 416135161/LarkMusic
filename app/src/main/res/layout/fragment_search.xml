@@ -21,19 +21,19 @@
             android:background="@color/white"
             >
 
-            <internet.com.larkmusic.view.MyTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="20dp"
-                android:text="Charts"
-                android:textColor="@color/text_15"
-                android:textSize="20sp"
-                android:visibility="gone"
-                />
-
             <ListView
                 android:id="@+id/rv_songs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:dividerHeight="0px"
+                android:divider="@color/transparent"
+                android:scrollbars="none"
+                android:visibility="visible"
+                >
+            </ListView>
+            <ListView
+                android:id="@+id/rv_singer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
