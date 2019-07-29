@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
-             android:layout_height="wrap_content">
+             android:layout_height="wrap_content"
+             xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="55dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -21,6 +22,19 @@
             android:textColor="@color/text_666"
             android:textSize="16sp"
             />
+        <com.itheima.roundedimageview.RoundedImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/song_item_bg"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_song_default"
+            android:visibility="visible"
+            app:riv_border_color="#333333"
+            app:riv_border_width="0dip"
+            app:riv_corner_radius="3dp"
+            app:riv_oval="false"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -70,7 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="55dp"
         android:background="@color/line_divider"
         android:visibility="visible"
         >

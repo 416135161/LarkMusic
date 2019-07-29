@@ -3,6 +3,7 @@ package internet.com.larkmusic.view;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -54,8 +55,12 @@ public class HotNewView extends FrameLayout {
         mTvSongName.setText(song.getSongName());
         mTvSingerName.setText(song.getSingerName());
         try {
+            String imgUrl = "";
+            if(!TextUtils.isEmpty(song.getImgUrl())){
+                imgUrl = song.getImgUrl().replace("90x90", "120x120");
+            }
             Picasso.with(getContext())
-                    .load(song.getImgUrl())
+                    .load(imgUrl)
                     .error(R.mipmap.ic_song_default)
                     .placeholder(R.mipmap.ic_song_default)
                     .into(mIvPhoto);

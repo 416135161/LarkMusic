@@ -38,7 +38,7 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     private static MusicPlayer player;
 
-    private PlayerStatus status = PlayerStatus.STOP;
+    private PlayerStatus status = PlayerStatus.RESET;
     private ManagedMediaPlayer mMediaPlayer;
     private LinkedList<Song> mQueue;
     private int mQueueIndex;

@@ -11,21 +11,24 @@ import java.util.List;
 
 import internet.com.larkmusic.action.ActionHotSongs;
 import internet.com.larkmusic.action.ActionNewSongs;
+import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionStartLoading;
 import internet.com.larkmusic.action.ActionStopLoading;
-
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.GetLrcCallBack;
 import internet.com.larkmusic.network.GetSongCallBack;
 import internet.com.larkmusic.network.HttpUtil;
 import internet.com.larkmusic.network.netnew.bean.BaseRequest;
+import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
 import internet.com.larkmusic.network.netnew.bean.BillBoardResponse;
+import internet.com.larkmusic.network.netnew.bean.BillBoardSongsResponse;
 import internet.com.larkmusic.network.netnew.bean.LrcResponse;
 import internet.com.larkmusic.network.netnew.bean.NewListRequest;
 import internet.com.larkmusic.network.netnew.bean.NewListResponse;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlRequest;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlResponse;
+import internet.com.larkmusic.network.netnew.bean.SearchSongResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,8 +42,14 @@ public class NewCloudDataUtil {
 
     //获取新歌
     public static void getNewSongs(final int type, final String from) {
+        NewListRequest newListRequest = new NewListRequest();
+        if (from == Config.FROM_JAPAN) {
+            newListRequest.type = NewListRequest.japan;
+        } else {
+            newListRequest.type = NewListRequest.us;
+        }
 
-        Call<NewListResponse> call = HttpUtil.getNewApi().getNewMusicList(new NewListRequest());
+        Call<NewListResponse> call = HttpUtil.getNewApi().getNewMusicList(newListRequest);
         call.enqueue(new Callback<NewListResponse>() {
             @Override
             public void onResponse(Call<NewListResponse> call, Response<NewListResponse> response) {
@@ -93,7 +102,7 @@ public class NewCloudDataUtil {
     }
 
     //获取热歌
-    public static void getHotSongs(final int type, final String from) {
+    public static void getBillBoard(final int type, final String from) {
 
         Call<BillBoardResponse> call = HttpUtil.getNewApi().getBillBoardList(new BaseRequest());
         call.enqueue(new Callback<BillBoardResponse>() {
@@ -102,10 +111,10 @@ public class NewCloudDataUtil {
                 if (response.isSuccessful() && response.body() != null && response.body().result != null
                         && response.body().result.size() == 5) {
                     List<BillBoardResponse.ItemsBean> items;
-                    if(TextUtils.equals(from , Config.FROM_JAPAN)){
+                    if (TextUtils.equals(from, Config.FROM_JAPAN)) {
+                        items = response.body().result.get(3).items;
+                    } else {
                         items = response.body().result.get(0).items;
-                    }else {
-                        items = response.body().result.get(4).items;
                     }
                     List<Song> songList = new ArrayList<>();
                     for (BillBoardResponse.ItemsBean resultBean : items) {
@@ -227,5 +236,118 @@ public class NewCloudDataUtil {
             }
 
         });
+    }
+
+    //获取热歌
+    public static void getBillBoardSongs(final int type, final String from) {
+        BillBoardMusicListRequest request = new BillBoardMusicListRequest();
+        if (from == Config.FROM_JAPAN) {
+            request.rankId = BillBoardMusicListRequest.RANK_Japan_TOP;
+        } else {
+            request.rankId = BillBoardMusicListRequest.RANK_Europe_US;
+        }
+        Call<BillBoardSongsResponse> call = HttpUtil.getNewApi().getBillBoardMusicList(request);
+        call.enqueue(new Callback<BillBoardSongsResponse>() {
+            @Override
+            public void onResponse(Call<BillBoardSongsResponse> call, Response<BillBoardSongsResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().result != null
+                        && response.body().result.size() > 0) {
+                    List<Song> songList = new ArrayList<>();
+                    for (BillBoardResponse.ItemsBean resultBean : response.body().result) {
+                        Song song = new Song();
+                        song.setImgUrl(resultBean.imgUrl);
+                        song.setSongName(resultBean.songname);
+                        song.setSingerName(resultBean.singer);
+                        song.setHash(resultBean.singermid);
+                        PlayUrlRequest playUrlRequest = new PlayUrlRequest();
+                        playUrlRequest.songmid = resultBean.songmid;
+                        playUrlRequest.songMediaId = resultBean.media_mid;
+                        playUrlRequest.songName = resultBean.songname;
+                        playUrlRequest.singermid = resultBean.singermid;
+                        playUrlRequest.singername = resultBean.singer;
+                        playUrlRequest.flac = resultBean.size_flac + "";
+                        playUrlRequest.albummid = resultBean.albummid;
+                        playUrlRequest.albumname = resultBean.albumname;
+                        song.playUrlRequest = playUrlRequest;
+                        songList.add(song);
+                    }
+
+                    ActionHotSongs action = new ActionHotSongs();
+                    action.isOK = true;
+                    action.trackList = songList;
+                    action.type = type;
+                    action.from = from;
+                    EventBus.getDefault().post(action);
+
+                } else {
+                    onFailure(null, new Exception("is nothing"));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BillBoardSongsResponse> call, Throwable t) {
+                ActionHotSongs action = new ActionHotSongs();
+                action.isOK = false;
+                action.type = type;
+                action.from = from;
+                EventBus.getDefault().post(action);
+            }
+
+        });
+    }
+
+    /**
+     * 搜歌
+     *
+     * @param key
+     */
+    public static void searchSongs(String key) {
+        Call<SearchSongResponse> call = HttpUtil.getRetrofit(NewApi.HOST_LRC, null).create(NewApi.class).searchSong(key);
+
+        call.enqueue(new Callback<SearchSongResponse>() {
+
+            @Override
+            public void onResponse(Call<SearchSongResponse> call, Response<SearchSongResponse> response) {
+                if (response.isSuccessful() && response.body() != null
+                        && response.body().data != null && response.body().data.song != null
+                        && response.body().data.song.list != null && response.body().data.song.list.size() > 0) {
+                    ArrayList<Song> songList = new ArrayList<>();
+                    for (SearchSongResponse.DataBean.SongBean.ListBean listBean : response.body().data.song.list) {
+                        Song song = new Song();
+                        song.setImgUrl(listBean.album != null ? "https://y.gtimg.cn/music/photo_new/T002R90x90M000%@.jpg?max_age=2592000".replace("%@",
+                                listBean.album.mid) : "");
+                        song.setSongName(listBean.name);
+                        song.setSingerName((listBean.singer != null && listBean.singer.size() > 0) ?
+                                listBean.singer.get(0).name : "");
+                        song.setHash(listBean.mid);
+                        PlayUrlRequest playUrlRequest = new PlayUrlRequest();
+                        playUrlRequest.songmid = listBean.mid;
+                        playUrlRequest.songMediaId = listBean.file != null ? listBean.file.media_mid : "";
+                        playUrlRequest.songName = listBean.name;
+                        playUrlRequest.singermid = (listBean.singer != null && listBean.singer.size() > 0) ?
+                                listBean.singer.get(0).mid : "";
+                        playUrlRequest.singername = (listBean.singer != null && listBean.singer.size() > 0) ?
+                                listBean.singer.get(0).name : "";
+                        playUrlRequest.flac = "0";
+                        playUrlRequest.albummid = listBean.album != null ? listBean.album.mid : "0";
+                        playUrlRequest.albumname = listBean.album != null ? listBean.album.name : "";
+                        song.playUrlRequest = playUrlRequest;
+                        songList.add(song);
+                    }
+
+                    EventBus.getDefault().post(new ActionSearchSongs(songList));
+                }else {
+                    EventBus.getDefault().post(new ActionSearchSongs(null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchSongResponse> call, Throwable t) {
+                EventBus.getDefault().post(new ActionSearchSongs(null));
+            }
+
+        });
+
     }
 }

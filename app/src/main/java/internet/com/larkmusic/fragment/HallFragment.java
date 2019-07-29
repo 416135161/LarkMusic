@@ -31,7 +31,6 @@ import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
-import internet.com.larkmusic.util.CloudDataUtil;
 import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.view.HotNewView;
 
@@ -101,7 +100,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
             public void onBannerClickListener(BannerImageView imageView, Object model, int position) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-                HotNewListFragment.TYPE = HotNewListFragment.TYPE_NEW;
+                HotNewListFragment.TYPE = HotNewListFragment.TYPE_HOT;
                 Fragment fragment = new HotNewListFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("from", Config.FROM == Config.FROM_JAPAN ? Config.FROM_US : Config.FROM_JAPAN);
@@ -113,9 +112,9 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         });
         CommonUtil.setTvBoldFace(mTvTitle);
         showDialog();
-//        CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
+//        CloudDataUtil.getBillBoard(ActionHotSongs.TYPE_HOME, Config.FROM);
 //        CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
-        NewCloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
+        NewCloudDataUtil.getBillBoard(ActionHotSongs.TYPE_HOME, Config.FROM);
         NewCloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
     }
 
@@ -130,9 +129,9 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
+//                CloudDataUtil.getBillBoard(ActionHotSongs.TYPE_HOME, Config.FROM);
 //                CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
-                NewCloudDataUtil.getHotSongs(ActionHotSongs.TYPE_HOME, Config.FROM);
+                NewCloudDataUtil.getBillBoard(ActionHotSongs.TYPE_HOME, Config.FROM);
                 NewCloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
 
             }
@@ -214,7 +213,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 hot3.refreshView(subList.get(3));
                 hot4.refreshView(subList.get(4));
                 hot5.refreshView(subList.get(5));
-                mHotList = (ArrayList<Song>) event.trackList;
+//                mHotList = (ArrayList<Song>) event.trackList;
             } else {
                 Toast.makeText(getContext(), getString(R.string.please_pull_refresh), Toast.LENGTH_SHORT).show();
             }

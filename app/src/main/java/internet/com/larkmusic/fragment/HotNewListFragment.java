@@ -24,6 +24,7 @@ import internet.com.larkmusic.adapter.HotNewListAdapter;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.util.CloudDataUtil;
 
 /**
@@ -80,7 +81,8 @@ public class HotNewListFragment extends EventFragment {
             if (TYPE == TYPE_NEW) {
                 CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_LIST, from);
             } else {
-                CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, from);
+//                CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, from);
+                NewCloudDataUtil.getBillBoardSongs(ActionHotSongs.TYPE_LIST, from);
             }
         }
     }

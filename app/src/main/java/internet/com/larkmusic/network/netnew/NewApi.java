@@ -1,12 +1,18 @@
 package internet.com.larkmusic.network.netnew;
 
+import java.util.ArrayList;
+
+import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.netnew.bean.BaseRequest;
+import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
 import internet.com.larkmusic.network.netnew.bean.BillBoardResponse;
+import internet.com.larkmusic.network.netnew.bean.BillBoardSongsResponse;
 import internet.com.larkmusic.network.netnew.bean.LrcResponse;
 import internet.com.larkmusic.network.netnew.bean.NewListRequest;
 import internet.com.larkmusic.network.netnew.bean.NewListResponse;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlRequest;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlResponse;
+import internet.com.larkmusic.network.netnew.bean.SearchSongResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -54,6 +60,25 @@ public interface NewApi {
      */
     @POST("/android/billBoard/list.do")
     Call<BillBoardResponse> getBillBoardList(@Body BaseRequest request);
+
+
+
+    /**
+     * 排行榜下面的歌曲
+     * @param request
+     * @return
+     */
+    @POST("/android/billBoard/item/list.do")
+    Call<BillBoardSongsResponse> getBillBoardMusicList(@Body BillBoardMusicListRequest request);
+
+    /**
+     * QQ搜歌
+     *
+     * @param keyword
+     * @return
+     */
+    @GET("/soso/fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=sizer.yqq.song_next&searchid=&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&p=0&n=100&g_tk=&jsonpCallback=&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0")
+    Call<SearchSongResponse> searchSong(@Query("w") String keyword);
 
 
 }
