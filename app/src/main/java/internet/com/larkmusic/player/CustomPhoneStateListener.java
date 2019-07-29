@@ -51,9 +51,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
 
     private void pauseMusic() {
         if (MusicPlayer.getPlayer().isPlaying()) {
-            ActionPlayEvent actionPlayEvent = new ActionPlayEvent();
-            actionPlayEvent.setAction(ActionPlayEvent.Action.STOP);
-            EventBus.getDefault().post(actionPlayEvent);
+            MusicPlayer.getPlayer().pause();
         }
     }
 }

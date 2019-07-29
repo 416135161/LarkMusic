@@ -68,4 +68,6 @@
     <string name="add_play_list_empty_tip">请输入歌单名称</string>
     <string name="add_to_play_list">添加到歌单</string>
     <string name="play_list_song_count">%1$d 首</string>
+    <string name="search_type_song">歌曲</string>
+    <string name="search_type_singer">歌手</string>
 </resources>

@@ -31,6 +31,7 @@ import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
+import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
 import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.view.HotNewView;
 
@@ -103,7 +104,9 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 HotNewListFragment.TYPE = HotNewListFragment.TYPE_HOT;
                 Fragment fragment = new HotNewListFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("from", Config.FROM == Config.FROM_JAPAN ? Config.FROM_US : Config.FROM_JAPAN);
+                bundle.putString("from", Config.FROM == Config.FROM_JAPAN ? Config.FROM_JAPAN : Config.FROM_US);
+                bundle.putString("rankId", Config.FROM == Config.FROM_JAPAN ? BillBoardMusicListRequest.RANK_Japan_Public
+                        : BillBoardMusicListRequest.RANK_BillBoard);
                 fragment.setArguments(bundle);
                 transaction.add(R.id.view_container, fragment);
                 transaction.addToBackStack("");
@@ -147,6 +150,9 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         Fragment fragment = new HotNewListFragment();
         Bundle bundle = new Bundle();
         bundle.putString("from", Config.FROM);
+        bundle.putString("rankId", Config.FROM == Config.FROM_JAPAN ? BillBoardMusicListRequest.RANK_Japan_TOP
+                : BillBoardMusicListRequest.RANK_Europe_US);
+
         if (mHotList != null && mHotList.size() > 0) {
             bundle.putSerializable("songs", mHotList);
         }

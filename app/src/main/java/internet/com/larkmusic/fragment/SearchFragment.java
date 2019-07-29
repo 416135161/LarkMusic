@@ -179,18 +179,20 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     void onClickSongType() {
         searchType = searchTypeSong;
         mTvSongType.setTextColor(getResources().getColor(R.color.text_red));
-        mTvSingerType.setTextColor(getResources().getColor(R.color.text_333));
+        mTvSingerType.setTextColor(getResources().getColor(R.color.text_999));
         mRvSinger.setVisibility(View.GONE);
         mRvSongs.setVisibility(View.VISIBLE);
+        showInput(mEtSearch);
     }
 
     @OnClick(R.id.tv_singer_type)
     void onClickSingerType() {
         searchType = searchTypeSinger;
-        mTvSongType.setTextColor(getResources().getColor(R.color.text_333));
+        mTvSongType.setTextColor(getResources().getColor(R.color.text_999));
         mTvSingerType.setTextColor(getResources().getColor(R.color.text_red));
         mRvSongs.setVisibility(View.GONE);
         mRvSinger.setVisibility(View.VISIBLE);
+        showInput(mEtSearch);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

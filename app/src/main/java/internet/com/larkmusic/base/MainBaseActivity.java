@@ -2,8 +2,11 @@ package internet.com.larkmusic.base;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.util.Log;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayerService;
+import internet.com.larkmusic.receiver.MediaButtonIntentReceiver;
 import internet.com.larkmusic.util.SpHelper;
 
 /**
@@ -23,6 +27,13 @@ public class MainBaseActivity extends AdsBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registerHeadsetReceiver(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterHeadsetReceiver(this);
     }
 
     protected void showStarDialog() {
@@ -69,6 +80,18 @@ public class MainBaseActivity extends AdsBaseActivity {
             startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
         }
+    }
+
+    public void registerHeadsetReceiver(Context context) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);// 另说context.AUDIO_SERVICE
+        ComponentName name = new ComponentName(context.getPackageName(), MediaButtonIntentReceiver.class.getName());// 另说MediaButtonReceiver.class.getName()
+        audioManager.registerMediaButtonEventReceiver(name);
+    }
+
+    public void unregisterHeadsetReceiver(Context context) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        ComponentName name = new ComponentName(context.getPackageName(), MediaButtonIntentReceiver.class.getName());
+        audioManager.unregisterMediaButtonEventReceiver(name);
     }
 }
 

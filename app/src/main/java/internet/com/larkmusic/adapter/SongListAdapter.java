@@ -62,7 +62,9 @@ public class SongListAdapter extends BaseAdapter {
         holder.title.setText(song.getSongName());
         holder.artist.setText(song.getSingerName());
         holder.no.setText((i + 1) + "");
-        holder.art.setVisibility(View.GONE);
+        if(song.playUrlRequest == null){
+            holder.art.setVisibility(View.GONE);
+        }
         try {
             Picasso.with(context)
                     .load(song.getImgUrl())
