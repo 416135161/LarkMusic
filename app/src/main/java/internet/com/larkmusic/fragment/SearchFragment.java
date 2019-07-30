@@ -213,6 +213,9 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
             if (mSingerAdapter.getCount() > 10) {
                 mRvSinger.smoothScrollToPosition(0);
             }
+            for(SearchSingerResponse.DataBean.SingerBean.Singer singer : event.singerList){
+                singer.pic = "http://y.gtimg.cn/music/photo_new/T001R150x150M000%@.jpg".replace("%@", singer.mid);
+            }
             mSingerAdapter.setPlayList(event.singerList);
             mSingerAdapter.notifyDataSetChanged();
         }
