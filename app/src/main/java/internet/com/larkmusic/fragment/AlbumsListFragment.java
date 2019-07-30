@@ -20,14 +20,13 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionAlbumList;
-import internet.com.larkmusic.action.ActionBrowPlayTeam;
 import internet.com.larkmusic.adapter.AlbumListAdapter;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.network.Config;
-import internet.com.larkmusic.util.CloudDataUtil;
+import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 
 /**
  * Created by sjning
@@ -57,7 +56,7 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        from = getArguments().getString("from", Config.FROM_US);
+        from = getArguments().getString("from", getString(R.string.from_us));
         name = getArguments().getString("name", "");
         srcId = getArguments().getInt("srcId", R.mipmap.ic_song_default);
     }
@@ -72,7 +71,7 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
 
     private void getData() {
         showDialog();
-        CloudDataUtil.getPlayTeamList(Config.ALL_PLAY_TEAM_PAGE, ActionBrowPlayTeam.TYPE_TEAM_LIST, from);
+        NewCloudDataUtil.getPlayList(from);
     }
 
     private void initView() {
@@ -91,6 +90,7 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
                 Bundle bundle = new Bundle();
                 bundle.putString("from", from);
                 bundle.putSerializable("album", (Album) mAdapter.getItem(i));
+                bundle.putSerializable("songs", ((Album) mAdapter.getItem(i)).songList);
                 fragment.setArguments(bundle);
                 transaction.add(R.id.view_container, fragment);
                 transaction.addToBackStack("");

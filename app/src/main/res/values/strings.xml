@@ -15,10 +15,12 @@
 
     <string name="genres_us">US-EURO</string>
     <string name="genres_japan">JAPAN</string>
-    <string name="genres_pop">POP</string>
-    <string name="genres_rock">ROCK</string>
-    <string name="genres_electronic">ELECTRONIC</string>
-    <string name="genres_country">COUNTRY</string>
+    <string name="genres_ACG">ACG</string>
+    <string name="genres_driving">DRIVING</string>
+    <string name="genres_quiet">QUIET</string>
+    <string name="genres_running">RUNNING</string>
+
+
     <string name="lrc_nothing">Nothing</string>
     <string name="tv_cancel">cancel</string>
     <string name="title_trending">Trending</string>
@@ -35,19 +37,13 @@
     <string name="text_cancel">Cancel</string>
 
 
-    <!--public static String FROM_US = "0";-->
-    <!--public static String FROM_JAPAN = "1";-->
-    <!--欧美资源分类-->
-    <!--public static final int EUROP_POP = 1051;-->
-    <!--public static final int EUROP_COUNTRY = 1065;-->
-    <!--public static final int EUROP_ELECTRONIC = 1053;-->
-    <!--public static final int EUROP_ROCK = 1055;-->
-    <string name="from_us">0</string>
-    <string name="from_japan">1</string>
-    <string name="from_pop">1051</string>
-    <string name="from_country">1065</string>
-    <string name="from_electronic">1053</string>
-    <string name="from_rock">1055</string>
+
+    <string name="from_us" translatable="false">167</string>
+    <string name="from_japan" translatable="false">169</string>
+    <string name="from_ACG" translatable="false">39</string>
+    <string name="from_running" translatable="false">99</string>
+    <string name="from_quiet" translatable="false">15</string>
+    <string name="from_driving" translatable="false">85</string>
 
 
     <string name="me_recent"></string>
@@ -70,4 +66,5 @@
     <string name="play_list_song_count">%1$d song</string>
     <string name="search_type_song">Songs</string>
     <string name="search_type_singer">Artist</string>
+    <string name="action_share">share</string>
 </resources>

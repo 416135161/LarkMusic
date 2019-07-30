@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import internet.com.larkmusic.action.ActionAlbumList;
 import internet.com.larkmusic.action.ActionHotSongs;
 import internet.com.larkmusic.action.ActionNewSongs;
 import internet.com.larkmusic.action.ActionSearchSinger;
@@ -16,6 +17,7 @@ import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionSingerSongs;
 import internet.com.larkmusic.action.ActionStartLoading;
 import internet.com.larkmusic.action.ActionStopLoading;
+import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.GetLrcCallBack;
@@ -28,6 +30,8 @@ import internet.com.larkmusic.network.netnew.bean.BillBoardSongsResponse;
 import internet.com.larkmusic.network.netnew.bean.LrcResponse;
 import internet.com.larkmusic.network.netnew.bean.NewListRequest;
 import internet.com.larkmusic.network.netnew.bean.NewListResponse;
+import internet.com.larkmusic.network.netnew.bean.PlayListRequest;
+import internet.com.larkmusic.network.netnew.bean.PlayListResponse;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlRequest;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlResponse;
 import internet.com.larkmusic.network.netnew.bean.SearchSingerResponse;
@@ -142,7 +146,6 @@ public class NewCloudDataUtil {
 
                     ActionHotSongs action = new ActionHotSongs();
                     action.isOK = true;
-                    Collections.shuffle(songList);
                     action.trackList = songList;
                     action.type = type;
                     action.from = from;
@@ -404,7 +407,7 @@ public class NewCloudDataUtil {
                         Song song = new Song();
                         song.setImgUrl(listBean.musicData.albummid != null ?
                                 "https://y.gtimg.cn/music/photo_new/T002R90x90M000%@.jpg?max_age=2592000".replace("%@",
-                                listBean.musicData.albummid) : "");
+                                        listBean.musicData.albummid) : "");
                         song.setSongName(listBean.musicData.songname);
                         song.setSingerName((listBean.musicData.singer != null && listBean.musicData.singer.size() > 0) ?
                                 listBean.musicData.singer.get(0).name : "");
@@ -433,6 +436,73 @@ public class NewCloudDataUtil {
             @Override
             public void onFailure(Call<SingerSongsResponse> call, Throwable t) {
                 EventBus.getDefault().post(new ActionSingerSongs(null));
+            }
+
+        });
+
+    }
+
+
+    /**
+     * 获取歌单
+     *
+     * @param type
+     */
+    public static void getPlayList(final String type) {
+        PlayListRequest playListRequest = new PlayListRequest();
+        playListRequest.type = type;
+        Call<PlayListResponse> call = HttpUtil.getNewApi().getPlayList(playListRequest);
+
+        call.enqueue(new Callback<PlayListResponse>() {
+
+            @Override
+            public void onResponse(Call<PlayListResponse> call, Response<PlayListResponse> response) {
+                if (response.isSuccessful() && response.body() != null
+                        && response.body().result != null && response.body().result.size() > 0) {
+                    ArrayList<Album> albumList = new ArrayList<>();
+                    for (PlayListResponse.ResultBean resultBean : response.body().result) {
+                        if (resultBean.items == null || resultBean.items.size() == 0) {
+                            continue;
+                        }
+                        Album album = new Album();
+                        album.setImgUrl(resultBean.imgUrl);
+                        albumList.add(album);
+                        ArrayList<Song> songList = new ArrayList<>();
+                        for (int i = 0; i < resultBean.items.size(); i++) {
+                            PlayListResponse.ResultBean.ItemsBean listBean = resultBean.items.get(i);
+                            if (i == 0) {
+                                album.setName(listBean.albumname);
+                            }
+                            Song song = new Song();
+                            song.setImgUrl(listBean.albummid != null ?
+                                    "https://y.gtimg.cn/music/photo_new/T002R90x90M000%@.jpg?max_age=2592000".replace("%@",
+                                            listBean.albummid) : "");
+                            song.setSongName(listBean.songname);
+                            song.setSingerName(listBean.singer);
+                            song.setHash(listBean.songmid);
+                            PlayUrlRequest playUrlRequest = new PlayUrlRequest();
+                            playUrlRequest.songmid = listBean.songmid;
+                            playUrlRequest.songMediaId = listBean.media_mid;
+                            playUrlRequest.songName = listBean.songname;
+                            playUrlRequest.singermid = listBean.singermid;
+                            playUrlRequest.singername = listBean.singer;
+                            playUrlRequest.flac = "0";
+                            playUrlRequest.albummid = listBean.albummid;
+                            playUrlRequest.albumname = listBean.albumname;
+                            song.playUrlRequest = playUrlRequest;
+                            songList.add(song);
+                        }
+                        album.songList = songList;
+                    }
+                    EventBus.getDefault().post(new ActionAlbumList(albumList, type));
+                } else {
+                    EventBus.getDefault().post(new ActionAlbumList(null, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PlayListResponse> call, Throwable t) {
+                EventBus.getDefault().post(new ActionAlbumList(null, null));
             }
 
         });

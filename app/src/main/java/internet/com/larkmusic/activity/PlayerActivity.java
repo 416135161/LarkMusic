@@ -39,6 +39,7 @@ import internet.com.larkmusic.fragment.PlayListDialog;
 import internet.com.larkmusic.fragment.PlayingListDialog;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayMode;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.FavoriteService;
 import internet.com.larkmusic.util.SpHelper;
 
@@ -238,6 +239,11 @@ public class PlayerActivity extends EventActivity {
     @OnClick(R.id.iv_playlist)
     void onClickPlayList(View view) {
         new PlayListDialog().setSong(MusicPlayer.getPlayer().getNowPlaying()).show(getSupportFragmentManager(), PlayListDialog.class.getName());
+    }
+
+    @OnClick(R.id.iv_share)
+    void onClickShare(View view) {
+        CommonUtil.shareText(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

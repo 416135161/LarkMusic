@@ -10,6 +10,8 @@ import internet.com.larkmusic.network.netnew.bean.BillBoardSongsResponse;
 import internet.com.larkmusic.network.netnew.bean.LrcResponse;
 import internet.com.larkmusic.network.netnew.bean.NewListRequest;
 import internet.com.larkmusic.network.netnew.bean.NewListResponse;
+import internet.com.larkmusic.network.netnew.bean.PlayListRequest;
+import internet.com.larkmusic.network.netnew.bean.PlayListResponse;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlRequest;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlResponse;
 import internet.com.larkmusic.network.netnew.bean.SearchSingerResponse;
@@ -34,6 +36,7 @@ public interface NewApi {
 
     /**
      * 新歌
+     *
      * @param request
      * @return
      */
@@ -42,6 +45,7 @@ public interface NewApi {
 
     /**
      * 播放地址
+     *
      * @param request
      * @return
      */
@@ -50,14 +54,17 @@ public interface NewApi {
 
     /**
      * 歌词
+     *
      * @param songmid
      * @return
      */
-    @GET("/lyric/fcgi-bin/fcg_query_lyric_new.fcg?callback=MusicJsonCallback_lrc&pcachetime=1494070301711&g_tk=5381&jsonpCallback=MusicJsonCallback_lrc&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&ice=0&platform=yqq&needNewCode=0")
-    Call<LrcResponse> getLrc(@Query("songmid")String songmid);
+    @GET("/lyric/fcgi-bin/fcg_query_lyric_new.fcg?callback=MusicJsonCallback_lrc&pcachetime=1494070301711&g_tk=5381&jsonpCallback=MusicJsonCallback_lrc" +
+            "&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&ice=0&platform=yqq&needNewCode=0")
+    Call<LrcResponse> getLrc(@Query("songmid") String songmid);
 
     /**
-     * 新歌
+     * 排行榜
+     *
      * @param request
      * @return
      */
@@ -65,9 +72,9 @@ public interface NewApi {
     Call<BillBoardResponse> getBillBoardList(@Body BaseRequest request);
 
 
-
     /**
      * 排行榜下面的歌曲
+     *
      * @param request
      * @return
      */
@@ -80,20 +87,36 @@ public interface NewApi {
      * @param keyword
      * @return
      */
-    @GET("/soso/fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=sizer.yqq.song_next&searchid=&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&p=0&n=100&g_tk=&jsonpCallback=&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0")
+    @GET("/soso/fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=sizer.yqq" +
+            ".song_next&searchid=&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&p=0&n=100&g_tk=&jsonpCallback=&loginUin=0&hostUin=0&format=json&inCharset" +
+            "=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0")
     Call<SearchSongResponse> searchSong(@Query("w") String keyword);
 
-
+    /**
+     * 搜索歌手
+     *
+     * @param keyword
+     * @return
+     */
     @GET("/fcgi-bin/smartbox_new.fcg?utf8=1&is_xml=0")
     Call<SearchSingerResponse> searchSinger(@Query("key") String keyword);
 
     /**
      * 获取歌手下的歌曲
+     *
      * @param keyword
      * @return
      */
-    @GET("/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?inCharset=utf-8&outCharset=utf-8&g_tk=5239908145&format&jsonp&platform=h5page&order=listen&from=h5&notice=0&uin=0&needNewCode=1&begin=0&num=100")
+    @GET("/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?inCharset=utf-8&outCharset=utf-8&g_tk=5239908145&format&jsonp&platform=h5page&order=listen&from=h5&notice=0" +
+            "&uin=0&needNewCode=1&begin=0&num=100")
     Call<SingerSongsResponse> getSingerSongs(@Query("singerid") String keyword);
 
+    /**
+     * 获取歌单
+     *
+     * @return
+     */
+    @POST("/android/musicList/list.do")
+    Call<PlayListResponse> getPlayList(@Body PlayListRequest request);
 
 }

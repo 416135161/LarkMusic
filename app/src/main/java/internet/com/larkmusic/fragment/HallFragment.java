@@ -212,7 +212,6 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         if (event.type == ActionHotSongs.TYPE_HOME) {
             if (event != null && event.trackList != null && event.trackList.size() >= 6) {
                 List<Song> subList = event.trackList.subList(0, 6);
-                Collections.shuffle(subList);
                 hot0.refreshView(subList.get(0));
                 hot1.refreshView(subList.get(1));
                 hot2.refreshView(subList.get(2));
