@@ -15,6 +15,7 @@ import org.litepal.LitePal;
 import java.io.File;
 import java.util.List;
 
+import internet.com.larkmusic.R;
 import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.app.MusicApplication;
 import internet.com.larkmusic.bean.Song;
@@ -92,6 +93,16 @@ public final class CommonUtil {
         } else {
             return null;
         }
+    }
+
+    public static void shareText(Context context) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.action_share));
+        intent.putExtra(Intent.EXTRA_TEXT, "market://details?id=" + context.getPackageName());//extraText为文本的内容
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//为Activity新建一个任务栈
+        context.startActivity(
+                Intent.createChooser(intent, context.getString(R.string.action_share)));//R.string.action_share同样是标题
     }
 
 }

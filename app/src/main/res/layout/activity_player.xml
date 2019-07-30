@@ -190,7 +190,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:layout_marginTop="24dp"
             android:paddingLeft="35dp"
             android:paddingRight="35dp"
@@ -274,6 +274,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:src="@mipmap/icon_favorite_normal"
@@ -284,11 +285,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:src="@mipmap/ic_playlist_small"
                 />
+            <ImageView
+                android:id="@+id/iv_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:layout_marginLeft="60dp"
+                android:src="@mipmap/ic_download"
+                />
 
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="60dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@mipmap/ic_share"
+                />
 
         </RelativeLayout>
     </LinearLayout>

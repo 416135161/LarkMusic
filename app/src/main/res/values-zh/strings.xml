@@ -15,10 +15,11 @@
 
     <string name="genres_us">欧美</string>
     <string name="genres_japan">日本</string>
-    <string name="genres_pop">流行</string>
-    <string name="genres_rock">摇滚</string>
-    <string name="genres_electronic">电音</string>
-    <string name="genres_country">乡村音乐</string>
+    <string name="genres_ACG">ACG</string>
+    <string name="genres_driving">开车</string>
+    <string name="genres_quiet">安静</string>
+    <string name="genres_running">跑步音乐</string>
+
     <string name="lrc_nothing">暂无歌词</string>
     <string name="tv_cancel">取消</string>
     <string name="title_trending">搜索推荐</string>
@@ -33,21 +34,6 @@
     <string name="text_please_rate">请为应用添加评价</string>
     <string name="text_sure">确定</string>
     <string name="text_cancel">取消</string>
-
-
-    <!--public static String FROM_US = "0";-->
-    <!--public static String FROM_JAPAN = "1";-->
-    <!--欧美资源分类-->
-    <!--public static final int EUROP_POP = 1051;-->
-    <!--public static final int EUROP_COUNTRY = 1065;-->
-    <!--public static final int EUROP_ELECTRONIC = 1053;-->
-    <!--public static final int EUROP_ROCK = 1055;-->
-    <string name="from_us">0</string>
-    <string name="from_japan">1</string>
-    <string name="from_pop">1051</string>
-    <string name="from_country">1065</string>
-    <string name="from_electronic">1053</string>
-    <string name="from_rock">1055</string>
 
 
     <string name="me_recent"></string>

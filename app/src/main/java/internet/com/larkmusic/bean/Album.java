@@ -3,6 +3,8 @@ package internet.com.larkmusic.bean;
 import android.text.TextUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sjning
@@ -13,6 +15,7 @@ public class Album implements Serializable {
     private String imgUrl;
     private String name;
     private int id;
+    public ArrayList<Song> songList;
 
     public String getImgUrl() {
         return imgUrl;

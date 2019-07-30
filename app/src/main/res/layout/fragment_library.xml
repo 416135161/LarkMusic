@@ -86,8 +86,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="13dp"
                             android:layout_marginRight="20dp"
-                            app:from="@string/from_pop"
-                            app:name="@string/genres_pop"
+                            app:from="@string/from_ACG"
+                            app:name="@string/genres_ACG"
                             app:src="@mipmap/ic_pop"
                             >
 
@@ -107,8 +107,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            app:from="@string/from_rock"
-                            app:name="@string/genres_rock"
+                            app:from="@string/from_driving"
+                            app:name="@string/genres_driving"
                             app:src="@mipmap/ic_rock"
                             >
 
@@ -119,8 +119,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="13dp"
-                            app:from="@string/from_electronic"
-                            app:name="@string/genres_electronic"
+                            app:from="@string/from_quiet"
+                            app:name="@string/genres_quiet"
                             app:src="@mipmap/ic_electronic"
                             >
 
@@ -132,8 +132,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="13dp"
                             android:layout_marginRight="20dp"
-                            app:from="@string/from_country"
-                            app:name="@string/genres_country"
+                            app:from="@string/from_running"
+                            app:name="@string/genres_running"
                             app:src="@mipmap/ic_country"
                             >
 
@@ -180,8 +180,8 @@
                 android:id="@+id/b_pop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:from="@string/from_pop"
-                app:name="@string/genres_pop"
+                app:from="@string/from_ACG"
+                app:name="@string/genres_ACG"
                 app:src="@mipmap/ic_pop"
                 >
 
@@ -191,8 +191,8 @@
                 android:id="@+id/b_rock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:from="@string/from_rock"
-                app:name="@string/genres_rock"
+                app:from="@string/from_driving"
+                app:name="@string/genres_driving"
                 app:src="@mipmap/ic_rock"
                 >
 
@@ -202,8 +202,8 @@
                 android:id="@+id/b_electronic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:from="@string/from_electronic"
-                app:name="@string/genres_electronic"
+                app:from="@string/from_quiet"
+                app:name="@string/genres_quiet"
                 app:src="@mipmap/ic_electronic"
                 >
 
@@ -214,8 +214,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                app:from="@string/from_country"
-                app:name="@string/genres_country"
+                app:from="@string/from_running"
+                app:name="@string/genres_running"
                 app:src="@mipmap/ic_country"
                 >
 
