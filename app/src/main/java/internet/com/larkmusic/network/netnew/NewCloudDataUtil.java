@@ -130,7 +130,7 @@ public class NewCloudDataUtil {
                         song.setImgUrl(resultBean.imgUrl);
                         song.setSongName(resultBean.songname);
                         song.setSingerName(resultBean.singer);
-                        song.setHash(resultBean.singermid);
+                        song.setHash(resultBean.songmid);
                         PlayUrlRequest playUrlRequest = new PlayUrlRequest();
                         playUrlRequest.songmid = resultBean.songmid;
                         playUrlRequest.songMediaId = resultBean.media_mid;
@@ -261,7 +261,7 @@ public class NewCloudDataUtil {
                         song.setImgUrl(resultBean.imgUrl);
                         song.setSongName(resultBean.songname);
                         song.setSingerName(resultBean.singer);
-                        song.setHash(resultBean.singermid);
+                        song.setHash(resultBean.songmid);
                         PlayUrlRequest playUrlRequest = new PlayUrlRequest();
                         playUrlRequest.songmid = resultBean.songmid;
                         playUrlRequest.songMediaId = resultBean.media_mid;
