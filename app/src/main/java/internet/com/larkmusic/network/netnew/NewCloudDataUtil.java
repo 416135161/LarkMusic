@@ -465,7 +465,7 @@ public class NewCloudDataUtil {
                             continue;
                         }
                         Album album = new Album();
-                        album.setImgUrl(resultBean.imgUrl);
+                        album.setImgUrl(resultBean.imgUrl != null ? resultBean.imgUrl.replace("600", "150") : "");
                         albumList.add(album);
                         ArrayList<Song> songList = new ArrayList<>();
                         for (int i = 0; i < resultBean.items.size(); i++) {
