@@ -6,8 +6,8 @@ android {
         applicationId "com.interesting.music"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 324
-        versionName "3.2.4"
+        versionCode 325
+        versionName "3.2.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //解决butterknife依赖报错的问题

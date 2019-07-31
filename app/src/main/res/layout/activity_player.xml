@@ -226,15 +226,15 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerInParent="true"
-                >
+                android:background="@mipmap/icon_play_bg"
+             >
 
                 <ImageView
                     android:id="@+id/iv_play_stop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@mipmap/icon_play_bg"
-                    android:src="@mipmap/icon_play"
+                  android:src="@mipmap/icon_play"
                     />
 
                 <ImageView
