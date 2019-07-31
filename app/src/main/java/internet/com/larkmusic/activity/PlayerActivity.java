@@ -39,6 +39,7 @@ import internet.com.larkmusic.fragment.PlayListDialog;
 import internet.com.larkmusic.fragment.PlayingListDialog;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayMode;
+import internet.com.larkmusic.player.PlayerService;
 import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.FavoriteService;
 import internet.com.larkmusic.util.SpHelper;
@@ -147,6 +148,14 @@ public class PlayerActivity extends EventActivity {
             MusicPlayer.getPlayer().setPlayMode(PlayMode.RANDOM);
             ivRecycle.setImageResource(R.mipmap.icon_recycle_random);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = new Intent();
+        intent.setClass(this, PlayerService.class);
+        startService(intent);
     }
 
     @OnClick(R.id.view_top)

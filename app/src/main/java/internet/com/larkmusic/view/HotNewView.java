@@ -57,7 +57,7 @@ public class HotNewView extends FrameLayout {
         try {
             String imgUrl = "";
             if(!TextUtils.isEmpty(song.getImgUrl())){
-                imgUrl = song.getImgUrl().replace("90x90", "120x120");
+                imgUrl = song.getImgUrl().replace("90x90", "150x150");
             }
             Picasso.with(getContext())
                     .load(imgUrl)
