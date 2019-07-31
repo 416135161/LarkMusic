@@ -99,7 +99,7 @@ public final class CommonUtil {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.action_share));
-        intent.putExtra(Intent.EXTRA_TEXT, "market://details?id=" + context.getPackageName());//extraText为文本的内容
+        intent.putExtra(Intent.EXTRA_TEXT, "http://play.google.com/store/apps/details?id=" + context.getPackageName());//extraText为文本的内容
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//为Activity新建一个任务栈
         context.startActivity(
                 Intent.createChooser(intent, context.getString(R.string.action_share)));//R.string.action_share同样是标题
