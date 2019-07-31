@@ -88,7 +88,7 @@
                             android:layout_marginRight="20dp"
                             app:from="@string/from_ACG"
                             app:name="@string/genres_ACG"
-                            app:src="@mipmap/ic_pop"
+                            app:src="@mipmap/ic_acg"
                             >
 
                         </internet.com.larkmusic.view.GenreView>
@@ -109,7 +109,7 @@
                             android:layout_marginLeft="20dp"
                             app:from="@string/from_driving"
                             app:name="@string/genres_driving"
-                            app:src="@mipmap/ic_rock"
+                            app:src="@mipmap/ic_driving"
                             >
 
                         </internet.com.larkmusic.view.GenreView>
@@ -134,7 +134,7 @@
                             android:layout_marginRight="20dp"
                             app:from="@string/from_running"
                             app:name="@string/genres_running"
-                            app:src="@mipmap/ic_country"
+                            app:src="@mipmap/ic_running"
                             >
 
                         </internet.com.larkmusic.view.GenreView>
@@ -182,7 +182,7 @@
                 android:layout_height="wrap_content"
                 app:from="@string/from_ACG"
                 app:name="@string/genres_ACG"
-                app:src="@mipmap/ic_pop"
+                app:src="@mipmap/ic_acg"
                 >
 
             </internet.com.larkmusic.view.GenreListItemView>
@@ -193,7 +193,7 @@
                 android:layout_height="wrap_content"
                 app:from="@string/from_driving"
                 app:name="@string/genres_driving"
-                app:src="@mipmap/ic_rock"
+                app:src="@mipmap/ic_driving"
                 >
 
             </internet.com.larkmusic.view.GenreListItemView>
@@ -216,7 +216,7 @@
                 android:layout_marginBottom="30dp"
                 app:from="@string/from_running"
                 app:name="@string/genres_running"
-                app:src="@mipmap/ic_country"
+                app:src="@mipmap/ic_running"
                 >
 
             </internet.com.larkmusic.view.GenreListItemView>
