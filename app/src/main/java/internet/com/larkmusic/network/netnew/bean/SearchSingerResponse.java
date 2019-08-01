@@ -22,7 +22,7 @@ public class SearchSingerResponse implements Serializable {
     public int code;
     public DataBean data;
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * singer : {"count":2,"itemlist":[{"docid":"6499","id":"6499","mid":"002azErJ0UcDN6","name":"张杰","pic":"http://imgcache.qq
          * .com/music/photo/mid_singer_58/N/6/002azErJ0UcDN6.jpg","singer":"张杰"},{"docid":"174","id":"174","mid":"004Be55m1SJaLk","name":"张学友",
@@ -31,7 +31,7 @@ public class SearchSingerResponse implements Serializable {
 
         public SingerBean singer;
 
-        public static class SingerBean {
+        public static class SingerBean implements Serializable{
             /**
              * count : 2
              * itemlist : [{"docid":"6499","id":"6499","mid":"002azErJ0UcDN6","name":"张杰","pic":"http://imgcache.qq
@@ -48,7 +48,7 @@ public class SearchSingerResponse implements Serializable {
             public int type;
             public List<Singer> itemlist;
 
-            public static class Singer {
+            public static class Singer implements Serializable{
                 /**
                  * docid : 6499
                  * id : 6499

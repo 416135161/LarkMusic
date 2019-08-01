@@ -1,11 +1,13 @@
 package internet.com.larkmusic.bean.songDetailResponse;
 
+import java.io.Serializable;
+
 /**
  * Created by sjning
  * created on: 2019/5/15 下午5:55
  * description:
  */
-public class SongDetailKuGou {
+public class SongDetailKuGou implements Serializable {
     private int status;
     private int err_code;
     private Data data;

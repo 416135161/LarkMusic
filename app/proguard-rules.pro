@@ -19,3 +19,201 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+-dontusemixedcaseclassnames
+-keeppackagenames
+-dontskipnonpubliclibraryclasses
+-dontskipnonpubliclibraryclassmembers
+-ignorewarnings
+-dontpreverify
+-verbose
+-keepattributes SourceFile,LineNumberTable
+-repackageclasses ''
+-keepattributes *Annotation*,EnclosingMethod,Signature
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class * extends android.view.View
+
+##使用Android shrink时不进行dex中字节码shrink （mtguard必须）
+-dontshrink
+
+-dontwarn android.support.v4.**,**CompatHoneycomb,**CompatCreatorHoneycombMR2,org.apache.**
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+-keepclassmembers class * extends android.app.Activity {
+    public void *(android.view.View);
+}
+
+-keep public class * extends android.view.View {
+    public <init>(android.content.Context);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+    public void set*(...);
+}
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+-keepnames class * implements java.io.Serializable {
+    *;
+}
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+-keepclassmembers class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator CREATOR;
+}
+
+-keep public class android.support.design.widget.TabLayout{
+    *;
+}
+-keep class android.support.design.widget.TabLayout$* {
+    *;
+}
+
+# Jackson
+-dontwarn org.codehaus.jackson.**
+-dontwarn com.fasterxml.jackson.databind.**
+-keep class org.codehaus.jackson.** { *;}
+-keep class com.fasterxml.jackson.** { *; }
+
+#socket-io
+-keep class com.corundumstudio.** { *; }
+
+# gson
+-keep class sun.misc.Unsafe { *; }
+
+# webview
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
+#okhttp3
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okio.**
+
+#retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+#glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class com.bumptech.glide.integration.okhttp3.OkHttpGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+
+# ButterKnife
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+
+#eventBus
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
+#RxJava
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+ long producerIndex;
+ long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+
+#Velocity
+-keep class org.apache.velocity.** { *; }
+
+
+#guava start
+-keep class com.google.common.io.Resources {
+    public static <methods>;
+}
+-keep class com.google.common.collect.Lists {
+    public static ** reverse(**);
+}
+-keep class com.google.common.base.Charsets {
+    public static <fields>;
+}
+
+-keep class com.google.common.base.Joiner {
+    public static com.google.common.base.Joiner on(java.lang.String);
+    public ** join(...);
+}
+
+-keep class com.google.common.collect.MapMakerInternalMap$ReferenceEntry
+-keep class com.google.common.cache.LocalCache$ReferenceEntry
+
+# http://stackoverflow.com/questions/9120338/proguard-configuration-for-guava-with-obfuscation-and-optimization
+-dontwarn javax.annotation.**
+-dontwarn javax.inject.**
+-dontwarn sun.misc.Unsafe
+
+# Guava 19.0
+-dontwarn java.lang.ClassValue
+-dontwarn com.google.j2objc.annotations.Weak
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+
+
+
+#忽略httpclient类
+-keep class org.apache.http.** { *; }
+

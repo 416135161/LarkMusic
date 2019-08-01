@@ -21,13 +21,13 @@ public class SearchSongResponse implements Serializable {
     public int code;
     public DataBean data;
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
 
 
         public SongBean song;
 
 
-        public static class SongBean {
+        public static class SongBean implements Serializable{
             /**
              * list : [{"album":{"id":7165126,"mid":"0027xSBT3kSzyk","name":"一念之间","subtitle":"","title":"一念之间","title_hilight":"一念之间"},"mid":"000BbAjd0uSJYv
              * ","name":"一念之间","singer":[{"id":6499,"mid":"002azErJ0UcDN6","name":"张杰","title":"张杰","title_hilight":"<em>张杰<\/em>","type":0,"uin":0}],"title
@@ -39,7 +39,7 @@ public class SearchSongResponse implements Serializable {
             public List<ListBean> list;
 
 
-            public static class ListBean {
+            public static class ListBean implements Serializable{
                 /**
                  * album : {"id":7165126,"mid":"0027xSBT3kSzyk","name":"一念之间","subtitle":"","title":"一念之间","title_hilight":"一念之间"}
                  * mid : 000BbAjd0uSJYv
@@ -58,7 +58,7 @@ public class SearchSongResponse implements Serializable {
                 public FileBean file;
                 public List<SingerBean> singer;
 
-                public static class AlbumBean {
+                public static class AlbumBean implements Serializable{
                     /**
                      * id : 7165126
                      * mid : 0027xSBT3kSzyk
@@ -77,7 +77,7 @@ public class SearchSongResponse implements Serializable {
 
                 }
 
-                public static class FileBean {
+                public static class FileBean implements Serializable{
                     /**
                      * media_mid : 004Rs6uh3a2ocN
                      */
@@ -87,7 +87,7 @@ public class SearchSongResponse implements Serializable {
 
                 }
 
-                public static class SingerBean {
+                public static class SingerBean implements Serializable{
                     /**
                      * id : 6499
                      * mid : 002azErJ0UcDN6

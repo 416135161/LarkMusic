@@ -57,7 +57,7 @@ public class NewListResponse implements Serializable {
         this.result = result;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         /**
          * singermid : 004YWbes0huGOX
          * singername : back number

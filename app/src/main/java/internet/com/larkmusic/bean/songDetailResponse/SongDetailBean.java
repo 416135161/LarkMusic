@@ -3,13 +3,15 @@
  */
 package internet.com.larkmusic.bean.songDetailResponse;
 
+import java.io.Serializable;
+
 /**
  * Auto-generated: 2019-01-08 20:9:52
  *
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
  */
-public class SongDetailBean {
+public class SongDetailBean implements Serializable {
 
     private String songName;
 
