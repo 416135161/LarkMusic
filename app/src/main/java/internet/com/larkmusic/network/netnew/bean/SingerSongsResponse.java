@@ -60,7 +60,7 @@ public class SingerSongsResponse implements Serializable {
         this.subcode = subcode;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         public List<ListBean> list;
 
         public List<ListBean> getList() {
@@ -89,7 +89,7 @@ public class SingerSongsResponse implements Serializable {
                 this.musicData = musicData;
             }
 
-            public static class MusicDataBean {
+            public static class MusicDataBean implements Serializable{
                 /**
                  * albumdesc : 
                  * albumid : 46775
@@ -385,7 +385,7 @@ public class SingerSongsResponse implements Serializable {
                     this.singer = singer;
                 }
 
-                public static class SingerBean {
+                public static class SingerBean implements Serializable{
                     /**
                      * id : 174
                      * mid : 004Be55m1SJaLk

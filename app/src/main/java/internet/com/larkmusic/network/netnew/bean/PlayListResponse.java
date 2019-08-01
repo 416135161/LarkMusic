@@ -27,7 +27,7 @@ public class PlayListResponse implements Serializable {
     public int rowCount;
     public List<ResultBean> result;
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         /**
          * imgUrl : http://p.qpic.cn/music_cover/bof4MDsSxjG6Va3xXJrNAGk5nDwflHw4er18BV1KARY3PsdBQlfupw/600?n=1
          * dissid : 7086552926

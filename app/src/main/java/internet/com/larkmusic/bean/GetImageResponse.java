@@ -225,7 +225,7 @@ public class GetImageResponse implements Serializable {
             this.language = language;
         }
 
-        public static class TransParamBean {
+        public static class TransParamBean implements Serializable{
             /**
              * special_tag : 0
              */
