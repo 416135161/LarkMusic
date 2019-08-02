@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionAlbumList;
+import internet.com.larkmusic.action.ActionHotSongs;
 import internet.com.larkmusic.adapter.AlbumListAdapter;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
@@ -27,6 +28,7 @@ import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
+import internet.com.larkmusic.util.ToastUtils;
 
 /**
  * Created by sjning
@@ -124,6 +126,10 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
                 mAdapter.setPlayList(albumList);
                 mAdapter.notifyDataSetChanged();
             }
+            hideRefresh();
+        }else {
+            showRefresh();
+            ToastUtils.show(R.string.please_check_net);
         }
     }
 
@@ -132,5 +138,8 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
         return BackHandlerHelper.handleBackPress(this);
     }
 
-
+    @Override
+    protected void onRefresh() {
+        getData();
+    }
 }

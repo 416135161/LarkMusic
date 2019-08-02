@@ -45,6 +45,7 @@ import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.network.netnew.bean.SearchSingerResponse;
 import internet.com.larkmusic.util.HistoryService;
+import internet.com.larkmusic.util.ToastUtils;
 import internet.com.larkmusic.view.FlowLayout;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
@@ -166,6 +167,8 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     @OnClick(R.id.tv_cancel)
     void onClickCancel() {
         mEtSearch.setText("");
+        mRvSongs.setVisibility(View.GONE);
+        mRvSinger.setVisibility(View.GONE);
         mViewCondition.setVisibility(View.VISIBLE);
         hideInput();
     }
@@ -198,11 +201,9 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPosting(ActionSearchSongs event) {
         if (event != null && event.result != null && event.result.size() > 0) {
-            if (mAdapter.getCount() > 10) {
-                mRvSongs.smoothScrollToPosition(0);
-            }
             mAdapter.setPlayList(event.result);
-            mAdapter.notifyDataSetChanged();
+        }else {
+            ToastUtils.show(R.string.please_check_net);
         }
         closeDialog();
     }
@@ -210,14 +211,10 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPosting(ActionSearchSinger event) {
         if (event != null && event.singerList != null && event.singerList.size() > 0) {
-            if (mSingerAdapter.getCount() > 10) {
-                mRvSinger.smoothScrollToPosition(0);
-            }
             for(SearchSingerResponse.DataBean.SingerBean.Singer singer : event.singerList){
                 singer.pic = "http://y.gtimg.cn/music/photo_new/T001R150x150M000%@.jpg".replace("%@", singer.mid);
             }
             mSingerAdapter.setPlayList(event.singerList);
-            mSingerAdapter.notifyDataSetChanged();
         }
         closeDialog();
     }
@@ -238,6 +235,8 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
             transaction.add(R.id.view_container, fragment);
             transaction.addToBackStack("");
             transaction.commit();
+        }else {
+            ToastUtils.show(R.string.please_check_net);
         }
         closeDialog();
     }
@@ -316,18 +315,19 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         if (TextUtils.isEmpty(key)) {
             return;
         }
+
         mEtSearch.setText(key);
         mEtSearch.setSelection(key.length());
         mViewCondition.setVisibility(View.GONE);
         hideInput();
         showDialog();
-//        CloudDataUtil.searchSongs(key);
         if (searchType == searchTypeSong) {
             NewCloudDataUtil.searchSongs(key);
         } else {
             NewCloudDataUtil.searchSinger(key);
         }
-
+        mAdapter.setPlayList(null);
+        mSingerAdapter.setPlayList(null);
     }
 
     /**

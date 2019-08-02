@@ -89,6 +89,7 @@ public class SearchListAdapter extends BaseAdapter {
 
     public void setPlayList(List<Song> playList) {
         this.songs = playList;
+        notifyDataSetChanged();
     }
 
 

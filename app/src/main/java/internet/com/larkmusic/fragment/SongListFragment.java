@@ -28,6 +28,7 @@ import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.util.BlurTransformation;
 import internet.com.larkmusic.util.CloudDataUtil;
+import internet.com.larkmusic.util.ToastUtils;
 
 /**
  * Created by sjning
@@ -132,7 +133,17 @@ public class SongListFragment extends EventFragment {
             mAdapter.setPlayList(playList);
             mAdapter.notifyDataSetChanged();
             mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
+            hideRefresh();
+        }else {
+            showRefresh();
+            ToastUtils.show(R.string.please_check_net);
         }
+    }
+
+    @Override
+    protected void onRefresh() {
+        showDialog();
+        CloudDataUtil.getPlayList(album.getId() + "", from);
     }
 
 }

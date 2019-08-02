@@ -31,6 +31,7 @@ import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.action.ActionShowOperateDlg;
 import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.animations.RotateAnimation;
+import internet.com.larkmusic.app.MusicApplication;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.base.AdsBaseActivity;
 import internet.com.larkmusic.base.BaseActivity;
@@ -94,6 +95,7 @@ public class MainActivity extends MainBaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         MusicPlayer.getPlayer().release();
+        MusicApplication.getInstance().clearNotification();
     }
 
     private void initSavedState() {

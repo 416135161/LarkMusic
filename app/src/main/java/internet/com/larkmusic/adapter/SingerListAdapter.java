@@ -83,6 +83,7 @@ public class SingerListAdapter extends BaseAdapter {
 
     public void setPlayList(List<SearchSingerResponse.DataBean.SingerBean.Singer> playList) {
         this.singerList = playList;
+        notifyDataSetChanged();
     }
 
 

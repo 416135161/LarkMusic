@@ -43,7 +43,7 @@
     <string name="play_later">後で遊ぶ</string>
     <string name="operate_delete">削除する</string>
     <string name="add_to_favorite">お気に入りに追加</string>
-    <string name="please_pull_refresh">リフレッシュしてください！</string>
+    <string name="please_check_net">ネットワークを確認してください！</string>
     <string name="can_not_download">ダウンロードを提供できません!</string>
     <string name="can_not_play">この曲は再生できません !</string>
 
