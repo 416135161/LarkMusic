@@ -53,12 +53,13 @@ public class RecentListHorizontalAdapter extends RecyclerView.Adapter<RecentList
         String imgUrl = "";
         if(!TextUtils.isEmpty(t.getImgUrl())){
             imgUrl = t.getImgUrl().replace("90x90", "150x150");
+            Picasso.with(ctx)
+                    .load(imgUrl)
+                    .error(R.mipmap.ic_song_cover_default)
+                    .placeholder(R.mipmap.ic_song_cover_default)
+                    .into(holder.art);
         }
-        Picasso.with(ctx)
-                .load(imgUrl)
-                .error(R.mipmap.ic_song_cover_default)
-                .placeholder(R.mipmap.ic_song_cover_default)
-                .into(holder.art);
+
         holder.title.setText(t.getSongName());
     }
 

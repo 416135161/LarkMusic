@@ -53,7 +53,7 @@
     <string name="play_later">Play Later</string>
     <string name="add_to_favorite">Add to Favorite</string>
     <string name="operate_delete">Delete</string>
-    <string name="please_pull_refresh">Please pull refresh !</string>
+    <string name="please_check_net">Please check the network !</string>
     <string name="can_not_download">Unable to provide download !</string>
     <string name="can_not_play">Unable to play this track !</string>
 

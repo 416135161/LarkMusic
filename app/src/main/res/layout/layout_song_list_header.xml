@@ -12,7 +12,7 @@
     <ImageView
         android:id="@+id/iv_header"
         android:layout_width="match_parent"
-        android:layout_height="239dp"
+        android:layout_height="189dp"
         android:scaleType="centerCrop"
         android:src="@color/transparent_gray"
         />
@@ -70,7 +70,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/play_list_bg"
             >
 

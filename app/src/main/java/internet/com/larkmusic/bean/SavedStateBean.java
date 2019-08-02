@@ -12,10 +12,12 @@ import java.io.Serializable;
  */
 public class SavedStateBean extends LitePalSupport implements Serializable {
     public static final String TAG_STATE = "11";
+    public static final String TAG_HOT = "tag_hot";
+    public static final String TAG_NEW = "tag_new";
 
     @Column(unique = true, defaultValue = "unknown")
     private String tag;
-    private int index;
+    private int index = 0;
     private String currentPlayList;
 
     public String getTag() {

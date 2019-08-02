@@ -26,7 +26,7 @@ import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
-import internet.com.larkmusic.util.CloudDataUtil;
+import internet.com.larkmusic.util.ToastUtils;
 
 /**
  * Created by sjning
@@ -81,9 +81,8 @@ public class HotNewListFragment extends EventFragment {
         } else {
             showDialog();
             if (TYPE == TYPE_NEW) {
-                CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_LIST, from);
+
             } else {
-//                CloudDataUtil.getHotSongs(ActionHotSongs.TYPE_LIST, from);
                 NewCloudDataUtil.getBillBoardSongs(ActionHotSongs.TYPE_LIST, from, rankId);
             }
         }
@@ -148,9 +147,24 @@ public class HotNewListFragment extends EventFragment {
             if (event != null && event.trackList != null && event.trackList.size() > 0) {
                 mAdapter.setPlayList(event.trackList);
                 mAdapter.notifyDataSetChanged();
+                hideRefresh();
+            }else {
+                showRefresh();
+                ToastUtils.show(R.string.please_check_net);
             }
         }
         mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
 
+    }
+
+    @Override
+    protected void onRefresh() {
+        super.onRefresh();
+        if (TYPE == TYPE_NEW) {
+
+        } else {
+            showDialog();
+            NewCloudDataUtil.getBillBoardSongs(ActionHotSongs.TYPE_LIST, from, rankId);
+        }
     }
 }

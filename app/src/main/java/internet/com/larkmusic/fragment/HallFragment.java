@@ -12,12 +12,15 @@ import android.widget.Toast;
 
 import com.alin.lib.bannerlib.listener.OnBannerClickListener;
 import com.alin.lib.bannerlib.view.BannerImageView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.litepal.LitePal;
+import org.litepal.crud.callback.FindCallback;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,11 +31,13 @@ import internet.com.larkmusic.action.ActionNewSongs;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.EventFragment;
+import internet.com.larkmusic.bean.SavedStateBean;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
 import internet.com.larkmusic.util.CommonUtil;
+import internet.com.larkmusic.util.ToastUtils;
 import internet.com.larkmusic.view.HotNewView;
 
 /**
@@ -115,8 +120,6 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         });
         CommonUtil.setTvBoldFace(mTvTitle);
         showDialog();
-//        CloudDataUtil.getBillBoard(ActionHotSongs.TYPE_HOME, Config.FROM);
-//        CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
         NewCloudDataUtil.getBillBoard(ActionHotSongs.TYPE_HOME, Config.FROM);
         NewCloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
     }
@@ -132,8 +135,6 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                CloudDataUtil.getBillBoard(ActionHotSongs.TYPE_HOME, Config.FROM);
-//                CloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
                 NewCloudDataUtil.getBillBoard(ActionHotSongs.TYPE_HOME, Config.FROM);
                 NewCloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
 
@@ -152,7 +153,6 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         bundle.putString("from", Config.FROM);
         bundle.putString("rankId", Config.FROM == Config.FROM_JAPAN ? BillBoardMusicListRequest.RANK_Japan_TOP
                 : BillBoardMusicListRequest.RANK_Europe_US);
-
         if (mHotList != null && mHotList.size() > 0) {
             bundle.putSerializable("songs", mHotList);
         }
@@ -191,6 +191,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         refreshLayout.setRefreshing(false);
         if (event.type == ActionNewSongs.TYPE_HOME) {
             if (event != null && event.trackList != null && event.trackList.size() >= 6) {
+                saveTemp(event.trackList, SavedStateBean.TAG_NEW);
                 new0.refreshView(event.trackList.get(0));
                 new1.refreshView(event.trackList.get(1));
                 new2.refreshView(event.trackList.get(2));
@@ -199,7 +200,23 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 new5.refreshView(event.trackList.get(5));
                 mNewList = (ArrayList<Song>) event.trackList;
             } else {
-                Toast.makeText(getContext(), getString(R.string.please_pull_refresh), Toast.LENGTH_SHORT).show();
+                getSavedTemp(SavedStateBean.TAG_NEW, new OnTempGetListener() {
+                    @Override
+                    public void onGet(List<Song> songList) {
+                        new0.refreshView(songList.get(0));
+                        new1.refreshView(songList.get(1));
+                        new2.refreshView(songList.get(2));
+                        new3.refreshView(songList.get(3));
+                        new4.refreshView(songList.get(4));
+                        new5.refreshView(songList.get(5));
+                        mNewList = (ArrayList<Song>) songList;
+                    }
+
+                    @Override
+                    public void onGetFail() {
+                        ToastUtils.show(R.string.please_check_net);
+                    }
+                });
             }
         }
 
@@ -211,6 +228,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         refreshLayout.setRefreshing(false);
         if (event.type == ActionHotSongs.TYPE_HOME) {
             if (event != null && event.trackList != null && event.trackList.size() >= 6) {
+                saveTemp(event.trackList, SavedStateBean.TAG_HOT);
                 List<Song> subList = event.trackList.subList(0, 6);
                 hot0.refreshView(subList.get(0));
                 hot1.refreshView(subList.get(1));
@@ -218,11 +236,55 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 hot3.refreshView(subList.get(3));
                 hot4.refreshView(subList.get(4));
                 hot5.refreshView(subList.get(5));
-//                mHotList = (ArrayList<Song>) event.trackList;
+//
             } else {
-                Toast.makeText(getContext(), getString(R.string.please_pull_refresh), Toast.LENGTH_SHORT).show();
+                getSavedTemp(SavedStateBean.TAG_HOT, new OnTempGetListener() {
+                    @Override
+                    public void onGet(List<Song> songList) {
+                        hot0.refreshView(songList.get(0));
+                        hot1.refreshView(songList.get(1));
+                        hot2.refreshView(songList.get(2));
+                        hot3.refreshView(songList.get(3));
+                        hot4.refreshView(songList.get(4));
+                        hot5.refreshView(songList.get(5));
+                    }
+
+                    @Override
+                    public void onGetFail() {
+                        ToastUtils.show(R.string.please_check_net);
+                    }
+                });
             }
         }
+    }
 
+    private void saveTemp(List<Song> songList, String tag) {
+        SavedStateBean currentStateBean = new SavedStateBean();
+        currentStateBean.setTag(tag);
+        currentStateBean.setCurrentPlayList(new Gson().toJson(songList));
+        currentStateBean.saveOrUpdate("tag = ?", tag);
+    }
+
+    private void getSavedTemp(String tag, final OnTempGetListener onTempGetListener) {
+        LitePal.where("tag = ?", tag).findFirstAsync(SavedStateBean.class).listen(new FindCallback<SavedStateBean>() {
+            @Override
+            public void onFinish(SavedStateBean savedStateBean) {
+                if (savedStateBean != null) {
+
+                    List<Song> songList = new Gson().fromJson(savedStateBean.getCurrentPlayList(), new TypeToken<List<Song>>() {
+                    }.getType());
+                    if (onTempGetListener != null && songList != null && songList.size() > 0) {
+                        onTempGetListener.onGet(songList);
+                    }
+                }
+            }
+        });
+
+    }
+
+    public interface OnTempGetListener {
+        void onGet(List<Song> songList);
+
+        void onGetFail();
     }
 }
