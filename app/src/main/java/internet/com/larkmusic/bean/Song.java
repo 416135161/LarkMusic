@@ -60,6 +60,9 @@ public class Song extends LitePalSupport implements Serializable {
     }
 
     public String getImgUrl() {
+        if (imgUrl == null) {
+            imgUrl = "";
+        }
         return imgUrl;
     }
 
@@ -109,7 +112,7 @@ public class Song extends LitePalSupport implements Serializable {
 
     @Override
     public boolean saveOrUpdate(String... conditions) {
-        if(playUrlRequest != null){
+        if (playUrlRequest != null) {
             playUrlRequest.saveOrUpdate("songmid = ?", playUrlRequest.songmid);
         }
         return super.saveOrUpdate(conditions);

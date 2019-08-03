@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
 
@@ -94,6 +96,11 @@ public class PlayListSongsFragment extends BaseFragment {
             mAdapter.setPlayListName(playListBean.getName());
             mAdapter.setPlayList(songList);
             mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
+            Picasso.with(getContext())
+                    .load(songList.get(0).getImgUrl())
+                    .error(R.mipmap.ic_playlist_tip)
+                    .placeholder(R.mipmap.ic_playlist_tip)
+                    .into(mIvIcon);
         }else {
             mTvCount.setText(String.format(getString(R.string.title_song_count), 0));
         }
