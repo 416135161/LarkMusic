@@ -51,8 +51,8 @@ public class RecentListHorizontalAdapter extends RecyclerView.Adapter<RecentList
             t.setImgUrl(CommonUtil.getDBImage(t.getHash()));
         }
         String imgUrl = "";
-        if(!TextUtils.isEmpty(t.getImgUrl())){
-            imgUrl = t.getImgUrl().replace("90x90", "150x150");
+        if (!TextUtils.isEmpty(t.getImgUrl())) {
+            imgUrl = t.getImgUrl();
             Picasso.with(ctx)
                     .load(imgUrl)
                     .error(R.mipmap.ic_song_cover_default)
