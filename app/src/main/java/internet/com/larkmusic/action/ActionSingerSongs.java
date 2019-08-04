@@ -18,8 +18,4 @@ public class ActionSingerSongs {
         this.result = result;
     }
 
-    public ActionSingerSongs(ArrayList<Song> result, SearchSingerResponse.DataBean.SingerBean.Singer singer) {
-        this.result = result;
-        this.singer = singer;
-    }
 }

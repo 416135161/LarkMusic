@@ -62,7 +62,7 @@ public class SongListAdapter extends BaseAdapter {
         holder.title.setText(song.getSongName());
         holder.artist.setText(song.getSingerName());
         holder.no.setText((i + 1) + "");
-        if(song.playUrlRequest == null){
+        if (song.playUrlRequest == null) {
             holder.art.setVisibility(View.GONE);
         }
         try {
@@ -94,6 +94,12 @@ public class SongListAdapter extends BaseAdapter {
 
     public void setPlayList(List<Song> playList) {
         this.songs = playList;
+    }
+
+    public void addPlayList(List<Song> playList) {
+        if (songs != null && playList != null) {
+            this.songs.addAll(playList);
+        }
     }
 
 

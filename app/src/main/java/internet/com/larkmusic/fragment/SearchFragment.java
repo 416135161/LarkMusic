@@ -124,9 +124,17 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         mRvSinger.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showDialog();
-                NewCloudDataUtil.getSingerSongs((SearchSingerResponse.DataBean.SingerBean.Singer) mSingerAdapter.getItem(i));
-            }
+                SearchSingerResponse.DataBean.SingerBean.Singer singer = (SearchSingerResponse.DataBean.SingerBean.Singer) mSingerAdapter.getItem(i);
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+                Fragment fragment = new SingerSongListFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("singer", singer);
+                fragment.setArguments(bundle);
+                transaction.add(R.id.view_container, fragment);
+                transaction.addToBackStack("");
+                transaction.commit();
+          }
         });
         mHistoryAdapter = new HistoryAdapter(getContext());
         mRvHistory.setAdapter(mHistoryAdapter);
@@ -240,28 +248,6 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
                 singer.pic = "http://y.gtimg.cn/music/photo_new/T001R150x150M000%@.jpg".replace("%@", singer.mid);
             }
             mSingerAdapter.setPlayList(event.singerList);
-        }
-        closeDialog();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventPosting(ActionSingerSongs event) {
-        if (event != null && event.result != null && event.result.size() > 0) {
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-            Fragment fragment = new SongListFragment();
-            Bundle bundle = new Bundle();
-            Album album = new Album();
-            album.setName(event.singer.name);
-            album.setImgUrl(event.singer.pic);
-            bundle.putSerializable("album", album);
-            bundle.putSerializable("songs", event.result);
-            fragment.setArguments(bundle);
-            transaction.add(R.id.view_container, fragment);
-            transaction.addToBackStack("");
-            transaction.commit();
-        }else {
-            ToastUtils.show(R.string.please_check_net);
         }
         closeDialog();
     }

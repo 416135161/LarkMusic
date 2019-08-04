@@ -60,9 +60,6 @@ public class Song extends LitePalSupport implements Serializable {
     }
 
     public String getImgUrl() {
-        if (imgUrl == null) {
-            imgUrl = "";
-        }
         return imgUrl;
     }
 

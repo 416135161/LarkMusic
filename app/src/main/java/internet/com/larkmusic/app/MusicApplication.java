@@ -14,13 +14,17 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.widget.RemoteViews;
 
+import com.arialyy.aria.core.Aria;
 import com.facebook.ads.AudienceNetworkAds;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.litepal.LitePal;
 
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionDownLoad;
+import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.activity.PlayerActivity;
@@ -29,6 +33,8 @@ import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.player.CustomPhoneStateListener;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayerService;
+import internet.com.larkmusic.util.CommonUtil;
+import internet.com.larkmusic.util.FileUtils;
 
 /**
  * Created by sjning
@@ -108,6 +114,47 @@ public class MusicApplication extends Application {
             updateNotification(event.song);
         }
 
+    }
+
+    //接收EventBus post过来的PlayEvent
+    @Subscribe
+    public void onEvent(ActionPlayEvent playEvent) {
+        switch (playEvent.getAction()) {
+            case PLAY:
+                if (playEvent.getQueue() != null && playEvent.getQueue().size() > 0) {
+                    MusicPlayer.getPlayer().addQueue(playEvent.getQueue(), true);
+                } else {
+                    MusicPlayer.getPlayer().play();
+                }
+                break;
+            case NEXT:
+                MusicPlayer.getPlayer().next();
+                break;
+            case PREVIOUS:
+                MusicPlayer.getPlayer().previous();
+                break;
+            case STOP:
+                MusicPlayer.getPlayer().pause();
+                break;
+            case RESUME:
+                MusicPlayer.getPlayer().resume();
+                break;
+            case SEEK:
+                MusicPlayer.getPlayer().seekTo(playEvent.getSeekTo());
+        }
+    }
+
+
+    @Subscribe
+    public void onEventDownLoad(ActionDownLoad actionDownLoad) {
+        Song song = actionDownLoad.song;
+        String filePath = CommonUtil.getSongSavePath(song.getHash());
+        if (!FileUtils.isFileExist(filePath)) {
+            Aria.download(this)
+                    .load(song.getPlayUrl())     //读取下载地址
+                    .setFilePath(filePath)
+                    .start();
+        }
     }
 
     private NotificationManager mNotificationManager;

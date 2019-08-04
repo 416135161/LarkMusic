@@ -2,6 +2,8 @@ package internet.com.larkmusic.fragment;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -75,7 +77,7 @@ public class PlayingListDialog extends BottomSheetDialogFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 EventBus.getDefault().post(new ActionSelectSong((Song) mAdapter.getItem(i)));
-                mListView.postDelayed(new Runnable() {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mAdapter.notifyDataSetChanged();

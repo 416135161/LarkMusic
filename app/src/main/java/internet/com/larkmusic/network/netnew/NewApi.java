@@ -1,8 +1,5 @@
 package internet.com.larkmusic.network.netnew;
 
-import java.util.ArrayList;
-
-import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.netnew.bean.BaseRequest;
 import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
 import internet.com.larkmusic.network.netnew.bean.BillBoardResponse;
@@ -30,7 +27,7 @@ import retrofit2.http.Query;
  */
 public interface NewApi {
     String HOST = "http://39.100.157.223:80/";
-//    String HOST = "http://47.104.178.7:80/";
+    //    String HOST = "http://47.104.178.7:80/";
     String HOST_LRC = "https://c.y.qq.com/";
     String HOST_SINGER_SEARCH = "http://s.plcloud.music.qq.com/";
 
@@ -90,7 +87,7 @@ public interface NewApi {
     @GET("/soso/fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=sizer.yqq" +
             ".song_next&searchid=&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&g_tk=&jsonpCallback=&loginUin=0&hostUin=0&format=json&inCharset" +
             "=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0")
-    Call<SearchSongResponse> searchSong(@Query("w") String keyword, @Query("p") int page,@Query("n") int pageSize);
+    Call<SearchSongResponse> searchSong(@Query("w") String keyword, @Query("p") int page, @Query("n") int pageSize);
 
     /**
      * 搜索歌手
@@ -108,8 +105,8 @@ public interface NewApi {
      * @return
      */
     @GET("/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?inCharset=utf-8&outCharset=utf-8&g_tk=5239908145&format&jsonp&platform=h5page&order=listen&from=h5&notice=0" +
-            "&uin=0&needNewCode=1&begin=0&num=20")
-    Call<SingerSongsResponse> getSingerSongs(@Query("singerid") String keyword);
+            "&uin=0&needNewCode=1")
+    Call<SingerSongsResponse> getSingerSongs(@Query("singerid") String keyword, @Query("begin") int begin, @Query("num") int pageSize);
 
     /**
      * 获取歌单
