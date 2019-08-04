@@ -121,7 +121,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         CommonUtil.setTvBoldFace(mTvTitle);
         showDialog();
         NewCloudDataUtil.getBillBoard(ActionHotSongs.TYPE_HOME, Config.FROM);
-        NewCloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
+        NewCloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM, 0, 7);
     }
 
     private void initRefreshLayout() {
@@ -136,7 +136,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
             @Override
             public void onRefresh() {
                 NewCloudDataUtil.getBillBoard(ActionHotSongs.TYPE_HOME, Config.FROM);
-                NewCloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM);
+                NewCloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM, 0, 7);
 
             }
         });
@@ -198,7 +198,6 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 new3.refreshView(event.trackList.get(3));
                 new4.refreshView(event.trackList.get(4));
                 new5.refreshView(event.trackList.get(5));
-                mNewList = (ArrayList<Song>) event.trackList;
             } else {
                 getSavedTemp(SavedStateBean.TAG_NEW, new OnTempGetListener() {
                     @Override
@@ -209,7 +208,6 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                         new3.refreshView(songList.get(3));
                         new4.refreshView(songList.get(4));
                         new5.refreshView(songList.get(5));
-                        mNewList = (ArrayList<Song>) songList;
                     }
 
                     @Override

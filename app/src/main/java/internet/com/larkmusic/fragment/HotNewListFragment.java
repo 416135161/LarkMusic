@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,6 +26,7 @@ import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
 import internet.com.larkmusic.util.ToastUtils;
+import internet.com.larkmusic.view.MyListView;
 
 /**
  * Created by sjning
@@ -34,12 +34,15 @@ import internet.com.larkmusic.util.ToastUtils;
  * description:
  */
 public class HotNewListFragment extends EventFragment {
+    int mPage = 0;
+    final int PAGE_SIZE = 15;
+
     public static int TYPE;
     public static int TYPE_HOT = 0;
     public static int TYPE_NEW = 1;
 
     @BindView(R.id.rv_songs)
-    ListView mRvSongs;
+    MyListView mRvSongs;
     private HotNewListAdapter mAdapter;
 
 
@@ -79,12 +82,7 @@ public class HotNewListFragment extends EventFragment {
             mAdapter.notifyDataSetChanged();
             mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
         } else {
-            showDialog();
-            if (TYPE == TYPE_NEW) {
-
-            } else {
-                NewCloudDataUtil.getBillBoardSongs(ActionHotSongs.TYPE_LIST, from, rankId);
-            }
+            onRefresh();
         }
     }
 
@@ -106,6 +104,17 @@ public class HotNewListFragment extends EventFragment {
         } else if (TYPE == TYPE_NEW) {
             mTvTitle.setText(R.string.title_new);
         }
+
+        mRvSongs.setOnILoadListener(new MyListView.ILoadListener() {
+            @Override
+            public void loadData() {
+                if (mPage < 6) {
+                    onRefresh();
+                } else {
+                    mRvSongs.loadFinish(false);
+                }
+            }
+        });
     }
 
     private void initHeaderAndFooter() {
@@ -122,10 +131,6 @@ public class HotNewListFragment extends EventFragment {
                 }
             }
         });
-
-        View footer = new View(getContext());
-        footer.setMinimumHeight(50);
-        mRvSongs.addFooterView(footer);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -133,9 +138,21 @@ public class HotNewListFragment extends EventFragment {
         closeDialog();
         if (event.type == ActionNewSongs.TYPE_LIST && event.from == from) {
             if (event != null && event.trackList != null && event.trackList.size() > 0) {
-                mAdapter.setPlayList(event.trackList);
+                if (mPage == 0) {
+                    mAdapter.setPlayList(event.trackList);
+                } else {
+                    mAdapter.addPlayList(event.trackList);
+                }
                 mAdapter.notifyDataSetChanged();
+                hideRefresh();
+                mPage++;
+            } else {
+                if (mPage == 0) {
+                    showRefresh();
+                    ToastUtils.show(R.string.please_check_net);
+                }
             }
+            mRvSongs.loadFinish();
         }
         mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
     }
@@ -145,13 +162,21 @@ public class HotNewListFragment extends EventFragment {
         closeDialog();
         if (event.type == ActionHotSongs.TYPE_LIST && event.from == from) {
             if (event != null && event.trackList != null && event.trackList.size() > 0) {
-                mAdapter.setPlayList(event.trackList);
+                if (mPage == 0) {
+                    mAdapter.setPlayList(event.trackList);
+                } else {
+                    mAdapter.addPlayList(event.trackList);
+                }
                 mAdapter.notifyDataSetChanged();
                 hideRefresh();
-            }else {
-                showRefresh();
-                ToastUtils.show(R.string.please_check_net);
+                mPage++;
+            } else {
+                if (mPage == 0) {
+                    showRefresh();
+                    ToastUtils.show(R.string.please_check_net);
+                }
             }
+            mRvSongs.loadFinish();
         }
         mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
 
@@ -160,11 +185,13 @@ public class HotNewListFragment extends EventFragment {
     @Override
     protected void onRefresh() {
         super.onRefresh();
-        if (TYPE == TYPE_NEW) {
-
-        } else {
+        if(mPage == 0){
             showDialog();
-            NewCloudDataUtil.getBillBoardSongs(ActionHotSongs.TYPE_LIST, from, rankId);
+        }
+        if (TYPE == TYPE_NEW) {
+            NewCloudDataUtil.getNewSongs(ActionHotSongs.TYPE_LIST, from, mPage, PAGE_SIZE);
+        } else {
+            NewCloudDataUtil.getBillBoardSongs(ActionHotSongs.TYPE_LIST, from, rankId, mPage, PAGE_SIZE);
         }
     }
 }

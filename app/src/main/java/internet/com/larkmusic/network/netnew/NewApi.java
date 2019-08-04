@@ -88,9 +88,9 @@ public interface NewApi {
      * @return
      */
     @GET("/soso/fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=sizer.yqq" +
-            ".song_next&searchid=&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&p=0&n=20&g_tk=&jsonpCallback=&loginUin=0&hostUin=0&format=json&inCharset" +
+            ".song_next&searchid=&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&g_tk=&jsonpCallback=&loginUin=0&hostUin=0&format=json&inCharset" +
             "=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0")
-    Call<SearchSongResponse> searchSong(@Query("w") String keyword);
+    Call<SearchSongResponse> searchSong(@Query("w") String keyword, @Query("p") int page,@Query("n") int pageSize);
 
     /**
      * 搜索歌手

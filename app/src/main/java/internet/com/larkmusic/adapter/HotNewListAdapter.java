@@ -94,6 +94,11 @@ public class HotNewListAdapter extends BaseAdapter {
         this.songs = playList;
     }
 
+    public void addPlayList(List<Song> playList) {
+        if (songs != null && playList != null) {
+            songs.addAll(playList);
+        }
+    }
 
     public HotNewListAdapter(Context ctx, List<Song> Songs) {
         super();

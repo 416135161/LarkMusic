@@ -92,6 +92,13 @@ public class SearchListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addPlayList(List<Song> playList) {
+        if (playList != null && songs != null) {
+            songs.addAll(playList);
+        }
+        notifyDataSetChanged();
+    }
+
 
     public SearchListAdapter(Context ctx, List<Song> Songs) {
         super();

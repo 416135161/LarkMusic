@@ -47,6 +47,7 @@ import internet.com.larkmusic.network.netnew.bean.SearchSingerResponse;
 import internet.com.larkmusic.util.HistoryService;
 import internet.com.larkmusic.util.ToastUtils;
 import internet.com.larkmusic.view.FlowLayout;
+import internet.com.larkmusic.view.MyListView;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.support.annotation.Dimension.SP;
@@ -60,8 +61,12 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     final int searchTypeSinger = 1;
     final int searchTypeSong = 2;
 
+    int mPageSongs = 0;
+    final int PAGE_SIZE_SONG = 15;
+    String mKeySongs = "";
+
     @BindView(R.id.rv_songs)
-    ListView mRvSongs;
+    MyListView mRvSongs;
     @BindView(R.id.rv_singer)
     ListView mRvSinger;
     @BindView(R.id.et_search)
@@ -101,6 +106,16 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 EventBus.getDefault().post(new ActionSelectSong((Song) mAdapter.getItem(i)));
 
+            }
+        });
+        mRvSongs.setOnILoadListener(new MyListView.ILoadListener() {
+            @Override
+            public void loadData() {
+                if(mPageSongs < 7){
+                    NewCloudDataUtil.searchSongs(mKeySongs, mPageSongs, PAGE_SIZE_SONG);
+                }else {
+                    mRvSongs.loadFinish(false);
+                }
             }
         });
 
@@ -155,9 +170,6 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
             }
         });
         initTrending();
-        View footer1 = new View(getContext());
-        footer1.setMinimumHeight(50);
-        mRvSongs.addFooterView(footer1);
 
         View footer2 = new View(getContext());
         footer2.setMinimumHeight(50);
@@ -169,6 +181,8 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         mEtSearch.setText("");
         mRvSongs.setVisibility(View.GONE);
         mRvSinger.setVisibility(View.GONE);
+        mAdapter.setPlayList(null);
+        mSingerAdapter.setPlayList(null);
         mViewCondition.setVisibility(View.VISIBLE);
         hideInput();
     }
@@ -201,9 +215,20 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPosting(ActionSearchSongs event) {
         if (event != null && event.result != null && event.result.size() > 0) {
-            mAdapter.setPlayList(event.result);
+            if(mPageSongs == 0){
+                mAdapter.setPlayList(event.result);
+                //越过第一页
+                mPageSongs ++;
+            }else {
+                mAdapter.addPlayList(event.result);
+            }
+            mRvSongs.loadFinish();
+            mPageSongs ++;
         }else {
             ToastUtils.show(R.string.please_check_net);
+            if(mPageSongs != 0){
+                mRvSongs.loadFinish();
+            }
         }
         closeDialog();
     }
@@ -322,12 +347,13 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         hideInput();
         showDialog();
         if (searchType == searchTypeSong) {
-            NewCloudDataUtil.searchSongs(key);
+            mKeySongs = key;
+            mPageSongs = 0;
+            NewCloudDataUtil.searchSongs(key, mPageSongs, PAGE_SIZE_SONG);
         } else {
             NewCloudDataUtil.searchSinger(key);
         }
-        mAdapter.setPlayList(null);
-        mSingerAdapter.setPlayList(null);
+//
     }
 
     /**
@@ -369,6 +395,8 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         if (mViewCondition.getVisibility() != View.VISIBLE) {
             mEtSearch.setText("");
             mViewCondition.setVisibility(View.VISIBLE);
+            mAdapter.setPlayList(null);
+            mSingerAdapter.setPlayList(null);
             return true;
         }
         return false;

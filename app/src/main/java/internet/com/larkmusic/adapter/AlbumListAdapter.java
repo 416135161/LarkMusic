@@ -92,6 +92,11 @@ public class AlbumListAdapter extends BaseAdapter {
         this.albums = playList;
     }
 
+    public void addPlayList(List<Album> playList) {
+        if (albums != null && playList != null) {
+            this.albums.addAll(playList);
+        }
+    }
 
     public AlbumListAdapter(Context ctx, List<Album> Songs) {
         super();
@@ -109,7 +114,7 @@ public class AlbumListAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View view) {
-       }
+        }
     }
 
 }
