@@ -29,6 +29,7 @@ import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.util.ToastUtils;
+import internet.com.larkmusic.view.MyListView;
 
 /**
  * Created by sjning
@@ -36,11 +37,14 @@ import internet.com.larkmusic.util.ToastUtils;
  * description:
  */
 public class AlbumsListFragment extends EventFragment implements FragmentBackHandler {
+    int mPageSongs = 0;
+    final int PAGE_SIZE_SONG = 15;
+
     private String from;
     private String name;
     private int srcId;
     @BindView(R.id.rv_albums)
-    ListView mRvAlbums;
+    MyListView mRvAlbums;
     private AlbumListAdapter mAdapter;
 
     TextView mTvTitle;
@@ -73,7 +77,7 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
 
     private void getData() {
         showDialog();
-        NewCloudDataUtil.getPlayList(from);
+        NewCloudDataUtil.getPlayList(from, mPageSongs * PAGE_SIZE_SONG + "", PAGE_SIZE_SONG + "");
     }
 
     private void initView() {
@@ -99,6 +103,17 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
                 transaction.commit();
             }
         });
+
+        mRvAlbums.setOnILoadListener(new MyListView.ILoadListener() {
+            @Override
+            public void loadData() {
+                if (mPageSongs < 6) {
+                    NewCloudDataUtil.getPlayList(from, mPageSongs * PAGE_SIZE_SONG + "", PAGE_SIZE_SONG + "");
+                } else {
+                    mRvAlbums.loadFinish(false);
+                }
+            }
+        });
     }
 
     private void initHeaderAndFooter() {
@@ -111,9 +126,6 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
         mIvHeader.setImageResource(srcId);
         mTvTitle.setText(name);
         mTvCount.setText(R.string.title_albums);
-        View footer = new View(getContext());
-        footer.setMinimumHeight(50);
-        mRvAlbums.addFooterView(footer);
 
     }
 
@@ -123,13 +135,22 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
         ArrayList<Album> albumList = event.albumList;
         if (albumList != null && !albumList.isEmpty()) {
             if (TextUtils.equals(this.from, event.from)) {
-                mAdapter.setPlayList(albumList);
+                if (mPageSongs == 0) {
+                    mAdapter.setPlayList(albumList);
+                } else {
+                    mAdapter.addPlayList(albumList);
+                }
                 mAdapter.notifyDataSetChanged();
             }
             hideRefresh();
-        }else {
-            showRefresh();
-            ToastUtils.show(R.string.please_check_net);
+            mRvAlbums.loadFinish();
+            mPageSongs++;
+        } else {
+            if (mPageSongs == 0){
+                showRefresh();
+                ToastUtils.show(R.string.please_check_net);
+            }
+            mRvAlbums.loadFinish();
         }
     }
 

@@ -40,6 +40,7 @@ import internet.com.larkmusic.network.netnew.bean.SingerSongsResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Query;
 
 /**
  * Created by sjning
@@ -49,14 +50,15 @@ import retrofit2.Response;
 public class NewCloudDataUtil {
 
     //获取新歌
-    public static void getNewSongs(final int type, final String from) {
+    public static void getNewSongs(final int type, final String from, int page, int pageSize) {
         NewListRequest newListRequest = new NewListRequest();
         if (from == Config.FROM_JAPAN) {
             newListRequest.type = NewListRequest.japan;
         } else {
             newListRequest.type = NewListRequest.us;
         }
-
+        newListRequest.start = page * pageSize + "";
+        newListRequest.pageSize = pageSize + "";
         Call<NewListResponse> call = HttpUtil.getNewApi().getNewMusicList(newListRequest);
         call.enqueue(new Callback<NewListResponse>() {
             @Override
@@ -246,9 +248,11 @@ public class NewCloudDataUtil {
     }
 
     //获取热歌
-    public static void getBillBoardSongs(final int type, final String from, String rankId) {
+    public static void getBillBoardSongs(final int type, final String from, String rankId, int page, int pageSize) {
         BillBoardMusicListRequest request = new BillBoardMusicListRequest();
         request.rankId = rankId;
+        request.start = page * pageSize + "";
+        request.pageSize = pageSize + "";
         Call<BillBoardSongsResponse> call = HttpUtil.getNewApi().getBillBoardMusicList(request);
         call.enqueue(new Callback<BillBoardSongsResponse>() {
             @Override
@@ -305,8 +309,8 @@ public class NewCloudDataUtil {
      *
      * @param key
      */
-    public static void searchSongs(String key) {
-        Call<SearchSongResponse> call = HttpUtil.getRetrofit(NewApi.HOST_LRC, null).create(NewApi.class).searchSong(key);
+    public static void searchSongs(String key, int page, int pageSize) {
+        Call<SearchSongResponse> call = HttpUtil.getRetrofit(NewApi.HOST_LRC, null).create(NewApi.class).searchSong(key, page, pageSize);
 
         call.enqueue(new Callback<SearchSongResponse>() {
 
@@ -448,8 +452,10 @@ public class NewCloudDataUtil {
      *
      * @param type
      */
-    public static void getPlayList(final String type) {
+    public static void getPlayList(final String type, String page, String pageSize) {
         PlayListRequest playListRequest = new PlayListRequest();
+        playListRequest.pageSize =pageSize;
+        playListRequest.start = page;
         playListRequest.type = type;
         Call<PlayListResponse> call = HttpUtil.getNewApi().getPlayList(playListRequest);
 

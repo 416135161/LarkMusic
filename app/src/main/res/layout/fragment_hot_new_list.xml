@@ -6,7 +6,7 @@
               android:orientation="vertical"
     >
 
-    <ListView
+    <internet.com.larkmusic.view.MyListView
         android:id="@+id/rv_songs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,5 +15,5 @@
         android:scrollbars="none"
         >
 
-    </ListView>
+    </internet.com.larkmusic.view.MyListView>
 </LinearLayout>
