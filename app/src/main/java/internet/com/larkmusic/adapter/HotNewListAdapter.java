@@ -67,11 +67,16 @@ public class HotNewListAdapter extends BaseAdapter {
         if (TextUtils.isEmpty(song.getImgUrl())) {
             song.setImgUrl(CommonUtil.getDBImage(song.getHash()));
         }
-        Picasso.with(context)
-                .load(song.getImgUrl())
-                .error(R.mipmap.ic_song_default)
-                .placeholder(R.mipmap.ic_song_default)
-                .into(holder.art);
+        if(!TextUtils.isEmpty(song.getImgUrl())){
+            Picasso.with(context)
+                    .load(song.getImgUrl())
+                    .error(R.mipmap.ic_song_default)
+                    .placeholder(R.mipmap.ic_song_default)
+                    .into(holder.art);
+        }else {
+            holder.art.setImageResource(R.mipmap.ic_song_default);
+        }
+
         holder.operate.setOnClickListener(new MyClickListener(song));
         return convertView;
     }

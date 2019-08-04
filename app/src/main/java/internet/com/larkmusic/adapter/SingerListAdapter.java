@@ -57,14 +57,14 @@ public class SingerListAdapter extends BaseAdapter {
         } else {
             holder = (MyViewHolder) convertView.getTag();
         }
-        final SearchSingerResponse.DataBean.SingerBean.Singer singer = singerList.get(i);
+        SearchSingerResponse.DataBean.SingerBean.Singer singer = singerList.get(i);
         holder.title.setText(singer.name);
         Picasso.with(context)
                 .load(singer.pic)
                 .error(R.mipmap.ic_song_default)
                 .placeholder(R.mipmap.ic_song_default)
                 .into(holder.art);
-       return convertView;
+        return convertView;
     }
 
     public class MyViewHolder {

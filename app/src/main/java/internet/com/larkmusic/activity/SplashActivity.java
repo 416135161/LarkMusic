@@ -1,7 +1,6 @@
 package internet.com.larkmusic.activity;
 
 import android.Manifest;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -17,7 +16,6 @@ import internet.com.larkmusic.R;
 import internet.com.larkmusic.animations.PulseAnimation;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.player.MusicPlayer;
-import internet.com.larkmusic.player.PlayerService;
 
 /**
  * Created by sjning
@@ -46,7 +44,6 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             startHomeActivity();
         }
-        startService();
 
     }
 
@@ -105,10 +102,4 @@ public class SplashActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, permissions, PERMISSIONS_REQUEST_CODE);
     }
 
-    private void startService() {
-        //启动服务
-        Intent intent = new Intent();
-        intent.setClass(this, PlayerService.class);
-        startService(intent);
-    }
 }

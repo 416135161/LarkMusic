@@ -391,10 +391,10 @@ public class NewCloudDataUtil {
     /**
      * 搜歌手
      *
-     * @param singer
+     * @param singerId
      */
-    public static void getSingerSongs(final SearchSingerResponse.DataBean.SingerBean.Singer singer) {
-        Call<SingerSongsResponse> call = HttpUtil.getRetrofit(NewApi.HOST_LRC, new SingerInterceptor()).create(NewApi.class).getSingerSongs(singer.id);
+    public static void getSingerSongs(String singerId, int page , int pageSize) {
+        Call<SingerSongsResponse> call = HttpUtil.getRetrofit(NewApi.HOST_LRC, new SingerInterceptor()).create(NewApi.class).getSingerSongs(singerId, page* pageSize, pageSize);
 
         call.enqueue(new Callback<SingerSongsResponse>() {
 
@@ -431,7 +431,7 @@ public class NewCloudDataUtil {
                         songList.add(song);
                     }
 
-                    EventBus.getDefault().post(new ActionSingerSongs(songList, singer));
+                    EventBus.getDefault().post(new ActionSingerSongs(songList));
                 } else {
                     EventBus.getDefault().post(new ActionSingerSongs(null));
                 }

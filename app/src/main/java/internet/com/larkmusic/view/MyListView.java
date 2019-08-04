@@ -81,7 +81,7 @@ public class MyListView extends ListView implements OnScrollListener{
 
     public void loadFinish(boolean flag){
         loadFinish();
-        flag = false;
+        this.flag = flag;
     }
 
     private boolean flag = true;
@@ -93,7 +93,7 @@ public class MyListView extends ListView implements OnScrollListener{
         //如果最后一个可见item等于总的item，且当前滚动状态为滚动停止，就应该开始加加载数据了
         if(lastVisibleItem == totalItemCount && scrollState==SCROLL_STATE_IDLE){
 
-            if(!isLoading && flag){
+            if(!isLoading && flag && mListener != null){
                 isLoading = true;
 
                 //加载数据

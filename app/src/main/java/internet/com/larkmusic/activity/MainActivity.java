@@ -1,6 +1,5 @@
 package internet.com.larkmusic.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,8 +32,6 @@ import internet.com.larkmusic.action.PlayerStatus;
 import internet.com.larkmusic.animations.RotateAnimation;
 import internet.com.larkmusic.app.MusicApplication;
 import internet.com.larkmusic.back.BackHandlerHelper;
-import internet.com.larkmusic.base.AdsBaseActivity;
-import internet.com.larkmusic.base.BaseActivity;
 import internet.com.larkmusic.base.MainBaseActivity;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.fragment.HallFragment;
@@ -44,10 +41,7 @@ import internet.com.larkmusic.fragment.OperateDialog;
 import internet.com.larkmusic.fragment.PlayingListDialog;
 import internet.com.larkmusic.fragment.SearchFragment;
 import internet.com.larkmusic.network.Config;
-import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.player.MusicPlayer;
-import internet.com.larkmusic.player.PlayerService;
-import internet.com.larkmusic.util.CloudDataUtil;
 import internet.com.larkmusic.util.SpHelper;
 
 public class MainActivity extends MainBaseActivity {
@@ -81,14 +75,6 @@ public class MainActivity extends MainBaseActivity {
         ButterKnife.bind(this);
         onClickViewHall();
         initSavedState();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Intent intent = new Intent();
-        intent.setClass(this, PlayerService.class);
-        startService(intent);
     }
 
     @Override
