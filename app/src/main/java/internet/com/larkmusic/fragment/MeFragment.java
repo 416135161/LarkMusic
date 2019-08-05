@@ -116,7 +116,7 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
 
             @Override
             protected void onPostExecute(Integer aVoid) {
-                mTvLocalCount.setText(String.format(getString(R.string.play_list_song_count), aVoid));
+                mTvLocalCount.setText(String.format(getContext().getString(R.string.play_list_song_count), aVoid));
             }
         }.execute();
 
