@@ -57,4 +57,6 @@
     <string name="search_type_song">歌</string>
     <string name="search_type_singer">歌手</string>
     <string name="action_share">シェア</string>
+    <string name="edit_play_list_name">タイトルを編集</string>
+    <string name="play_list_delete_tip">プレイリストを削除してもよろしいですか？</string>
 </resources>

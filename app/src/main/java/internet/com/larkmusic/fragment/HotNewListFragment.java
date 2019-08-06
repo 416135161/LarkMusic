@@ -150,6 +150,7 @@ public class HotNewListFragment extends EventFragment {
             } else {
                 if (mPage == 0) {
                     showRefresh();
+                    mRvSongs.loadFinish(false);
                     ToastUtils.show(R.string.please_check_net);
                 }
             }

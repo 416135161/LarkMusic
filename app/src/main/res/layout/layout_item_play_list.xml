@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:paddingLeft="5dp"
+                android:paddingLeft="0dp"
                 android:singleLine="true"
                 android:text="0"
                 android:textColor="@color/text_999"
@@ -60,13 +60,13 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/iv_delete"
+            android:id="@+id/iv_operate"
             android:layout_width="54dp"
             android:layout_height="match_parent"
             android:paddingLeft="14dp"
             android:paddingRight="20dp"
             android:scaleType="center"
-            android:src="@mipmap/ic_arrow_right"
+            android:src="@mipmap/ic_song_operate"
             android:visibility="visible"
             />
     </LinearLayout>

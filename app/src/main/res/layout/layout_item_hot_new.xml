@@ -64,7 +64,7 @@
                 android:text="Dimest"
                 android:singleLine="true"
                 android:ellipsize="end"
-                android:paddingLeft="5dp"
+                android:paddingLeft="0dp"
                 android:textColor="@color/text_999"
                 android:textSize="12sp"
                 />

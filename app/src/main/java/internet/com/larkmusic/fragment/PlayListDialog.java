@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
 import org.litepal.crud.callback.FindMultiCallback;
 
@@ -29,6 +30,7 @@ import java.util.Collections;
 import java.util.List;
 
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionRefreshPlayList;
 import internet.com.larkmusic.adapter.PlayListAdapter;
 import internet.com.larkmusic.bean.PlayListBean;
 import internet.com.larkmusic.bean.PlayListRelationBean;
@@ -105,6 +107,7 @@ public class PlayListDialog extends BottomSheetDialogFragment {
                     playListBean.setIcon(song.getImgUrl());
                     playListBean.saveOrUpdate("name = ?", playListBean.getName());
                     song.saveOrUpdate("hash = ?", song.getHash());
+                    EventBus.getDefault().post(new ActionRefreshPlayList());
                     dismiss();
                 }
             }
@@ -127,6 +130,7 @@ public class PlayListDialog extends BottomSheetDialogFragment {
                                     playListBean.setName(editText.getText().toString());
                                     playListBean.saveOrUpdate("name = ?", playListBean.getName());
                                     refreshView();
+                                    EventBus.getDefault().post(new ActionRefreshPlayList());
                                 } else {
                                     Toast.makeText(getContext(), R.string.add_play_list_empty_tip, Toast.LENGTH_SHORT).show();
                                 }
