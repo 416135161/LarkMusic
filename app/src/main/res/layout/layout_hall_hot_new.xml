@@ -3,14 +3,14 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:paddingLeft="20dp"
-              android:paddingRight="20dp"
+
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:gravity="center_vertical"
+        android:paddingLeft="20dp"
         >
 
         <internet.com.larkmusic.view.MyTextView
@@ -37,7 +37,9 @@
 
         <internet.com.larkmusic.view.MyTextView
             android:id="@+id/tv_hot_more"
-            android:layout_width="63dp"
+            android:layout_width="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="@string/title_more"
@@ -53,6 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         >
 
         <RelativeLayout
@@ -130,6 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:gravity="center_vertical"
+        android:paddingLeft="20dp"
         >
 
         <internet.com.larkmusic.view.MyTextView
@@ -156,7 +161,9 @@
 
         <internet.com.larkmusic.view.MyTextView
             android:id="@+id/tv_new_more"
-            android:layout_width="63dp"
+            android:layout_width="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="@string/title_more"
@@ -171,6 +178,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         >
 
         <RelativeLayout

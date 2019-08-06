@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -77,7 +80,15 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
         if (song != null) {
             tvSong.setText(song.getSongName());
             tvSinger.setText(song.getSingerName());
-            ivSinger.setImageResource(R.mipmap.ic_singer_default);
+            if(!TextUtils.isEmpty(song.getImgUrl())){
+                Picasso.with(getContext())
+                        .load(song.getImgUrl())
+                        .error(R.mipmap.ic_singer_default)
+                        .placeholder(R.mipmap.ic_singer_default)
+                        .into(ivSinger);
+            }else {
+                ivSinger.setImageResource(R.mipmap.ic_singer_default);
+            }
         }
 
     }

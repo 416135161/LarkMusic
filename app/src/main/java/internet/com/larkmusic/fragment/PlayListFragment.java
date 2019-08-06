@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.litepal.LitePal;
 import org.litepal.crud.callback.FindMultiCallback;
 
@@ -23,18 +25,24 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionNewSongs;
+import internet.com.larkmusic.action.ActionRefreshPlayList;
 import internet.com.larkmusic.adapter.PlayListAdapter;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.BaseFragment;
+import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.PlayListBean;
+import internet.com.larkmusic.bean.SavedStateBean;
+import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.util.ToastUtils;
 
 /**
  * Created by sjning
  * created on: 2019-07-19 12:01
  * description:
  */
-public class PlayListFragment extends BaseFragment implements FragmentBackHandler {
+public class PlayListFragment extends EventFragment implements FragmentBackHandler {
     @BindView(R.id.rv_list)
     ListView mListView;
     PlayListAdapter mAdapter;
@@ -59,7 +67,7 @@ public class PlayListFragment extends BaseFragment implements FragmentBackHandle
     private void initView() {
 
         mAdapter = new PlayListAdapter(getContext(), null);
-
+        mAdapter.setFragmentManager(getFragmentManager());
         mListView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -127,5 +135,11 @@ public class PlayListFragment extends BaseFragment implements FragmentBackHandle
     @Override
     public boolean onBackPressed() {
         return BackHandlerHelper.handleBackPress(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventPosting(ActionRefreshPlayList event) {
+        closeDialog();
+        refreshView();
     }
 }

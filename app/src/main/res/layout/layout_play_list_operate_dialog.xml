@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/operate_dlg_bg"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+
+    >
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="15dp"
+        android:text="With you"
+        android:textColor="#ff666666"
+        android:textSize="17sp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_divider"
+        android:visibility="visible"
+        >
+    </View>
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:drawableLeft="@mipmap/ic_delete"
+        android:drawablePadding="15dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/operate_delete"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+
+        />
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:drawableLeft="@mipmap/ic_edit"
+        android:drawablePadding="15dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/edit_play_list_name"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+        />
+
+    <internet.com.larkmusic.view.MyTextView
+        android:id="@+id/tv_close"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/operate_dlg_cancel_btn_bg"
+        android:gravity="center"
+        android:text="@string/btn_cancle"
+        android:textColor="#ff999999"
+        android:textSize="16sp"
+        />
+
+</LinearLayout>

@@ -143,8 +143,8 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
                 mAdapter.notifyDataSetChanged();
             }
             hideRefresh();
-            mRvAlbums.loadFinish();
             mPageSongs++;
+            mRvAlbums.loadFinish(mPageSongs < 6);
         } else {
             if (mPageSongs == 0){
                 showRefresh();

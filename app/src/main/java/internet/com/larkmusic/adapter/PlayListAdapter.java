@@ -1,6 +1,7 @@
 package internet.com.larkmusic.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import java.util.List;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.bean.PlayListBean;
 import internet.com.larkmusic.bean.PlayListRelationBean;
+import internet.com.larkmusic.fragment.PlayListOperateDialog;
+import internet.com.larkmusic.fragment.PlayingListDialog;
 
 /**
  * Created by sjning
@@ -28,7 +31,7 @@ public class PlayListAdapter extends BaseAdapter {
 
     private List<PlayListBean> playListBeans;
     private Context context;
-
+    private FragmentManager mFragmentManager;
     @Override
     public int getCount() {
         if (playListBeans != null) {
@@ -76,17 +79,17 @@ public class PlayListAdapter extends BaseAdapter {
                 .error(R.mipmap.ic_folder)
                 .placeholder(R.mipmap.ic_folder)
                 .into(holder.icon);
-        holder.delete.setOnClickListener(new MyClickListener(playListBean, i));
+        holder.ivOperate.setOnClickListener(new MyClickListener(playListBean, i));
         return convertView;
     }
 
     public class MyViewHolder {
 
-        ImageView delete, icon;
+        ImageView ivOperate, icon;
         TextView no, name;
 
         public MyViewHolder(View view) {
-            delete = view.findViewById(R.id.iv_delete);
+            ivOperate = view.findViewById(R.id.iv_operate);
             no = view.findViewById(R.id.tv_no);
             name = view.findViewById(R.id.tv_name);
             icon = view.findViewById(R.id.iv_icon);
@@ -97,6 +100,9 @@ public class PlayListAdapter extends BaseAdapter {
         this.playListBeans = playList;
     }
 
+    public void setFragmentManager(FragmentManager fragmentManager) {
+        this.mFragmentManager = fragmentManager;
+    }
 
     public PlayListAdapter(Context ctx, List<PlayListBean> playListBeans) {
         super();
@@ -116,6 +122,16 @@ public class PlayListAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View view) {
+            new PlayListOperateDialog().setSong(playListBean).
+                    setOnDeleteListener(new PlayListOperateDialog.OnDeleteListener() {
+                        @Override
+                        public void onDelete(PlayListBean song) {
+
+
+                        }
+                    }).
+                    show(mFragmentManager, PlayingListDialog.class.getName());
+
 
 
         }
