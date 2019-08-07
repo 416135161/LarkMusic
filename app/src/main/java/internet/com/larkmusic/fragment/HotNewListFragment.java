@@ -1,7 +1,6 @@
 package internet.com.larkmusic.fragment;
 
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -36,7 +35,8 @@ import internet.com.larkmusic.view.MyListView;
  */
 public class HotNewListFragment extends EventFragment {
     int mPage = 0;
-    final int PAGE_SIZE = 15;
+    final int PAGE_SIZE = 25;
+    final int PAGE_MAX = 4;
 
     public static int TYPE;
     public static int TYPE_HOT = 0;
@@ -109,10 +109,8 @@ public class HotNewListFragment extends EventFragment {
         mRvSongs.setOnILoadListener(new MyListView.ILoadListener() {
             @Override
             public void loadData() {
-                if (mPage < 6) {
+                if (mPage < PAGE_MAX) {
                     onRefresh();
-                } else {
-                    mRvSongs.loadFinish(false);
                 }
             }
         });
@@ -150,11 +148,19 @@ public class HotNewListFragment extends EventFragment {
             } else {
                 if (mPage == 0) {
                     showRefresh();
-                    mRvSongs.loadFinish(false);
+                    mRvSongs.hideProgress();
                     ToastUtils.show(R.string.please_check_net);
                 }
             }
-            mRvSongs.loadFinish();
+            if (mPage < PAGE_MAX) {
+                if(mAdapter.getCount() % PAGE_SIZE == 0){
+                    mRvSongs.loadFinish();
+                }else {
+                    mRvSongs.loadFinish(false);
+                }
+            } else {
+                mRvSongs.loadFinish(false);
+            }
         }
         mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
     }
@@ -175,10 +181,19 @@ public class HotNewListFragment extends EventFragment {
             } else {
                 if (mPage == 0) {
                     showRefresh();
+                    mRvSongs.hideProgress();
                     ToastUtils.show(R.string.please_check_net);
                 }
             }
-            mRvSongs.loadFinish();
+            if (mPage < PAGE_MAX) {
+                if(mAdapter.getCount() % PAGE_SIZE == 0){
+                    mRvSongs.loadFinish();
+                }else {
+                    mRvSongs.loadFinish(false);
+                }
+            } else {
+                mRvSongs.loadFinish(false);
+            }
         }
         mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
 
@@ -187,7 +202,7 @@ public class HotNewListFragment extends EventFragment {
     @Override
     protected void onRefresh() {
         super.onRefresh();
-        if(mPage == 0){
+        if (mPage == 0) {
             showDialog();
         }
         if (TYPE == TYPE_NEW) {

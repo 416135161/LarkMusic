@@ -16,7 +16,7 @@
     <string name = "genres_us">アメリカ - ユーロ</string>
     <string name = "genres_japan">日本</string>
     <string name = "genres_ACG"> ACG </string>
-    <string name = "genres_driving">DRINING</string>
+    <string name = "genres_driving">運転中</string>
     <string name = "genres_quiet">静か</string>
     <string name = "genres_running">実行中</string>
 

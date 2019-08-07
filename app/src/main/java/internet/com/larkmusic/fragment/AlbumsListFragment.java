@@ -38,7 +38,8 @@ import internet.com.larkmusic.view.MyListView;
  */
 public class AlbumsListFragment extends EventFragment implements FragmentBackHandler {
     int mPageSongs = 0;
-    final int PAGE_SIZE_SONG = 15;
+    final int PAGE_SIZE_SONG = 25;
+    final int PAGE_MAX = 4;
 
     private String from;
     private String name;
@@ -107,10 +108,8 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
         mRvAlbums.setOnILoadListener(new MyListView.ILoadListener() {
             @Override
             public void loadData() {
-                if (mPageSongs < 6) {
+                if (mPageSongs < PAGE_MAX) {
                     NewCloudDataUtil.getPlayList(from, mPageSongs * PAGE_SIZE_SONG + "", PAGE_SIZE_SONG + "");
-                } else {
-                    mRvAlbums.loadFinish(false);
                 }
             }
         });
@@ -134,24 +133,31 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
         closeDialog();
         ArrayList<Album> albumList = event.albumList;
         if (albumList != null && !albumList.isEmpty()) {
-            if (TextUtils.equals(this.from, event.from)) {
-                if (mPageSongs == 0) {
-                    mAdapter.setPlayList(albumList);
-                } else {
-                    mAdapter.addPlayList(albumList);
-                }
-                mAdapter.notifyDataSetChanged();
+            if (mPageSongs == 0) {
+                mAdapter.setPlayList(albumList);
+            } else {
+                mAdapter.addPlayList(albumList);
             }
+            mAdapter.notifyDataSetChanged();
             hideRefresh();
             mPageSongs++;
-            mRvAlbums.loadFinish(mPageSongs < 6);
         } else {
-            if (mPageSongs == 0){
+            if (mPageSongs == 0) {
                 showRefresh();
+                mRvAlbums.hideProgress();
                 ToastUtils.show(R.string.please_check_net);
             }
-            mRvAlbums.loadFinish();
         }
+        if (mPageSongs < PAGE_MAX) {
+            if(mAdapter.getCount() % PAGE_SIZE_SONG == 0){
+                mRvAlbums.loadFinish();
+            }else {
+                mRvAlbums.loadFinish(false);
+            }
+        } else {
+            mRvAlbums.loadFinish(false);
+        }
+
     }
 
     @Override

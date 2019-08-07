@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -112,14 +113,32 @@ public class PlayerActivity extends EventActivity {
         initView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ivSongBg.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = ivSongBg.getMeasuredWidth();
+                int height = ivSongBg.getMeasuredHeight();
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ivSongBg.getLayoutParams();
+                if (height > width) {
+                    layoutParams.topMargin = layoutParams.topMargin + (height - width) / 4;
+                    layoutParams.bottomMargin = (height - width) / 4;
+                    ivSongBg.setLayoutParams(layoutParams);
+                }
+            }
+        });
+    }
+
     private void initView() {
         if (MusicPlayer.getPlayer() != null && MusicPlayer.getPlayer().getNowPlaying() != null) {
             PlayerStatus playerStatus = MusicPlayer.getPlayer().getStatus();
-            if(playerStatus == PlayerStatus.PLAYING){
+            if (playerStatus == PlayerStatus.PLAYING) {
                 return;
-            }else{
+            } else {
                 ActionPlayerInformEvent actionPlayerInformEvent = new ActionPlayerInformEvent();
-                if (playerStatus == PlayerStatus.STOP ) {
+                if (playerStatus == PlayerStatus.STOP) {
                     actionPlayerInformEvent.currentTime = MusicPlayer.getPlayer().getCurrentPosition();
                     actionPlayerInformEvent.duration = MusicPlayer.getPlayer().getDuration();
                 }
@@ -127,9 +146,9 @@ public class PlayerActivity extends EventActivity {
                 actionPlayerInformEvent.song = MusicPlayer.getPlayer().getNowPlaying();
                 onEventPlayerInform(actionPlayerInformEvent);
             }
-
-
         }
+
+
     }
 
     void initIvRecycle() {
@@ -282,7 +301,7 @@ public class PlayerActivity extends EventActivity {
             initFavorite(event.song);
         }
         Song song = event.song;
-        if(!TextUtils.isEmpty(song.getImgUrl())){
+        if (!TextUtils.isEmpty(song.getImgUrl())) {
             Picasso.with(this)
                     .load(song.getImgUrl().replace("90x90", "300x300"))
                     .error(R.mipmap.icon_player_main_default)
@@ -292,7 +311,7 @@ public class PlayerActivity extends EventActivity {
 
     }
 
-    void initFavorite(Song song){
+    void initFavorite(Song song) {
         if (FavoriteService.getInstance().isFavorite(song)) {
             ivFavorite.setImageResource(R.mipmap.icon_favorite_select);
             ivFavorite.setTag(R.id.tag_key_favorite_check, Boolean.TRUE);

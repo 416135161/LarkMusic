@@ -32,14 +32,12 @@ import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionSearchSinger;
 import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionSelectSong;
-import internet.com.larkmusic.action.ActionSingerSongs;
 import internet.com.larkmusic.adapter.HistoryAdapter;
 import internet.com.larkmusic.adapter.SearchListAdapter;
 import internet.com.larkmusic.adapter.SingerListAdapter;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.EventFragment;
-import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
@@ -62,7 +60,8 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
     final int searchTypeSong = 2;
 
     int mPageSongs = 0;
-    final int PAGE_SIZE_SONG = 15;
+    final int PAGE_SIZE = 25;
+    final int PAGE_MAX = 5;
     String mKeySongs = "";
 
     @BindView(R.id.rv_songs)
@@ -111,10 +110,8 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         mRvSongs.setOnILoadListener(new MyListView.ILoadListener() {
             @Override
             public void loadData() {
-                if(mPageSongs < 7){
-                    NewCloudDataUtil.searchSongs(mKeySongs, mPageSongs, PAGE_SIZE_SONG);
-                }else {
-                    mRvSongs.loadFinish(false);
+                if(mPageSongs < PAGE_MAX){
+                    NewCloudDataUtil.searchSongs(mKeySongs, mPageSongs, PAGE_SIZE);
                 }
             }
         });
@@ -222,6 +219,7 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPosting(ActionSearchSongs event) {
+        closeDialog();
         if (event != null && event.result != null && event.result.size() > 0) {
             if(mPageSongs == 0){
                 mAdapter.setPlayList(event.result);
@@ -230,15 +228,23 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
             }else {
                 mAdapter.addPlayList(event.result);
             }
-            mRvSongs.loadFinish();
             mPageSongs ++;
         }else {
-            ToastUtils.show(R.string.please_check_net);
-            if(mPageSongs != 0){
-                mRvSongs.loadFinish();
+            if(mPageSongs == 0){
+                ToastUtils.show(R.string.please_check_net);
+                mRvSongs.hideProgress();
             }
         }
-        closeDialog();
+        if (mPageSongs < PAGE_MAX) {
+            if(mAdapter.getCount() % PAGE_SIZE == 0){
+                mRvSongs.loadFinish();
+            }else {
+                mRvSongs.loadFinish(false);
+            }
+        } else {
+            mRvSongs.loadFinish(false);
+        }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -261,6 +267,7 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
             mValues.add("澤野弘之");
             mValues.add("久石譲");
             mValues.add("倉木麻衣");
+            mValues.add("Sexy Zone");
             mValues.add("majiko");
             mValues.add("RADWIMPS");
             mValues.add("新垣結衣");
@@ -335,7 +342,7 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         if (searchType == searchTypeSong) {
             mKeySongs = key;
             mPageSongs = 0;
-            NewCloudDataUtil.searchSongs(key, mPageSongs, PAGE_SIZE_SONG);
+            NewCloudDataUtil.searchSongs(key, mPageSongs, PAGE_SIZE);
         } else {
             NewCloudDataUtil.searchSinger(key);
         }

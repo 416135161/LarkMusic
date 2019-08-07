@@ -39,7 +39,8 @@ public class SingerSongListFragment extends EventFragment {
     SearchSingerResponse.DataBean.SingerBean.Singer singer;
 
     int mPage = 0;
-    final int pageSize = 15;
+    final int PAGE_SIZE = 25;
+    final int PAGE_MAX = 5;
     @BindView(R.id.rv_songs)
     MyListView mRvSongs;
     private SongListAdapter mAdapter;
@@ -79,7 +80,7 @@ public class SingerSongListFragment extends EventFragment {
                 .into(mIvIcon);
         mTvCount.setText(String.format(getString(R.string.title_song_count), mAdapter.getCount()));
         showDialog();
-        NewCloudDataUtil.getSingerSongs(singer.id, mPage, pageSize);
+        NewCloudDataUtil.getSingerSongs(singer.id, mPage, PAGE_SIZE);
 
     }
 
@@ -99,10 +100,8 @@ public class SingerSongListFragment extends EventFragment {
         mRvSongs.setOnILoadListener(new MyListView.ILoadListener() {
             @Override
             public void loadData() {
-                if (mPage < 7) {
-                    NewCloudDataUtil.getSingerSongs(singer.id, mPage, pageSize);
-                }else {
-                    mRvSongs.loadFinish(false);
+                if (mPage < PAGE_MAX) {
+                    NewCloudDataUtil.getSingerSongs(singer.id, mPage, PAGE_SIZE);
                 }
             }
         });
@@ -142,16 +141,25 @@ public class SingerSongListFragment extends EventFragment {
         } else {
             if (mPage == 0) {
                 showRefresh();
+                mRvSongs.hideProgress();
                 ToastUtils.show(R.string.please_check_net);
             }
         }
-        mRvSongs.loadFinish();
+        if (mPage < PAGE_MAX) {
+            if(mAdapter.getCount() % PAGE_SIZE == 0){
+                mRvSongs.loadFinish();
+            }else {
+                mRvSongs.loadFinish(false);
+            }
+        } else {
+            mRvSongs.loadFinish(false);
+        }
     }
 
     @Override
     protected void onRefresh() {
         showDialog();
-        NewCloudDataUtil.getSingerSongs(singer.id, mPage, pageSize);
+        NewCloudDataUtil.getSingerSongs(singer.id, mPage, PAGE_SIZE);
     }
 
 }

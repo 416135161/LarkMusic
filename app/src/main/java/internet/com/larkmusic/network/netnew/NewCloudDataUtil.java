@@ -9,14 +9,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import internet.com.larkmusic.BuildConfig;
 import internet.com.larkmusic.action.ActionAlbumList;
 import internet.com.larkmusic.action.ActionHotSongs;
+import internet.com.larkmusic.action.ActionMyAds;
 import internet.com.larkmusic.action.ActionNewSongs;
 import internet.com.larkmusic.action.ActionSearchSinger;
 import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionSingerSongs;
 import internet.com.larkmusic.action.ActionStartLoading;
 import internet.com.larkmusic.action.ActionStopLoading;
+import internet.com.larkmusic.app.MusicApplication;
 import internet.com.larkmusic.bean.Album;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
@@ -27,6 +30,7 @@ import internet.com.larkmusic.network.netnew.bean.BaseRequest;
 import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
 import internet.com.larkmusic.network.netnew.bean.BillBoardResponse;
 import internet.com.larkmusic.network.netnew.bean.BillBoardSongsResponse;
+import internet.com.larkmusic.network.netnew.bean.GetAdsResponse;
 import internet.com.larkmusic.network.netnew.bean.LrcResponse;
 import internet.com.larkmusic.network.netnew.bean.NewListRequest;
 import internet.com.larkmusic.network.netnew.bean.NewListResponse;
@@ -393,8 +397,9 @@ public class NewCloudDataUtil {
      *
      * @param singerId
      */
-    public static void getSingerSongs(String singerId, int page , int pageSize) {
-        Call<SingerSongsResponse> call = HttpUtil.getRetrofit(NewApi.HOST_LRC, new SingerInterceptor()).create(NewApi.class).getSingerSongs(singerId, page* pageSize, pageSize);
+    public static void getSingerSongs(String singerId, int page, int pageSize) {
+        Call<SingerSongsResponse> call = HttpUtil.getRetrofit(NewApi.HOST_LRC, new SingerInterceptor()).create(NewApi.class).getSingerSongs(singerId,
+                page * pageSize, pageSize);
 
         call.enqueue(new Callback<SingerSongsResponse>() {
 
@@ -454,7 +459,7 @@ public class NewCloudDataUtil {
      */
     public static void getPlayList(final String type, String page, String pageSize) {
         PlayListRequest playListRequest = new PlayListRequest();
-        playListRequest.pageSize =pageSize;
+        playListRequest.pageSize = pageSize;
         playListRequest.start = page;
         playListRequest.type = type;
         Call<PlayListResponse> call = HttpUtil.getNewApi().getPlayList(playListRequest);
@@ -509,6 +514,32 @@ public class NewCloudDataUtil {
             @Override
             public void onFailure(Call<PlayListResponse> call, Throwable t) {
                 EventBus.getDefault().post(new ActionAlbumList(null, null));
+            }
+
+        });
+
+    }
+
+    /**
+     * 获取自己的广告
+     */
+    public static void getMyAds() {
+        Call<GetAdsResponse> call = HttpUtil.getNewApi().getAds(BuildConfig.DEBUG ? "candyMusic" : MusicApplication.getInstance().getPackageName());
+        call.enqueue(new Callback<GetAdsResponse>() {
+
+            @Override
+            public void onResponse(Call<GetAdsResponse> call, Response<GetAdsResponse> response) {
+                if (response.isSuccessful() && response.body() != null
+                        && response.body().result != null && response.body().result.size() > 0) {
+                    EventBus.getDefault().post(new ActionMyAds(response.body().result.get(0)));
+                } else {
+                    EventBus.getDefault().post(new ActionMyAds(null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetAdsResponse> call, Throwable t) {
+                EventBus.getDefault().post(new ActionMyAds(null));
             }
 
         });
