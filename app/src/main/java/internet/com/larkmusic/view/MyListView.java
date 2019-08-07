@@ -74,14 +74,19 @@ public class MyListView extends ListView implements OnScrollListener{
     public void loadFinish(){
         flag = true;
         isLoading = false;//不再加载了
-        //底布局也要隐藏
-//        footer.findViewById(R.id.progressBar).setVisibility(View.GONE);
+
 
     }
 
     public void loadFinish(boolean flag){
         loadFinish();
         this.flag = flag;
+        //底布局也要隐藏
+        footer.findViewById(R.id.progressBar).setVisibility(View.GONE);
+    }
+
+    public void hideProgress(){
+        footer.findViewById(R.id.progressBar).setVisibility(View.GONE);
     }
 
     private boolean flag = true;

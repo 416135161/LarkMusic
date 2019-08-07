@@ -4,6 +4,7 @@ import internet.com.larkmusic.network.netnew.bean.BaseRequest;
 import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
 import internet.com.larkmusic.network.netnew.bean.BillBoardResponse;
 import internet.com.larkmusic.network.netnew.bean.BillBoardSongsResponse;
+import internet.com.larkmusic.network.netnew.bean.GetAdsResponse;
 import internet.com.larkmusic.network.netnew.bean.LrcResponse;
 import internet.com.larkmusic.network.netnew.bean.NewListRequest;
 import internet.com.larkmusic.network.netnew.bean.NewListResponse;
@@ -115,5 +116,9 @@ public interface NewApi {
      */
     @POST("/android/musicList/list.do")
     Call<PlayListResponse> getPlayList(@Body PlayListRequest request);
+
+
+    @GET("/adds/list.do")
+    Call<GetAdsResponse> getAds(@Query("code") String code);
 
 }

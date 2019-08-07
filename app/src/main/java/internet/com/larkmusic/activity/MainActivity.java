@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionBack;
+import internet.com.larkmusic.action.ActionMyAds;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
 import internet.com.larkmusic.action.ActionSelectSong;
@@ -37,10 +38,12 @@ import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.fragment.HallFragment;
 import internet.com.larkmusic.fragment.LibraryFragment;
 import internet.com.larkmusic.fragment.MeFragment;
+import internet.com.larkmusic.fragment.MyAdsFragment;
 import internet.com.larkmusic.fragment.OperateDialog;
 import internet.com.larkmusic.fragment.PlayingListDialog;
 import internet.com.larkmusic.fragment.SearchFragment;
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.util.SpHelper;
 
@@ -75,6 +78,7 @@ public class MainActivity extends MainBaseActivity {
         ButterKnife.bind(this);
         onClickViewHall();
         initSavedState();
+        NewCloudDataUtil.getMyAds();
     }
 
     @Override
@@ -308,4 +312,10 @@ public class MainActivity extends MainBaseActivity {
         onBackPressed();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventAds(ActionMyAds event) {
+        if (event.resultBean != null) {
+            MyAdsFragment.newInstance().setResultBean(event.resultBean).show(getSupportFragmentManager(), "");
+        }
+    }
 }
