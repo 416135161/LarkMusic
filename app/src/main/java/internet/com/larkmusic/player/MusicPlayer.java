@@ -235,6 +235,10 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            sendPlayerInformation(PlayerStatus.STOP);
+        }catch (IllegalStateException e){
+            e.printStackTrace();
+            sendPlayerInformation(PlayerStatus.STOP);
         }
     }
 
