@@ -80,7 +80,11 @@ public class PlayingListDialog extends BottomSheetDialogFragment {
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter.notifyDataSetChanged();
+                        try {
+                            mAdapter.notifyDataSetChanged();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, 1000);
             }

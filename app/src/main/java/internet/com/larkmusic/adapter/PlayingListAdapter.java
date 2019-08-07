@@ -77,13 +77,13 @@ public class PlayingListAdapter extends BaseAdapter {
         }
 
         holder.no.setText((i + 1) + "");
-        if(!TextUtils.isEmpty(song.getImgUrl())){
+        if (!TextUtils.isEmpty(song.getImgUrl())) {
             Picasso.with(context)
                     .load(song.getImgUrl())
                     .error(R.mipmap.ic_song_default)
                     .placeholder(R.mipmap.ic_song_default)
                     .into(holder.art);
-        }else {
+        } else {
             holder.art.setImageResource(R.mipmap.ic_song_default);
         }
 
@@ -134,7 +134,11 @@ public class PlayingListAdapter extends BaseAdapter {
         @Override
         public void onClick(View view) {
             songs.remove(position);
-            notifyDataSetChanged();
+            try {
+                notifyDataSetChanged();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             MusicPlayer.getPlayer().deleteIfExist(song);
             RecentSongService.getInstance().deleteSong(song);
         }
