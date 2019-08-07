@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -85,8 +84,6 @@ public class PlayerActivity extends EventActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_player);
         ButterKnife.bind(this);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -113,22 +110,27 @@ public class PlayerActivity extends EventActivity {
         initView();
     }
 
+    boolean isFirst = true;
+
     @Override
     protected void onResume() {
         super.onResume();
-        ivSongBg.post(new Runnable() {
-            @Override
-            public void run() {
-                int width = ivSongBg.getMeasuredWidth();
-                int height = ivSongBg.getMeasuredHeight();
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ivSongBg.getLayoutParams();
-                if (height > width) {
-                    layoutParams.topMargin = layoutParams.topMargin + (height - width) / 4;
-                    layoutParams.bottomMargin = (height - width) / 4;
-                    ivSongBg.setLayoutParams(layoutParams);
+        if (isFirst) {
+            ivSongBg.post(new Runnable() {
+                @Override
+                public void run() {
+                    int width = ivSongBg.getMeasuredWidth();
+                    int height = ivSongBg.getMeasuredHeight();
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ivSongBg.getLayoutParams();
+                    if (height > width) {
+                        layoutParams.topMargin = layoutParams.topMargin + (height - width) / 4;
+                        layoutParams.bottomMargin = (height - width) / 4;
+                        ivSongBg.setLayoutParams(layoutParams);
+                    }
                 }
-            }
-        });
+            });
+            isFirst = false;
+        }
     }
 
     private void initView() {
