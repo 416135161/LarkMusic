@@ -79,6 +79,9 @@ public class PlayListAdapter extends BaseAdapter {
                 .error(R.mipmap.ic_folder)
                 .placeholder(R.mipmap.ic_folder)
                 .into(holder.icon);
+        if(mFragmentManager == null){
+            holder.ivOperate.setVisibility(View.GONE);
+        }
         holder.ivOperate.setOnClickListener(new MyClickListener(playListBean, i));
         return convertView;
     }
