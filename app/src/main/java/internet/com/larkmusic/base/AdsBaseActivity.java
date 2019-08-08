@@ -18,7 +18,7 @@ import internet.com.larkmusic.network.Config;
  */
 public class AdsBaseActivity extends EventActivity {
     private InterstitialAd mInterstitialAd;
-    protected int count = 1;
+    protected int count = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

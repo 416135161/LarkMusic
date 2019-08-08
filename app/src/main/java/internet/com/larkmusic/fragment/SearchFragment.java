@@ -32,6 +32,7 @@ import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionSearchSinger;
 import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionSelectSong;
+import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.adapter.HistoryAdapter;
 import internet.com.larkmusic.adapter.SearchListAdapter;
 import internet.com.larkmusic.adapter.SingerListAdapter;
@@ -346,7 +347,9 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         } else {
             NewCloudDataUtil.searchSinger(key);
         }
-//
+
+        ((MainActivity)getActivity()).showAd();
+
     }
 
     /**

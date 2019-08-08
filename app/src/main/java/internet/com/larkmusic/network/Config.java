@@ -15,12 +15,10 @@ public final class Config {
     private Config() {
     }
 
-    final public static int COUNT = 4;
+    final public static int COUNT = 5;
     public static int PLAY_ADS_COUNT = 0;
-    public static int MAX_PLAY_COUNT = 1;
+    public static int MAX_PLAY_COUNT = 100;
     public static int SEARCH_COUNT = 40;
-    public static int ALL_PLAY_TEAM_PAGE = 90;
-    public static int BROW_PLAY_TEAM_PAGE = 30;
 
     public static Typeface tf3;
     public static Typeface tf4;
@@ -40,13 +38,6 @@ public final class Config {
     public static String FROM_US = "0";
     public static String FROM_JAPAN = "1";
     public static String FROM_CHINESE = "2";
-    /**
-     * 欧美资源分类
-     */
-    public static final int EUROP_POP = 1051;
-    public static final int EUROP_COUNTRY = 1065;
-    public static final int EUROP_ELECTRONIC = 1053;
-    public static final int EUROP_ROCK = 1055;
 
     /**
      * 如果当前语言是日语，则URL不加参数
