@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -295,16 +296,22 @@ public class MainActivity extends MainBaseActivity {
             ivSingerIndicator.setVisibility(View.VISIBLE);
         }
         Song song = event.song;
-        Picasso.with(this)
-                .load(song.getImgUrl())
-                .error(R.mipmap.ic_singer_default)
-                .placeholder(R.mipmap.ic_singer_default)
-                .into(ivSinger);
-        Picasso.with(this)
-                .load(song.getImgUrl())
-                .error(R.mipmap.ic_singer_default)
-                .placeholder(R.mipmap.ic_singer_default)
-                .into(ivSingerIndicator);
+        if (!TextUtils.isEmpty(song.getImgUrl())) {
+            Picasso.with(this)
+                    .load(song.getImgUrl())
+                    .error(R.mipmap.ic_singer_default)
+                    .placeholder(R.mipmap.ic_singer_default)
+                    .into(ivSinger);
+            Picasso.with(this)
+                    .load(song.getImgUrl())
+                    .error(R.mipmap.ic_singer_default)
+                    .placeholder(R.mipmap.ic_singer_default)
+                    .into(ivSingerIndicator);
+        } else {
+            ivSinger.setImageResource(R.mipmap.ic_singer_default);
+            ivSingerIndicator.setImageResource(R.mipmap.ic_singer_default);
+        }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
