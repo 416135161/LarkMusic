@@ -91,6 +91,9 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
                     return;
                 }
                 i -= 1;
+                if(mAdapter.getItem(i) == null){
+                    return;
+                }
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
                 Fragment fragment = new SongListFragment();
