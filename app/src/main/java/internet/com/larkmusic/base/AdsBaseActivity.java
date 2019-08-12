@@ -18,7 +18,7 @@ import internet.com.larkmusic.network.Config;
  */
 public class AdsBaseActivity extends EventActivity {
     private InterstitialAd mInterstitialAd;
-    protected int count = 2;
+    protected boolean isFirstLoad = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,15 @@ public class AdsBaseActivity extends EventActivity {
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
             }
 
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                //广告初始化完成弹出一次
+                if (isFirstLoad) {
+                    mInterstitialAd.show();
+                    isFirstLoad = false;
+                }
+            }
         });
     }
 
@@ -54,8 +63,9 @@ public class AdsBaseActivity extends EventActivity {
         }
     }
 
-    public void showAd() {
-        count++;
+    public void showAd(int adsType) {
+        int count = Config.getAdsArray().get(adsType);
+        Config.getAdsArray().put(adsType, count + 1);
         if (count % Config.COUNT != 0) {
             return;
         }
@@ -65,7 +75,5 @@ public class AdsBaseActivity extends EventActivity {
         showInsertAd();
 
     }
-
-
 
 }

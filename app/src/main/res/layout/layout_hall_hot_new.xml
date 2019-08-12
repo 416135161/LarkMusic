@@ -16,6 +16,129 @@
         <internet.com.larkmusic.view.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/title_new"
+            android:textColor="@color/text_15"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/icon_new"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            />
+
+        <internet.com.larkmusic.view.MyTextView
+            android:id="@+id/tv_new_more"
+            android:layout_width="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="@string/title_more"
+            android:textColor="@color/text_999"
+            android:textSize="13sp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rv_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            >
+
+            <internet.com.larkmusic.view.HotNewView
+                android:id="@+id/new0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                >
+
+            </internet.com.larkmusic.view.HotNewView>
+
+            <internet.com.larkmusic.view.HotNewView
+                android:id="@+id/new1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                >
+
+            </internet.com.larkmusic.view.HotNewView>
+
+            <internet.com.larkmusic.view.HotNewView
+                android:id="@+id/new2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                >
+
+            </internet.com.larkmusic.view.HotNewView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            >
+
+            <internet.com.larkmusic.view.HotNewView
+                android:id="@+id/new3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                >
+
+            </internet.com.larkmusic.view.HotNewView>
+
+            <internet.com.larkmusic.view.HotNewView
+                android:id="@+id/new4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                >
+
+            </internet.com.larkmusic.view.HotNewView>
+
+            <internet.com.larkmusic.view.HotNewView
+                android:id="@+id/new5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                >
+
+            </internet.com.larkmusic.view.HotNewView>
+
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        >
+
+        <internet.com.larkmusic.view.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/title_hot"
             android:textColor="@color/text_15"
             android:textSize="20sp"
@@ -129,130 +252,6 @@
 
         </RelativeLayout>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        >
-
-        <internet.com.larkmusic.view.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_new"
-            android:textColor="@color/text_15"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:src="@mipmap/icon_new"
-            />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_weight="1"
-            />
-
-        <internet.com.larkmusic.view.MyTextView
-            android:id="@+id/tv_new_more"
-            android:layout_width="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="@string/title_more"
-            android:textColor="@color/text_999"
-            android:textSize="13sp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/rv_new"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            >
-
-            <internet.com.larkmusic.view.HotNewView
-                android:id="@+id/new0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                >
-
-            </internet.com.larkmusic.view.HotNewView>
-
-            <internet.com.larkmusic.view.HotNewView
-                android:id="@+id/new1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                >
-
-            </internet.com.larkmusic.view.HotNewView>
-
-            <internet.com.larkmusic.view.HotNewView
-                android:id="@+id/new2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                >
-
-            </internet.com.larkmusic.view.HotNewView>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            >
-
-            <internet.com.larkmusic.view.HotNewView
-                android:id="@+id/new3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                >
-
-            </internet.com.larkmusic.view.HotNewView>
-
-            <internet.com.larkmusic.view.HotNewView
-                android:id="@+id/new4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                >
-
-            </internet.com.larkmusic.view.HotNewView>
-
-            <internet.com.larkmusic.view.HotNewView
-                android:id="@+id/new5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                >
-
-            </internet.com.larkmusic.view.HotNewView>
-
-        </RelativeLayout>
-    </LinearLayout>
-
 
     <View
         android:layout_width="match_parent"

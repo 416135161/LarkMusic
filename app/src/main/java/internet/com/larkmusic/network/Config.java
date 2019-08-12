@@ -2,6 +2,7 @@ package internet.com.larkmusic.network;
 
 import android.graphics.Typeface;
 import android.text.TextUtils;
+import android.util.SparseIntArray;
 
 import java.util.Locale;
 
@@ -19,6 +20,12 @@ public final class Config {
     public static int PLAY_ADS_COUNT = 0;
     public static int MAX_PLAY_COUNT = 100;
     public static int SEARCH_COUNT = 40;
+
+    private static SparseIntArray adsArray;
+
+    public static final int TYPE_MAIN_ADS = 111;
+    public static final int TYPE_SEARCH_ADS = 222;
+    public static final int TYPE_PLAY_ADS = 333;
 
     public static Typeface tf3;
     public static Typeface tf4;
@@ -66,4 +73,14 @@ public final class Config {
         }
     }
 
+
+    public static SparseIntArray getAdsArray() {
+        if (adsArray == null) {
+            adsArray = new SparseIntArray();
+            adsArray.put(TYPE_MAIN_ADS, 0);
+            adsArray.put(TYPE_PLAY_ADS, 2);
+            adsArray.put(TYPE_SEARCH_ADS, 2);
+        }
+        return adsArray;
+    }
 }
