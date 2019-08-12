@@ -348,7 +348,7 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
             NewCloudDataUtil.searchSinger(key);
         }
 
-        ((MainActivity)getActivity()).showAd();
+        ((MainActivity)getActivity()).showAd(Config.TYPE_SEARCH_ADS);
 
     }
 
