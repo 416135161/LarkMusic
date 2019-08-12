@@ -113,7 +113,7 @@ public class MainActivity extends MainBaseActivity {
         tvSearch.setTextColor(getResources().getColor(R.color.text_red));
         tvSearch.setTypeface(Config.tfLark);
         startFragment(SearchFragment.class, new Bundle());
-        showAd();
+
     }
 
     @OnClick(R.id.view_library)
@@ -122,7 +122,7 @@ public class MainActivity extends MainBaseActivity {
         ivLibrary.setImageResource(R.mipmap.tab_library_select);
         tvLibrary.setTextColor(getResources().getColor(R.color.text_red));
         startFragment(LibraryFragment.class, new Bundle());
-        showAd();
+
     }
 
     @OnClick(R.id.view_me)
@@ -210,7 +210,7 @@ public class MainActivity extends MainBaseActivity {
         actionPlayEvent.setAction(ActionPlayEvent.Action.PLAY);
         actionPlayEvent.setQueue(songList);
         EventBus.getDefault().post(actionPlayEvent);
-        showAd();
+        showAd(Config.TYPE_PLAY_ADS);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alin.lib.bannerlib.listener.OnBannerClickListener;
 import com.alin.lib.bannerlib.view.BannerImageView;
@@ -122,6 +121,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         showDialog();
         NewCloudDataUtil.getBillBoard(ActionHotSongs.TYPE_HOME, Config.FROM);
         NewCloudDataUtil.getNewSongs(ActionNewSongs.TYPE_HOME, Config.FROM, 0, 7);
+        initTemp();
     }
 
     private void initRefreshLayout() {
@@ -199,22 +199,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 new4.refreshView(event.trackList.get(4));
                 new5.refreshView(event.trackList.get(5));
             } else {
-                getSavedTemp(SavedStateBean.TAG_NEW, new OnTempGetListener() {
-                    @Override
-                    public void onGet(List<Song> songList) {
-                        new0.refreshView(songList.get(0));
-                        new1.refreshView(songList.get(1));
-                        new2.refreshView(songList.get(2));
-                        new3.refreshView(songList.get(3));
-                        new4.refreshView(songList.get(4));
-                        new5.refreshView(songList.get(5));
-                    }
-
-                    @Override
-                    public void onGetFail() {
-                        ToastUtils.show(R.string.please_check_net);
-                    }
-                });
+                ToastUtils.show(R.string.please_check_net);
             }
         }
 
@@ -236,25 +221,49 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 hot5.refreshView(subList.get(5));
 //
             } else {
-                getSavedTemp(SavedStateBean.TAG_HOT, new OnTempGetListener() {
-                    @Override
-                    public void onGet(List<Song> songList) {
-                        hot0.refreshView(songList.get(0));
-                        hot1.refreshView(songList.get(1));
-                        hot2.refreshView(songList.get(2));
-                        hot3.refreshView(songList.get(3));
-                        hot4.refreshView(songList.get(4));
-                        hot5.refreshView(songList.get(5));
-                    }
-
-                    @Override
-                    public void onGetFail() {
-                        ToastUtils.show(R.string.please_check_net);
-                    }
-                });
+                ToastUtils.show(R.string.please_check_net);
             }
         }
     }
+
+    private void initTemp() {
+        getSavedTemp(SavedStateBean.TAG_HOT, new OnTempGetListener() {
+            @Override
+            public void onGet(List<Song> songList) {
+                closeDialog();
+                hot0.refreshView(songList.get(0));
+                hot1.refreshView(songList.get(1));
+                hot2.refreshView(songList.get(2));
+                hot3.refreshView(songList.get(3));
+                hot4.refreshView(songList.get(4));
+                hot5.refreshView(songList.get(5));
+            }
+
+            @Override
+            public void onGetFail() {
+
+            }
+        });
+
+        getSavedTemp(SavedStateBean.TAG_NEW, new OnTempGetListener() {
+            @Override
+            public void onGet(List<Song> songList) {
+                closeDialog();
+                new0.refreshView(songList.get(0));
+                new1.refreshView(songList.get(1));
+                new2.refreshView(songList.get(2));
+                new3.refreshView(songList.get(3));
+                new4.refreshView(songList.get(4));
+                new5.refreshView(songList.get(5));
+            }
+
+            @Override
+            public void onGetFail() {
+
+            }
+        });
+    }
+
 
     private void saveTemp(List<Song> songList, String tag) {
         SavedStateBean currentStateBean = new SavedStateBean();
@@ -268,12 +277,16 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
             @Override
             public void onFinish(SavedStateBean savedStateBean) {
                 if (savedStateBean != null) {
-
                     List<Song> songList = new Gson().fromJson(savedStateBean.getCurrentPlayList(), new TypeToken<List<Song>>() {
                     }.getType());
-                    if (onTempGetListener != null && songList != null && songList.size() > 0) {
-                        onTempGetListener.onGet(songList);
+                    if (onTempGetListener != null) {
+                        if (songList != null && songList.size() > 0) {
+                            onTempGetListener.onGet(songList);
+                        } else {
+                            onTempGetListener.onGetFail();
+                        }
                     }
+
                 }
             }
         });
