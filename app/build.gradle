@@ -6,8 +6,8 @@ android {
         applicationId "com.free.music.lark"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 332
-        versionName "3.3.2"
+        versionCode 334
+        versionName "3.3.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //解决butterknife依赖报错的问题
