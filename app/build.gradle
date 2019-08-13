@@ -6,8 +6,8 @@ android {
         applicationId "com.interesting.music"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 334
-        versionName "3.3.4"
+        versionCode 335
+        versionName "3.3.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //解决butterknife依赖报错的问题
@@ -21,7 +21,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [ads_id: "ca-app-pub-3041484546377035~5354272060"]
+            manifestPlaceholders = [ads_id: "ca-app-pub-3041484546377035~3451990857"]
         }
         debug {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
