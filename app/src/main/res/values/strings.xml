@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Cloud Music</string>
-
     <string name="hall_title">Discover</string>
     <string name="search_title">Search</string>
     <string name="library_title">Library</string>
