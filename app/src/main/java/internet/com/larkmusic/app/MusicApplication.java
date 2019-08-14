@@ -15,11 +15,9 @@ import android.telephony.TelephonyManager;
 import android.widget.RemoteViews;
 
 import com.arialyy.aria.core.Aria;
-import com.facebook.ads.AudienceNetworkAds;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.litepal.LitePal;
 
 import internet.com.larkmusic.R;
@@ -64,9 +62,6 @@ public class MusicApplication extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //初始化faceBook 广告
-        AudienceNetworkAds.isInAdsProcess(this);
-        AudienceNetworkAds.initialize(this);
         //手机通话状态监听
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             registerPhoneStateListener();
