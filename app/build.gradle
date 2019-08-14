@@ -6,8 +6,8 @@ android {
         applicationId "com.nice.music"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 101
-        versionName "1.0.1"
+        versionCode 102
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //解决butterknife依赖报错的问题
