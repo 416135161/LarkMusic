@@ -61,33 +61,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/view_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:gravity="center"
-                android:orientation="vertical"
-                >
 
-                <ImageView
-                    android:id="@+id/iv_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/tab_search_select"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/search_title"
-                    android:textColor="#fffe3838"
-                    android:textSize="10sp"
-                    />
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/view_library"
@@ -117,6 +91,33 @@
                     android:textSize="10sp"
                     />
 
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/view_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/tab_search_select"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/search_title"
+                    android:textColor="#fffe3838"
+                    android:textSize="10sp"
+                    />
             </LinearLayout>
 
             <LinearLayout
