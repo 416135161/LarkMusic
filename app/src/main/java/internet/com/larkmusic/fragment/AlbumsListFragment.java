@@ -21,6 +21,7 @@ import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionAlbumList;
 import internet.com.larkmusic.action.ActionMainBottomMenu;
 import internet.com.larkmusic.activity.MainActivity;
+
 import internet.com.larkmusic.adapter.AlbumListAdapter;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;

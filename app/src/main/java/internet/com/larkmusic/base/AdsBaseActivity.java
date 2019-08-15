@@ -46,7 +46,7 @@ public class AdsBaseActivity extends EventActivity {
                 super.onAdLoaded();
                 //广告初始化完成弹出一次
                 if (isFirstLoad) {
-//                    mInterstitialAd.show();
+                    mInterstitialAd.show();
                     isFirstLoad = false;
                 }
             }
