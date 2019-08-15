@@ -29,6 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionMainBottomMenu;
 import internet.com.larkmusic.action.ActionSearchSinger;
 import internet.com.larkmusic.action.ActionSearchSongs;
 import internet.com.larkmusic.action.ActionSelectSong;
@@ -132,6 +133,7 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
                 transaction.add(R.id.view_container, fragment);
                 transaction.addToBackStack("");
                 transaction.commit();
+                EventBus.getDefault().post(new ActionMainBottomMenu(false));
           }
         });
         mHistoryAdapter = new HistoryAdapter(getContext());

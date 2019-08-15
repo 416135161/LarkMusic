@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionMainBottomMenu;
 import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.action.ActionSingerSongs;
 import internet.com.larkmusic.adapter.SongListAdapter;
@@ -59,6 +60,12 @@ public class SingerSongListFragment extends EventFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         singer = (SearchSingerResponse.DataBean.SingerBean.Singer) getArguments().getSerializable("singer");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().post(new ActionMainBottomMenu(true));
     }
 
     @Override

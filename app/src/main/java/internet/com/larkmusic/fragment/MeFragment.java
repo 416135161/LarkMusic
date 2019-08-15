@@ -20,6 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionMainBottomMenu;
 import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.adapter.RecentListHorizontalAdapter;
 import internet.com.larkmusic.back.BackHandlerHelper;
@@ -137,6 +138,7 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
         transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
         transaction.commit();
+        EventBus.getDefault().post(new ActionMainBottomMenu(false));
     }
 
 
@@ -153,7 +155,7 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
         transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
         transaction.commit();
-
+        EventBus.getDefault().post(new ActionMainBottomMenu(false));
     }
 
     @OnClick(R.id.view_playlist)
@@ -164,6 +166,7 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
         transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
         transaction.commit();
+        EventBus.getDefault().post(new ActionMainBottomMenu(false));
     }
 
     @Override

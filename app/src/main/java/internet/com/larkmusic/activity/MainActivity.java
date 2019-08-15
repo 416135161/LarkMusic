@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionBack;
+import internet.com.larkmusic.action.ActionMainBottomMenu;
 import internet.com.larkmusic.action.ActionMyAds;
 import internet.com.larkmusic.action.ActionPlayEvent;
 import internet.com.larkmusic.action.ActionPlayerInformEvent;
@@ -66,6 +68,8 @@ public class MainActivity extends MainBaseActivity {
     ImageView ivMe;
     @BindView(R.id.tv_me)
     TextView tvMe;
+    @BindView(R.id.view_bottom_menu)
+    View viewBottomMenu;
 
     //当前显示的Fragment
     private Fragment mCurrentFragment;
@@ -323,6 +327,27 @@ public class MainActivity extends MainBaseActivity {
     public void onEventAds(ActionMyAds event) {
         if (event.resultBean != null) {
             MyAdsFragment.newInstance().setResultBean(event.resultBean).show(getSupportFragmentManager(), "");
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainBottomMenu(ActionMainBottomMenu event) {
+        if (event.isShow) {
+            TranslateAnimation showAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 1.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f);
+            showAnim.setDuration(150);
+            viewBottomMenu.startAnimation(showAnim);
+            viewBottomMenu.setVisibility(View.VISIBLE);
+        } else {
+            TranslateAnimation hideAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 1.0f);
+            hideAnim.setDuration(150);
+            viewBottomMenu.startAnimation(hideAnim);
+            viewBottomMenu.setVisibility(View.GONE);
         }
     }
 }

@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionMainBottomMenu;
 import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.adapter.LocalListAdapter;
 import internet.com.larkmusic.base.BaseFragment;
@@ -50,6 +51,12 @@ public class LocalSongsFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().post(new ActionMainBottomMenu(true));
     }
 
     @Override
