@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionHotSongs;
+import internet.com.larkmusic.action.ActionMainBottomMenu;
 import internet.com.larkmusic.action.ActionNewSongs;
 import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.adapter.HotNewListAdapter;
@@ -64,6 +65,12 @@ public class HotNewListFragment extends EventFragment {
         super.onCreate(savedInstanceState);
         from = getArguments().getString("from", Config.FROM_US);
         rankId = getArguments().getString("rankId", BillBoardMusicListRequest.RANK_Japan_TOP);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().post(new ActionMainBottomMenu(true));
     }
 
     @Override

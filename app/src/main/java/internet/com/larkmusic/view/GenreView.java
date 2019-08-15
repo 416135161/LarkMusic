@@ -14,7 +14,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionMainBottomMenu;
 import internet.com.larkmusic.fragment.AlbumsListFragment;
 
 /**
@@ -63,6 +66,7 @@ public class GenreView extends FrameLayout {
         transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
         transaction.commit();
+        EventBus.getDefault().post(new ActionMainBottomMenu(false));
     }
 
 }

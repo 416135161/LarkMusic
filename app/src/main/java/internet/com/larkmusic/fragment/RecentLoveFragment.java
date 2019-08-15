@@ -13,6 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionMainBottomMenu;
 import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.adapter.HotNewListAdapter;
 import internet.com.larkmusic.base.BaseFragment;
@@ -50,8 +51,12 @@ public class RecentLoveFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         type = getArguments().getInt("from", TYPE_RECENT);
+    }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().post(new ActionMainBottomMenu(true));
     }
 
     @Override

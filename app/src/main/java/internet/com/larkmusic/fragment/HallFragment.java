@@ -14,6 +14,7 @@ import com.alin.lib.bannerlib.view.BannerImageView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.litepal.LitePal;
@@ -26,6 +27,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionHotSongs;
+import internet.com.larkmusic.action.ActionMainBottomMenu;
 import internet.com.larkmusic.action.ActionNewSongs;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
@@ -115,6 +117,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
                 transaction.add(R.id.view_container, fragment);
                 transaction.addToBackStack("");
                 transaction.commit();
+                EventBus.getDefault().post(new ActionMainBottomMenu(false));
             }
         });
         CommonUtil.setTvBoldFace(mTvTitle);
@@ -160,6 +163,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
         transaction.commit();
+        EventBus.getDefault().post(new ActionMainBottomMenu(false));
     }
 
     @OnClick(R.id.tv_new_more)
@@ -177,6 +181,7 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         transaction.add(R.id.view_container, fragment);
         transaction.addToBackStack("");
         transaction.commit();
+        EventBus.getDefault().post(new ActionMainBottomMenu(false));
     }
 
 
