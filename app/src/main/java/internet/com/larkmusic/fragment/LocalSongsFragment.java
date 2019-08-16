@@ -93,6 +93,7 @@ public class LocalSongsFragment extends BaseFragment {
 
     private void initView() {
         mAdapter = new LocalListAdapter(getContext(), null);
+        mAdapter.setFragmentManager(getFragmentManager());
         mRvSongs.setAdapter(mAdapter);
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -12,7 +12,6 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         >
 
         <TextView
@@ -74,12 +73,12 @@
 
         <ImageView
             android:id="@+id/iv_operate"
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
-            android:scaleType="fitEnd"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="14dp"
+            android:scaleType="center"
             android:src="@mipmap/ic_song_operate"
-            android:visibility="invisible"
+            android:paddingRight="20dp"
             />
     </LinearLayout>
 

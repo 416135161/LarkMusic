@@ -1,8 +1,6 @@
 package internet.com.larkmusic.fragment;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.text.TextUtils;
@@ -35,6 +33,7 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
     Song song;
 
     boolean showDelete;
+    boolean showDownload = true;
     OnDeleteListener onDeleteListener;
 
     public OperateDialog() {
@@ -76,6 +75,9 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
         if (showDelete) {
             tvDelete.setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.tv_playlist).setVisibility(View.GONE);
+        }
+        if(!showDownload){
+            tvDownload.setVisibility(View.GONE);
         }
         if (song != null) {
             tvSong.setText(song.getSongName());
@@ -153,6 +155,11 @@ public class OperateDialog extends BottomSheetDialogFragment implements View.OnC
         this.showDelete = showDelete;
         return this;
     }
+    public OperateDialog setShowDownload(boolean showDownload) {
+        this.showDownload = showDownload;
+        return this;
+    }
+
 
     public OperateDialog setOnDeleteListener(OnDeleteListener onDeleteListener) {
         this.onDeleteListener = onDeleteListener;
