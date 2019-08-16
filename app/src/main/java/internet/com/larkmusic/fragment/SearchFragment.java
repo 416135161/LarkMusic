@@ -214,6 +214,7 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         mTvSingerType.setTextColor(getResources().getColor(R.color.text_999));
         mRvSinger.setVisibility(View.GONE);
         mRvSongs.setVisibility(View.VISIBLE);
+        mRvSongs.hideProgress();
         showInput(mEtSearch);
     }
 

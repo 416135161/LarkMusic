@@ -103,12 +103,23 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
     @Override
     public void onResume() {
         super.onResume();
+        refreshView();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            refreshView();
+        }
+    }
+
+    private void refreshView() {
         if (mRecentAdapter != null) {
             mRecentAdapter.notifyDataSetChanged();
         }
         int favoriteCount = FavoriteService.getInstance().getSongList().size();
         mTvSongCount.setText(String.format(getString(R.string.play_list_song_count), favoriteCount));
-
         new AsyncTask<Void, Void, Integer>() {
             @Override
             protected Integer doInBackground(final Void... unused) {
@@ -121,12 +132,11 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
                 mTvLocalCount.setText(String.format(getContext().getString(R.string.play_list_song_count), aVoid));
             }
         }.execute();
-
     }
 
     @OnClick(R.id.view_song)
     void onClickFavoriteSong(View view) {
-        if(!CommonUtil.isNotFastClick()){
+        if (!CommonUtil.isNotFastClick()) {
             return;
         }
         goToRecentOrFavorite(RecentLoveFragment.TYPE_FAVORITE_SONG);
@@ -153,7 +163,7 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
 
     @OnClick(R.id.view_local)
     void onClickLocalSong(View view) {
-        if(!CommonUtil.isNotFastClick()){
+        if (!CommonUtil.isNotFastClick()) {
             return;
         }
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -167,7 +177,7 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
 
     @OnClick(R.id.view_playlist)
     void onClickPlayList(View view) {
-        if(!CommonUtil.isNotFastClick()){
+        if (!CommonUtil.isNotFastClick()) {
             return;
         }
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
