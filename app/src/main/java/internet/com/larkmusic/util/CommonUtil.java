@@ -105,4 +105,22 @@ public final class CommonUtil {
                 Intent.createChooser(intent, context.getString(R.string.action_share)));//R.string.action_share同样是标题
     }
 
+    private static final int CLICK_DELAY_TIME = 500;
+    private static long lastClickTime;
+
+    /**
+     * 防止button快速连点
+     *
+     * @return
+     */
+    public static boolean isNotFastClick() {
+        boolean flag = false;
+        long currentClickTime = System.currentTimeMillis();
+        if ((currentClickTime - lastClickTime) >= CLICK_DELAY_TIME) {
+            flag = true;
+        }
+        lastClickTime = currentClickTime;
+        return flag;
+    }
+
 }

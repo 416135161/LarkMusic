@@ -5,7 +5,7 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="colorPrimary">#FF4081</item>
-        <item name="colorPrimaryDark">#FE3939</item>
+        <item name="colorPrimaryDark">#FE3838</item>
         <item name="colorAccent">#FE3939</item>
         <item name="android:colorControlHighlight">#FFc0cb</item>
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>

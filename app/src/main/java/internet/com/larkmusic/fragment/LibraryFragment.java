@@ -15,6 +15,7 @@ import internet.com.larkmusic.R;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.BaseFragment;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.view.GenreListItemView;
 import internet.com.larkmusic.view.GenreView;
 
@@ -45,12 +46,18 @@ public class LibraryFragment extends BaseFragment implements FragmentBackHandler
     @OnClick({R.id.topUS, R.id.topJapan, R.id.topCountry,
             R.id.topPop, R.id.topElectronic, R.id.topRock})
     void onClickTop(View view) {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         ((GenreView) view).onClick(getChildFragmentManager().beginTransaction());
     }
 
     @OnClick({R.id.b_us, R.id.b_japan, R.id.b_country,
             R.id.b_pop, R.id.b_electronic, R.id.b_rock})
     void onClickBottom(View view) {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         ((GenreListItemView) view).onClick(getChildFragmentManager().beginTransaction());
     }
 

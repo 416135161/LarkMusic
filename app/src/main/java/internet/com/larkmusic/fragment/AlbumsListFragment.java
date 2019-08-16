@@ -20,12 +20,15 @@ import butterknife.BindView;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionAlbumList;
 import internet.com.larkmusic.action.ActionMainBottomMenu;
+import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.adapter.AlbumListAdapter;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.Album;
+import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.ToastUtils;
 import internet.com.larkmusic.view.MyListView;
 
@@ -91,6 +94,9 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
         mRvAlbums.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 if (i == 0) {
                     return;
                 }
@@ -109,6 +115,7 @@ public class AlbumsListFragment extends EventFragment implements FragmentBackHan
                 transaction.add(R.id.view_container, fragment);
                 transaction.addToBackStack("");
                 transaction.commit();
+                ((MainActivity)getActivity()).showAd(Config.TYPE_GENES_ADS);
             }
         });
 

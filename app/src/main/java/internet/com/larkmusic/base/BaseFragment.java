@@ -12,6 +12,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.github.ybq.android.spinkit.SpinKitView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
@@ -32,6 +34,8 @@ public abstract class BaseFragment extends Fragment {
 
     @BindView(R.id.iv_refresh)
     ImageView mIvRefresh;
+    @BindView(R.id.iv_wait)
+    SpinKitView ivWait;
 
     @Nullable
     @Override
@@ -71,16 +75,20 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showDialog() {
-        if (customLoseDialog == null) {
-            customLoseDialog = new WaitDialog();
-        }
-        customLoseDialog.show(getFragmentManager(), "lose");
+//        if (customLoseDialog == null) {
+//            customLoseDialog = new WaitDialog();
+//        }
+//        customLoseDialog.show(getFragmentManager(), "lose");
+        ivWait.setVisibility(View.VISIBLE);
+        hideRefresh();
     }
 
     protected void closeDialog() {
-        if (customLoseDialog != null && !customLoseDialog.isHidden()) {
-            customLoseDialog.dismiss();
-        }
+//        if (customLoseDialog != null && !customLoseDialog.isHidden()) {
+//            customLoseDialog.dismiss();
+//        }
+
+        ivWait.setVisibility(View.GONE);
     }
 
 }

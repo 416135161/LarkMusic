@@ -44,6 +44,7 @@ import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.network.netnew.bean.SearchSingerResponse;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.HistoryService;
 import internet.com.larkmusic.util.ToastUtils;
 import internet.com.larkmusic.view.FlowLayout;
@@ -105,6 +106,9 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 EventBus.getDefault().post(new ActionSelectSong((Song) mAdapter.getItem(i)));
 
             }
@@ -123,6 +127,9 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         mRvSinger.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 SearchSingerResponse.DataBean.SingerBean.Singer singer = (SearchSingerResponse.DataBean.SingerBean.Singer) mSingerAdapter.getItem(i);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
@@ -226,6 +233,7 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
         if (event != null && event.result != null && event.result.size() > 0) {
             if(mPageSongs == 0){
                 mAdapter.setPlayList(event.result);
+                mRvSongs.smoothScrollToPosition(0);
                 //越过第一页
                 mPageSongs ++;
             }else {
@@ -346,8 +354,10 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
             mKeySongs = key;
             mPageSongs = 0;
             NewCloudDataUtil.searchSongs(key, mPageSongs, PAGE_SIZE);
+            mRvSongs.setVisibility(View.VISIBLE);
         } else {
             NewCloudDataUtil.searchSinger(key);
+            mRvSinger.setVisibility(View.VISIBLE);
         }
 
         ((MainActivity)getActivity()).showAd(Config.TYPE_SEARCH_ADS);

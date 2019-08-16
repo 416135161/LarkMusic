@@ -21,6 +21,7 @@ import internet.com.larkmusic.action.ActionSelectSong;
 import internet.com.larkmusic.adapter.PlayingListAdapter;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.player.MusicPlayer;
+import internet.com.larkmusic.util.CommonUtil;
 
 /**
  * Created by sjning
@@ -76,6 +77,9 @@ public class PlayingListDialog extends BottomSheetDialogFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 EventBus.getDefault().post(new ActionSelectSong((Song) mAdapter.getItem(i)));
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override

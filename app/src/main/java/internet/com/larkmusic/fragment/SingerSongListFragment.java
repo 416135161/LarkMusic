@@ -27,6 +27,7 @@ import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.network.netnew.bean.SearchSingerResponse;
 import internet.com.larkmusic.util.BlurTransformation;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.ToastUtils;
 import internet.com.larkmusic.view.MyListView;
 
@@ -97,6 +98,9 @@ public class SingerSongListFragment extends EventFragment {
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 if (i == 0) {
                     return;
                 }

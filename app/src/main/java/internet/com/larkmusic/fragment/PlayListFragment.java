@@ -37,6 +37,7 @@ import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.PlayListBean;
 import internet.com.larkmusic.bean.SavedStateBean;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.ToastUtils;
 
 /**
@@ -80,6 +81,9 @@ public class PlayListFragment extends EventFragment implements FragmentBackHandl
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 if (mAdapter.getItem(i) != null) {
                     PlayListBean playListBean = (PlayListBean) mAdapter.getItem(i);
                     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

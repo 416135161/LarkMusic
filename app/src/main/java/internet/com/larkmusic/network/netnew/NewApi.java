@@ -1,5 +1,6 @@
 package internet.com.larkmusic.network.netnew;
 
+import internet.com.larkmusic.BuildConfig;
 import internet.com.larkmusic.network.netnew.bean.BaseRequest;
 import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
 import internet.com.larkmusic.network.netnew.bean.BillBoardResponse;
@@ -27,7 +28,7 @@ import retrofit2.http.Query;
  * description:
  */
 public interface NewApi {
-    String HOST = "http://39.100.157.223:80/";
+    String HOST = BuildConfig.DEBUG ? "http://39.100.157.223:8081/" : "http://39.100.157.223:80/";
     //    String HOST = "http://47.104.178.7:80/";
     String HOST_LRC = "https://c.y.qq.com/";
     String HOST_SINGER_SEARCH = "http://s.plcloud.music.qq.com/";

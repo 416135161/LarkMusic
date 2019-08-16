@@ -18,6 +18,7 @@ import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionRefreshPlayList;
 import internet.com.larkmusic.bean.PlayListBean;
 import internet.com.larkmusic.bean.PlayListRelationBean;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.ToastUtils;
 
 /**
@@ -67,6 +68,9 @@ public class PlayListOperateDialog extends BottomSheetDialogFragment implements 
 
     @Override
     public void onClick(View view) {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         switch (view.getId()) {
             case R.id.tv_delete:
                 new AlertDialog.Builder(getContext())

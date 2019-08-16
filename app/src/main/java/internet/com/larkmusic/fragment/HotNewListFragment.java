@@ -26,6 +26,7 @@ import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.network.netnew.bean.BillBoardMusicListRequest;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.ToastUtils;
 import internet.com.larkmusic.view.MyListView;
 
@@ -100,6 +101,9 @@ public class HotNewListFragment extends EventFragment {
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 if (i == 0) {
                     return;
                 }
@@ -137,6 +141,7 @@ public class HotNewListFragment extends EventFragment {
                 }
             }
         });
+        mTvCount.setText(String.format(getString(R.string.title_song_count), 0));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
