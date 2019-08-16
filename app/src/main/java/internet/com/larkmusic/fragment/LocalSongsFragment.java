@@ -23,6 +23,7 @@ import internet.com.larkmusic.adapter.LocalListAdapter;
 import internet.com.larkmusic.base.BaseFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.util.AudioUtils;
+import internet.com.larkmusic.util.CommonUtil;
 
 /**
  * Created by sjning
@@ -96,6 +97,9 @@ public class LocalSongsFragment extends BaseFragment {
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 if (i == 0) {
                     return;
                 }

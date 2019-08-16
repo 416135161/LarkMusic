@@ -28,6 +28,7 @@ import internet.com.larkmusic.bean.PlayListBean;
 import internet.com.larkmusic.bean.PlayListRelationBean;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.netnew.bean.PlayUrlRequest;
+import internet.com.larkmusic.util.CommonUtil;
 
 /**
  * Created by sjning
@@ -70,6 +71,9 @@ public class PlayListSongsFragment extends BaseFragment {
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 if (i == 0) {
                     return;
                 }

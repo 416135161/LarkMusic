@@ -35,6 +35,7 @@ import internet.com.larkmusic.adapter.PlayListAdapter;
 import internet.com.larkmusic.bean.PlayListBean;
 import internet.com.larkmusic.bean.PlayListRelationBean;
 import internet.com.larkmusic.bean.Song;
+import internet.com.larkmusic.util.CommonUtil;
 
 /**
  * 歌单列表弹出框
@@ -96,6 +97,9 @@ public class PlayListDialog extends BottomSheetDialogFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 if (song != null && mAdapter.getItem(i) != null) {
                     PlayListBean playListBean = (PlayListBean) mAdapter.getItem(i);
                     PlayListRelationBean playListRelationBean = new PlayListRelationBean();
@@ -117,6 +121,9 @@ public class PlayListDialog extends BottomSheetDialogFragment {
         rootView.findViewById(R.id.tv_add_play_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 View contentView = getLayoutInflater().inflate(R.layout.dlg_add_palylist, null);
                 final EditText editText = contentView.findViewById(R.id.et_name);
                 new AlertDialog.Builder(getContext())

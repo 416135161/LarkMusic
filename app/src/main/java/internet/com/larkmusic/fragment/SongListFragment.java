@@ -28,6 +28,7 @@ import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.util.BlurTransformation;
 import internet.com.larkmusic.util.CloudDataUtil;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.ToastUtils;
 
 /**
@@ -94,6 +95,9 @@ public class SongListFragment extends EventFragment {
         mRvSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 if (i == 0) {
                     return;
                 }

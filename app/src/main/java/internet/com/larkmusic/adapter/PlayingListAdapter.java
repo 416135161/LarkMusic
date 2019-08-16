@@ -16,6 +16,7 @@ import java.util.List;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.player.MusicPlayer;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.RecentSongService;
 
 /**
@@ -133,6 +134,9 @@ public class PlayingListAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View view) {
+            if(!CommonUtil.isNotFastClick()){
+                return;
+            }
             songs.remove(position);
             try {
                 notifyDataSetChanged();

@@ -48,6 +48,7 @@ import internet.com.larkmusic.fragment.SearchFragment;
 import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.network.netnew.NewCloudDataUtil;
 import internet.com.larkmusic.player.MusicPlayer;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.SpHelper;
 
 public class MainActivity extends MainBaseActivity {
@@ -104,6 +105,9 @@ public class MainActivity extends MainBaseActivity {
 
     @OnClick(R.id.view_hall)
     void onClickViewHall() {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         setAllNormal();
         ivHall.setImageResource(R.mipmap.tab_hall_select);
         tvHall.setTextColor(getResources().getColor(R.color.text_red));
@@ -112,6 +116,9 @@ public class MainActivity extends MainBaseActivity {
 
     @OnClick(R.id.view_search)
     void onClickViewSearch() {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         setAllNormal();
         ivSearch.setImageResource(R.mipmap.tab_search_select);
         tvSearch.setTextColor(getResources().getColor(R.color.text_red));
@@ -122,6 +129,9 @@ public class MainActivity extends MainBaseActivity {
 
     @OnClick(R.id.view_library)
     void onClickViewLibrary() {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         setAllNormal();
         ivLibrary.setImageResource(R.mipmap.tab_library_select);
         tvLibrary.setTextColor(getResources().getColor(R.color.text_red));
@@ -131,6 +141,9 @@ public class MainActivity extends MainBaseActivity {
 
     @OnClick(R.id.view_me)
     void onClickViewMe() {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         setAllNormal();
         ivMe.setImageResource(R.mipmap.tab_me_select);
         tvMe.setTextColor(getResources().getColor(R.color.text_red));
@@ -242,6 +255,9 @@ public class MainActivity extends MainBaseActivity {
 
     @OnClick({R.id.iv_play_stop, R.id.iv_next, R.id.iv_singer, R.id.tv_song, R.id.iv_list})
     public void onClickPlayPanel(View view) {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         ActionPlayEvent actionPlayEvent;
         switch (view.getId()) {
             case R.id.iv_singer:
@@ -337,7 +353,7 @@ public class MainActivity extends MainBaseActivity {
                     Animation.RELATIVE_TO_SELF, 0.0f,
                     Animation.RELATIVE_TO_SELF, 1.0f,
                     Animation.RELATIVE_TO_SELF, 0.0f);
-            showAnim.setDuration(150);
+            showAnim.setDuration(50);
             viewBottomMenu.startAnimation(showAnim);
             viewBottomMenu.setVisibility(View.VISIBLE);
         } else {

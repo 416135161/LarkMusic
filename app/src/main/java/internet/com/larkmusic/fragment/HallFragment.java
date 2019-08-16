@@ -105,6 +105,9 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
         mBannerView.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
             public void onBannerClickListener(BannerImageView imageView, Object model, int position) {
+                if(!CommonUtil.isNotFastClick()){
+                    return;
+                }
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
                 HotNewListFragment.TYPE = HotNewListFragment.TYPE_HOT;
@@ -148,6 +151,9 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
 
     @OnClick(R.id.tv_hot_more)
     void onClickHotMore() {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         HotNewListFragment.TYPE = HotNewListFragment.TYPE_HOT;
@@ -168,6 +174,9 @@ public class HallFragment extends EventFragment implements FragmentBackHandler {
 
     @OnClick(R.id.tv_new_more)
     void onClickNewMore() {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         HotNewListFragment.TYPE = HotNewListFragment.TYPE_NEW;

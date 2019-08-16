@@ -29,6 +29,7 @@ import internet.com.larkmusic.base.BaseFragment;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.listener.ClickItemTouchListener;
 import internet.com.larkmusic.util.AudioUtils;
+import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.FavoriteService;
 import internet.com.larkmusic.util.RecentSongService;
 
@@ -125,6 +126,9 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
 
     @OnClick(R.id.view_song)
     void onClickFavoriteSong(View view) {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         goToRecentOrFavorite(RecentLoveFragment.TYPE_FAVORITE_SONG);
     }
 
@@ -149,6 +153,9 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
 
     @OnClick(R.id.view_local)
     void onClickLocalSong(View view) {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         Fragment fragment = new LocalSongsFragment();
@@ -160,6 +167,9 @@ public class MeFragment extends BaseFragment implements FragmentBackHandler {
 
     @OnClick(R.id.view_playlist)
     void onClickPlayList(View view) {
+        if(!CommonUtil.isNotFastClick()){
+            return;
+        }
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         Fragment fragment = new PlayListFragment();

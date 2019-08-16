@@ -23,7 +23,7 @@ public final class Config {
 
     private static SparseIntArray adsArray;
 
-    public static final int TYPE_MAIN_ADS = 111;
+    public static final int TYPE_GENES_ADS = 111;
     public static final int TYPE_SEARCH_ADS = 222;
     public static final int TYPE_PLAY_ADS = 333;
 
@@ -77,7 +77,7 @@ public final class Config {
     public static SparseIntArray getAdsArray() {
         if (adsArray == null) {
             adsArray = new SparseIntArray();
-            adsArray.put(TYPE_MAIN_ADS, 0);
+            adsArray.put(TYPE_GENES_ADS, 3);
             adsArray.put(TYPE_PLAY_ADS, 2);
             adsArray.put(TYPE_SEARCH_ADS, 2);
         }
