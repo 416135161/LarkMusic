@@ -20,6 +20,7 @@ import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.app.MusicApplication;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
+import internet.com.larkmusic.network.netnew.NewApi;
 
 /**
  * Created by sjning
@@ -99,7 +100,7 @@ public final class CommonUtil {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.action_share));
-        intent.putExtra(Intent.EXTRA_TEXT, "http://play.google.com/store/apps/details?id=" + context.getPackageName());//extraText为文本的内容
+        intent.putExtra(Intent.EXTRA_TEXT, "http://39.100.157.223:80/fmmusic.html");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//为Activity新建一个任务栈
         context.startActivity(
                 Intent.createChooser(intent, context.getString(R.string.action_share)));//R.string.action_share同样是标题

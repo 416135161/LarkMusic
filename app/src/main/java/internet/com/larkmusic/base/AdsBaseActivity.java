@@ -28,11 +28,11 @@ public class AdsBaseActivity extends EventActivity {
 
     private void initAds() {
         MobileAds.initialize(this, BuildConfig.DEBUG ? "ca-app-pub-3940256099942544~3347511713"
-                : "ca-app-pub-3041484546377035~5354272060");
+                : "ca-app-pub-3041484546377035~5184455483");
         Config.PLAY_ADS_COUNT = 0;
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(BuildConfig.DEBUG ? "ca-app-pub-3940256099942544/1033173712"
-                : "ca-app-pub-3041484546377035/6617105046");
+                : "ca-app-pub-3041484546377035/8517195835");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
