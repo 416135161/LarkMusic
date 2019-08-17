@@ -2,6 +2,7 @@ package internet.com.larkmusic.adapter;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class PlayListAdapter extends BaseAdapter {
     private List<PlayListBean> playListBeans;
     private Context context;
     private FragmentManager mFragmentManager;
+
     @Override
     public int getCount() {
         if (playListBeans != null) {
@@ -74,12 +76,16 @@ public class PlayListAdapter extends BaseAdapter {
 
             }
         });
-        Picasso.with(context)
-                .load(playListBean.getIcon())
-                .error(R.mipmap.ic_folder)
-                .placeholder(R.mipmap.ic_folder)
-                .into(holder.icon);
-        if(mFragmentManager == null){
+        if (!TextUtils.isEmpty(playListBean.getIcon())) {
+            Picasso.with(context)
+                    .load(playListBean.getIcon())
+                    .error(R.mipmap.ic_folder)
+                    .placeholder(R.mipmap.ic_folder)
+                    .into(holder.icon);
+        } else {
+            holder.icon.setImageResource(R.mipmap.ic_folder);
+        }
+        if (mFragmentManager == null) {
             holder.ivOperate.setVisibility(View.GONE);
         }
         holder.ivOperate.setOnClickListener(new MyClickListener(playListBean, i));
@@ -134,7 +140,6 @@ public class PlayListAdapter extends BaseAdapter {
                         }
                     }).
                     show(mFragmentManager, PlayingListDialog.class.getName());
-
 
 
         }

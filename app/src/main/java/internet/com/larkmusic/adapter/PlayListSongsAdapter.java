@@ -1,5 +1,6 @@
 package internet.com.larkmusic.adapter;
 
+import android.content.ContentValues;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.text.TextUtils;
@@ -12,12 +13,16 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
 
 import java.util.List;
 
 import internet.com.larkmusic.R;
+import internet.com.larkmusic.action.ActionRefreshPlayList;
+import internet.com.larkmusic.bean.PlayListBean;
 import internet.com.larkmusic.bean.PlayListRelationBean;
+import internet.com.larkmusic.bean.SavedStateBean;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.fragment.OperateDialog;
 import internet.com.larkmusic.util.CommonUtil;
@@ -141,12 +146,23 @@ public class PlayListSongsAdapter extends BaseAdapter {
                             notifyDataSetChanged();
                             LitePal.deleteAll(PlayListRelationBean.class, "playListName = ? AND songHash = ?",
                                     playListName, song.getHash());
-
+                            int count = LitePal.where("playListName = ?", playListName).count(PlayListRelationBean.class);
+                            if (count == 0) {
+                                ContentValues cv = new ContentValues();
+                                cv.put("icon", "");
+                                LitePal.updateAll(PlayListBean.class, cv, "name = ?", playListName);
+                            } else {
+                                if (getItem(0) != null) {
+                                    Song song1 = (Song) getItem(0);
+                                    ContentValues cv = new ContentValues();
+                                    cv.put("icon", song1.getImgUrl());
+                                    LitePal.updateAll(PlayListBean.class, cv, "name = ?", playListName);
+                                }
+                            }
+                            EventBus.getDefault().post(new ActionRefreshPlayList());
                         }
                     }).
                     show(mFragmentManager, OperateDialog.class.getName());
-
-
         }
     }
 }
