@@ -46,9 +46,6 @@
                 <action android:name="android.media.AUDIO_BECOMING_NOISY"/>
             </intent-filter>
         </receiver>
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="${ads_id}"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
