@@ -15,7 +15,6 @@ import internet.com.larkmusic.R;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayerService;
 import internet.com.larkmusic.receiver.MediaButtonIntentReceiver;
-import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.SpHelper;
 
 /**
@@ -39,13 +38,13 @@ public class MainBaseActivity extends AdsBaseActivity {
 
     protected void showStarDialog() {
         new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.text_please_share))
-//                .setView(getLayoutInflater().inflate(R.layout.dlg_star, null))
+                .setTitle(getString(R.string.text_please_rate))
+                .setView(getLayoutInflater().inflate(R.layout.dlg_star, null))
                 .setPositiveButton(getString(R.string.text_sure), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         SpHelper.getDefault().putBoolean(SpHelper.KEY_STAR, true);
-                        CommonUtil.shareText(MainBaseActivity.this);
+                        jumpToPlay();
                     }
                 })
                 .setNegativeButton(R.string.text_cancel, new DialogInterface.OnClickListener() {
