@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.lark.music.fm"
+        applicationId "com.play.music.fm"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 101
