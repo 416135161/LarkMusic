@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -67,7 +68,7 @@ dependencies {
     implementation 'com.arialyy.aria:aria-core:3.6.4'
     annotationProcessor 'com.arialyy.aria:aria-compiler:3.6.4'
     implementation 'org.litepal.android:java:3.0.0'
-
+    implementation 'com.google.firebase:firebase-core:16.0.8'
 }
 
 configurations.all {
@@ -80,4 +81,6 @@ configurations.all {
         }
     }
 }
+
+apply plugin: 'com.google.gms.google-services'
 

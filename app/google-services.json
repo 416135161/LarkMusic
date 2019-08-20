@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "1093624452561",
+    "firebase_url": "https://music-fm-7bbce.firebaseio.com",
+    "project_id": "music-fm-7bbce",
+    "storage_bucket": "music-fm-7bbce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093624452561:android:f19e4c69792e6e84",
+        "android_client_info": {
+          "package_name": "com.lark.music.fm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093624452561-n6q2q2008mvb5nq7c3ql0ja931emt141.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF8l29QDG8McAxIXdRNXsB7HDk6tpSWzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093624452561-n6q2q2008mvb5nq7c3ql0ja931emt141.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-3041484546377035~5184455483"
+    }
+  ],
+  "configuration_version": "1"
+}
