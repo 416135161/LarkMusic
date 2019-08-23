@@ -22,7 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [ads_id: "ca-app-pub-3041484546377035~5184455483"]
+            manifestPlaceholders = [ads_id: "ca-app-pub-2768667239475946~4800236701"]
         }
         debug {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
