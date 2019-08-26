@@ -6,8 +6,8 @@ android {
         applicationId "com.play.music.fm"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 103
-        versionName "1.0.3"
+        versionCode 105
+        versionName "1.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //解决butterknife依赖报错的问题
