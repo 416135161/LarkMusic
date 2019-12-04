@@ -123,7 +123,7 @@ public class NewCloudDataUtil {
             @Override
             public void onResponse(Call<BillBoardResponse> call, Response<BillBoardResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().result != null
-                        && response.body().result.size() == 5) {
+                        && response.body().result.size() >= 5) {
                     List<BillBoardResponse.ItemsBean> items;
                     if (TextUtils.equals(from, Config.FROM_JAPAN)) {
                         items = response.body().result.get(3).items;
