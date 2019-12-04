@@ -6,8 +6,8 @@ android {
         applicationId "com.nice.music"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 106
-        versionName "1.0.6"
+        versionCode 107
+        versionName "1.0.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //解决butterknife依赖报错的问题
@@ -25,7 +25,6 @@ android {
         }
         debug {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [ads_id: "ca-app-pub-3940256099942544~3347511713"]
         }
     }
 }
@@ -61,8 +60,6 @@ dependencies {
     api 'de.hdodenhof:circleimageview:2.1.0'
     api project(':lrclibrary')
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
-
-    implementation 'com.google.android.gms:play-services-ads:17.2.0'
 
     implementation 'com.arialyy.aria:aria-core:3.6.4'
     annotationProcessor 'com.arialyy.aria:aria-compiler:3.6.4'
