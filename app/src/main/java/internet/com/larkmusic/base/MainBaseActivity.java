@@ -22,7 +22,7 @@ import internet.com.larkmusic.util.SpHelper;
  * created on: 2019-07-18 16:58
  * description:
  */
-public class MainBaseActivity extends AdsBaseActivity {
+public class MainBaseActivity extends  FaceBookAdsBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

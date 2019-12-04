@@ -15,6 +15,7 @@ import android.telephony.TelephonyManager;
 import android.widget.RemoteViews;
 
 import com.arialyy.aria.core.Aria;
+import com.facebook.ads.AudienceNetworkAds;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,6 +32,7 @@ import internet.com.larkmusic.network.Config;
 import internet.com.larkmusic.player.CustomPhoneStateListener;
 import internet.com.larkmusic.player.MusicPlayer;
 import internet.com.larkmusic.player.PlayerService;
+import internet.com.larkmusic.util.AudienceNetworkInitializeHelper;
 import internet.com.larkmusic.util.CommonUtil;
 import internet.com.larkmusic.util.FileUtils;
 
@@ -66,6 +68,7 @@ public class MusicApplication extends Application {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             registerPhoneStateListener();
         }
+        AudienceNetworkInitializeHelper.initialize(this);
     }
 
     @Override
