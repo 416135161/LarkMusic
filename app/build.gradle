@@ -21,11 +21,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [ads_id: "ca-app-pub-2768667239475946~9267110652"]
         }
         debug {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [ads_id: "ca-app-pub-3940256099942544~3347511713"]
+
         }
     }
 }
@@ -62,11 +61,15 @@ dependencies {
     api project(':lrclibrary')
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
 
-    implementation 'com.google.android.gms:play-services-ads:17.2.0'
+//    implementation 'com.google.android.gms:play-services-ads:17.2.0'
 
     implementation 'com.arialyy.aria:aria-core:3.6.4'
     annotationProcessor 'com.arialyy.aria:aria-compiler:3.6.4'
     implementation 'org.litepal.android:java:3.0.0'
+
+    implementation('com.mopub:mopub-sdk:+@aar') {
+        transitive = true
+    }
 
 }
 
@@ -79,5 +82,9 @@ configurations.all {
             }
         }
     }
+}
+
+configurations {
+    all*.exclude group: 'com.google.guava', module: 'listenablefuture'
 }
 
