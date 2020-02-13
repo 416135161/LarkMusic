@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
+import androidx.annotation.NonNull;
+
 import android.util.Log;
 import android.widget.TextView;
 
@@ -20,7 +20,6 @@ import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.app.MusicApplication;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.network.Config;
-import internet.com.larkmusic.network.netnew.NewApi;
 
 /**
  * Created by sjning

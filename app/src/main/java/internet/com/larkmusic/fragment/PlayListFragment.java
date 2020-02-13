@@ -3,10 +3,10 @@ package internet.com.larkmusic.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,18 +27,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionMainBottomMenu;
-import internet.com.larkmusic.action.ActionNewSongs;
 import internet.com.larkmusic.action.ActionRefreshPlayList;
 import internet.com.larkmusic.adapter.PlayListAdapter;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
-import internet.com.larkmusic.base.BaseFragment;
 import internet.com.larkmusic.base.EventFragment;
 import internet.com.larkmusic.bean.PlayListBean;
-import internet.com.larkmusic.bean.SavedStateBean;
-import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.util.CommonUtil;
-import internet.com.larkmusic.util.ToastUtils;
 
 /**
  * Created by sjning

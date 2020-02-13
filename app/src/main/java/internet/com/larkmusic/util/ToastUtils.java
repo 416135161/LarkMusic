@@ -1,7 +1,7 @@
 package internet.com.larkmusic.util;
 
 import android.os.Build;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 import android.text.TextUtils;
 import android.widget.Toast;
 

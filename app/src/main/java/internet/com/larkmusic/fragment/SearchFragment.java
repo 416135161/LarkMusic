@@ -1,10 +1,10 @@
 package internet.com.larkmusic.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -51,7 +51,7 @@ import internet.com.larkmusic.view.FlowLayout;
 import internet.com.larkmusic.view.MyListView;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
-import static android.support.annotation.Dimension.SP;
+import static androidx.annotation.Dimension.SP;
 
 /**
  * Created by sjning

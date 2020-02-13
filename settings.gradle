@@ -1,1 +1,3 @@
-include ':app', ':lrclibrary'
+include ':app', ':lrclibrary', ':mopub-sdk', ':mopub-sdk:mopub-sdk-base', ':mopub-sdk:mopub-sdk-banner',
+':mopub-sdk:mopub-sdk-interstitial', ':mopub-sdk:mopub-sdk-rewardedvideo',
+':mopub-sdk:mopub-sdk-native-static', ':mopub-sdk:mopub-sdk-native-video'

@@ -2,7 +2,7 @@ package internet.com.larkmusic.animations;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 

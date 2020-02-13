@@ -1,7 +1,7 @@
 package internet.com.larkmusic.adapter;
 
 import android.content.ContentValues;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -22,7 +22,6 @@ import internet.com.larkmusic.R;
 import internet.com.larkmusic.action.ActionRefreshPlayList;
 import internet.com.larkmusic.bean.PlayListBean;
 import internet.com.larkmusic.bean.PlayListRelationBean;
-import internet.com.larkmusic.bean.SavedStateBean;
 import internet.com.larkmusic.bean.Song;
 import internet.com.larkmusic.fragment.OperateDialog;
 import internet.com.larkmusic.util.CommonUtil;
