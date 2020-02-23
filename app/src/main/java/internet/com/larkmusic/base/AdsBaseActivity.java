@@ -8,6 +8,7 @@ import com.mopub.common.SdkInitializationListener;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
 
+import internet.com.larkmusic.BuildConfig;
 import internet.com.larkmusic.network.Config;
 
 /**
@@ -16,7 +17,8 @@ import internet.com.larkmusic.network.Config;
  * description:
  */
 public class AdsBaseActivity extends EventActivity {
-    //    private InterstitialAd mInterstitialAd;
+    String ID_RELEASE = "15a3dad00eb2472cab40ecd8d63be6dc";
+    String ID_DEBUG = "24534e1901884e398f1253216226017e";
     private MoPubInterstitial mInterstitial;
     protected boolean isFirstLoad = true;
 
@@ -46,7 +48,7 @@ public class AdsBaseActivity extends EventActivity {
     }
 
     private void initAds() {
-        SdkConfiguration sdkConfiguration = new SdkConfiguration.Builder("24534e1901884e398f1253216226017e").build();
+        SdkConfiguration sdkConfiguration = new SdkConfiguration.Builder(getId()).build();
         MoPub.initializeSdk(getApplicationContext(), sdkConfiguration, new SdkInitializationListener() {
             @Override
             public void onInitializationFinished() {
@@ -56,7 +58,7 @@ public class AdsBaseActivity extends EventActivity {
                 mInterstitial.load();
             }
         });
-        mInterstitial = new MoPubInterstitial(this, "24534e1901884e398f1253216226017e");
+        mInterstitial = new MoPubInterstitial(this, getId());
         mInterstitial.setInterstitialAdListener(new MoPubInterstitial.InterstitialAdListener() {
             @Override
             public void onInterstitialLoaded(MoPubInterstitial interstitial) {
@@ -92,6 +94,7 @@ public class AdsBaseActivity extends EventActivity {
         if (mInterstitial.isReady()) {
             mInterstitial.show();
             Config.PLAY_ADS_COUNT++;
+            isFirstLoad = false;
         } else {
             // Caching is likely already in progress if `isReady()` is false.
             // Avoid calling `load()` here and instead rely on the callbacks as suggested below.
@@ -102,7 +105,6 @@ public class AdsBaseActivity extends EventActivity {
         //广告初始化完成弹出一次
         if (isFirstLoad) {
             showInsertAd();
-            isFirstLoad = false;
             return;
         }
         int count = Config.getAdsArray().get(adsType);
@@ -114,6 +116,14 @@ public class AdsBaseActivity extends EventActivity {
             return;
         }
         showInsertAd();
+    }
+
+    private String getId() {
+        if (BuildConfig.DEBUG) {
+            return ID_DEBUG;
+        } else {
+            return ID_RELEASE;
+        }
     }
 
 }
