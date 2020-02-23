@@ -2,12 +2,16 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     defaultConfig {
         applicationId "com.play.music.fm"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 107
-        versionName "1.0.7"
+        versionCode 108
+        versionName "1.0.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         //解决butterknife依赖报错的问题
@@ -39,8 +43,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
-    implementation 'com.jakewharton:butterknife:8.8.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.0'
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     // banner 依赖 https://github.com/Alin520/AlinBanner
     implementation 'com.alin:bannerview:2.0.1'
 
@@ -67,22 +71,9 @@ dependencies {
     annotationProcessor 'com.arialyy.aria:aria-compiler:3.6.4'
     implementation 'org.litepal.android:java:3.0.0'
 
-    implementation project(':mopub-sdk')
-    // For banners
-    implementation project(':mopub-sdk:mopub-sdk-banner')
-
-    // For interstitials
-    implementation project(':mopub-sdk:mopub-sdk-interstitial')
-
-    // For rewarded videos. This will automatically also include interstitials
-    implementation project(':mopub-sdk:mopub-sdk-rewardedvideo')
-
-    // For native static (images).
-    implementation project(':mopub-sdk:mopub-sdk-native-static')
-
-    // For native video. This will automatically also include native static
-    implementation project(':mopub-sdk:mopub-sdk-native-video')
-
+    implementation('com.mopub:mopub-sdk:+@aar') {
+        transitive = true
+    }
 }
 
 configurations.all {
