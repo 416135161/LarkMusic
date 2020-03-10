@@ -124,7 +124,7 @@ public class MainActivity extends MainBaseActivity {
         tvSearch.setTextColor(getResources().getColor(R.color.text_red));
         tvSearch.setTypeface(Config.tfLark);
         startFragment(SearchFragment.class, new Bundle());
-
+        showAd(Config.TYPE_SEARCH_ADS);
     }
 
     @OnClick(R.id.view_library)
@@ -136,7 +136,7 @@ public class MainActivity extends MainBaseActivity {
         ivLibrary.setImageResource(R.mipmap.tab_library_select);
         tvLibrary.setTextColor(getResources().getColor(R.color.text_red));
         startFragment(LibraryFragment.class, new Bundle());
-
+        showAd(Config.TYPE_GENES_ADS);
     }
 
     @OnClick(R.id.view_me)
