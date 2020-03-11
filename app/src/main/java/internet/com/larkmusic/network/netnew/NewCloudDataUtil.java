@@ -314,7 +314,7 @@ public class NewCloudDataUtil {
      * @param key
      */
     public static void searchSongs(String key, int page, int pageSize) {
-        Call<SearchSongResponse> call = HttpUtil.getRetrofit(NewApi.HOST_LRC, null).create(NewApi.class).searchSong(key, page, pageSize);
+        Call<SearchSongResponse> call = HttpUtil.getRetrofit(NewApi.HOST_SEARCH, null).create(NewApi.class).searchSong(key, page, pageSize);
 
         call.enqueue(new Callback<SearchSongResponse>() {
 
