@@ -19,6 +19,7 @@ import internet.com.larkmusic.network.netnew.bean.SingerSongsResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -32,6 +33,7 @@ public interface NewApi {
     //    String HOST = "http://47.104.178.7:80/";
     String HOST_LRC = "https://c.y.qq.com/";
     String HOST_SINGER_SEARCH = "http://s.plcloud.music.qq.com/";
+    String HOST_SEARCH = "http://soso.music.qq.com/";
 
     /**
      * 新歌
@@ -86,9 +88,9 @@ public interface NewApi {
      * @param keyword
      * @return
      */
-    @GET("/soso/fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=sizer.yqq" +
-            ".song_next&searchid=&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&g_tk=&jsonpCallback=&loginUin=0&hostUin=0&format=json&inCharset" +
-            "=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0")
+    @GET("/fcgi-bin/client_search_cp?format=json&t=0&loginUin=0&inCharset=GB2312&outCharset=utf-8&qqmusic_guid" +
+            "=b3788f8b88d8e81f1e0fb93ac52bd3f73aeccdd6&qqmusic_ver=50500&ct=6&catZhida=1&searchid=72ECCB3B-6341-4BAB-ADD0-BBD280484E5E10041" +
+            "&flag_qc=0&remoteplace=txt.mac.search&new_json=1&lossless=0&aggr=0&cr=1&sem=0")
     Call<SearchSongResponse> searchSong(@Query("w") String keyword, @Query("p") int page, @Query("n") int pageSize);
 
     /**
@@ -98,6 +100,7 @@ public interface NewApi {
      * @return
      */
     @GET("/fcgi-bin/smartbox_new.fcg?utf8=1&is_xml=0")
+    @Headers({"Referer:http://y.qq.com", "contentType:application/json,text/json,text/javascript,text/html,text/plain,application/x-javascript"})
     Call<SearchSingerResponse> searchSinger(@Query("key") String keyword);
 
     /**
