@@ -1,6 +1,7 @@
 package internet.com.larkmusic.base;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
@@ -67,7 +68,7 @@ public class AdsBaseActivity extends EventActivity {
 
             @Override
             public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
-                System.out.println("onInterstitialFailed");
+                Log.e("onInterstitialFailed:", errorCode.toString());
             }
 
             @Override
