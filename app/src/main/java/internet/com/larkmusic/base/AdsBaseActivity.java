@@ -1,6 +1,7 @@
 package internet.com.larkmusic.base;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
@@ -20,6 +21,8 @@ public class AdsBaseActivity extends EventActivity {
     String ID_RELEASE = "8edcb2c9c61d41618f709b15577accbd";
     String ID_DEBUG = "24534e1901884e398f1253216226017e";
     private MoPubInterstitial mInterstitial;
+    private final int ADS_LOAD_RETRY_MAX_COUNT = 2;
+    private int mAdsLoadReyCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class AdsBaseActivity extends EventActivity {
              Check if you should show the consent dialog here, and make your ad requests. */
                 System.out.println("onInitializationFinished");
                 mInterstitial.load();
+
             }
         });
         mInterstitial = new MoPubInterstitial(this, getId());
@@ -62,11 +66,19 @@ public class AdsBaseActivity extends EventActivity {
             @Override
             public void onInterstitialLoaded(MoPubInterstitial interstitial) {
                 System.out.println("onInterstitialLoaded");
+                mAdsLoadReyCount = 0;
             }
 
             @Override
             public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
-                System.out.println("onInterstitialFailed");
+                Log.e("onInterstitialFailed", errorCode.toString());
+                Log.e("mAdsLoadReyCount", mAdsLoadReyCount + "");
+                if(mAdsLoadReyCount < ADS_LOAD_RETRY_MAX_COUNT){
+                    mAdsLoadReyCount ++;
+                    mInterstitial.load();
+                }else {
+                    mAdsLoadReyCount = 0;
+                }
             }
 
             @Override
@@ -85,7 +97,7 @@ public class AdsBaseActivity extends EventActivity {
                 mInterstitial.load();
             }
         });
-
+        mAdsLoadReyCount = 0;
     }
 
 
@@ -94,6 +106,7 @@ public class AdsBaseActivity extends EventActivity {
             mInterstitial.show();
             Config.PLAY_ADS_COUNT++;
         } else {
+            mInterstitial.load();
             // Caching is likely already in progress if `isReady()` is false.
             // Avoid calling `load()` here and instead rely on the callbacks as suggested below.
         }
