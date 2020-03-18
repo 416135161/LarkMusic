@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 
+import internet.com.larkmusic.BuildConfig;
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -59,7 +60,9 @@ public class EncryptInterceptor implements Interceptor {
             String string = buffer.readString(charset);
             //模拟加密的方法，这里调用大家自己的加密方法就可以了
             String encryptStr = encrypt(string);
-            Log.e("JJJJ", decrypt(encryptStr));
+            if (BuildConfig.DEBUG) {
+                Log.e("JJJJ", decrypt(encryptStr));
+            }
 //            RequestBody body = MultipartBody.create(contentType, encryptStr);
 
             FormBody.Builder formBodyBuild = new FormBody.Builder();
@@ -96,7 +99,9 @@ public class EncryptInterceptor implements Interceptor {
     //模拟加密的方法
     private String encrypt(String string) {
         try {
-            Log.e("encrypt", string);
+            if (BuildConfig.DEBUG) {
+                Log.e("encrypt", string);
+            }
             return AES.Encrypt(string, AES.KEY);
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,7 +112,9 @@ public class EncryptInterceptor implements Interceptor {
     //模拟解密的方法
     private String decrypt(String string) {
         try {
-            Log.e("decrypt", string);
+            if (BuildConfig.DEBUG) {
+                Log.e("decrypt", string);
+            }
             return AES.Decrypt(string, AES.KEY);
         } catch (Exception e) {
             e.printStackTrace();
