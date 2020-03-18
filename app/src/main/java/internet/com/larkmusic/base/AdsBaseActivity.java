@@ -21,7 +21,6 @@ public class AdsBaseActivity extends EventActivity {
     String ID_RELEASE = "15a3dad00eb2472cab40ecd8d63be6dc";
     String ID_DEBUG = "24534e1901884e398f1253216226017e";
     private MoPubInterstitial mInterstitial;
-    protected boolean isFirstLoad = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +94,6 @@ public class AdsBaseActivity extends EventActivity {
         if (mInterstitial.isReady()) {
             mInterstitial.show();
             Config.PLAY_ADS_COUNT++;
-            isFirstLoad = false;
         } else {
             // Caching is likely already in progress if `isReady()` is false.
             // Avoid calling `load()` here and instead rely on the callbacks as suggested below.
@@ -103,11 +101,6 @@ public class AdsBaseActivity extends EventActivity {
     }
 
     public void showAd(int adsType) {
-        //广告初始化完成弹出一次
-        if (isFirstLoad) {
-            showInsertAd();
-            return;
-        }
         int count = Config.getAdsArray().get(adsType);
         Config.getAdsArray().put(adsType, count + 1);
         if (count % Config.COUNT != 0) {

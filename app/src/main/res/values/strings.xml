@@ -67,6 +67,7 @@
     <string name="search_type_song">Songs</string>
     <string name="search_type_singer">Artist</string>
     <string name="action_share">share</string>
+    <string name="action_share_title">Share with you online music:</string>
     <string name="edit_play_list_name">Edit playlist name</string>
     <string name="play_list_delete_tip">Sure to delete the selected playlist?</string>
 
