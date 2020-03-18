@@ -37,6 +37,7 @@ import internet.com.larkmusic.activity.MainActivity;
 import internet.com.larkmusic.adapter.HistoryAdapter;
 import internet.com.larkmusic.adapter.SearchListAdapter;
 import internet.com.larkmusic.adapter.SingerListAdapter;
+import internet.com.larkmusic.app.MusicApplication;
 import internet.com.larkmusic.back.BackHandlerHelper;
 import internet.com.larkmusic.back.FragmentBackHandler;
 import internet.com.larkmusic.base.EventFragment;
@@ -360,9 +361,12 @@ public class SearchFragment extends EventFragment implements FragmentBackHandler
             NewCloudDataUtil.searchSinger(key);
             mRvSinger.setVisibility(View.VISIBLE);
         }
-
-        ((MainActivity)getActivity()).showAd(Config.TYPE_SEARCH_ADS);
-
+        if(MusicApplication.getInstance().isFirst()){
+            CommonUtil.shareText(getActivity());
+            MusicApplication.getInstance().setFirst(false);
+        }else {
+            ((MainActivity)getActivity()).showAd(Config.TYPE_SEARCH_ADS);
+        }
     }
 
     /**

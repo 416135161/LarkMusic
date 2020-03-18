@@ -43,6 +43,8 @@ public class MusicApplication extends Application {
 
     private static MusicApplication instance;
 
+    private boolean isFirst = true;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -66,6 +68,7 @@ public class MusicApplication extends Application {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             registerPhoneStateListener();
         }
+        isFirst = true;
     }
 
     @Override
@@ -214,4 +217,11 @@ public class MusicApplication extends Application {
         return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
+    public boolean isFirst() {
+        return isFirst;
+    }
+
+    public void setFirst(boolean first) {
+        isFirst = first;
+    }
 }

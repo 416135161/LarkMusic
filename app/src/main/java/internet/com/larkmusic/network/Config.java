@@ -16,7 +16,7 @@ public final class Config {
     private Config() {
     }
 
-    final public static int COUNT = 5;
+    final public static int COUNT = 4;
     public static int PLAY_ADS_COUNT = 0;
     public static int MAX_PLAY_COUNT = 100;
     public static int SEARCH_COUNT = 40;
@@ -78,7 +78,7 @@ public final class Config {
         if (adsArray == null) {
             adsArray = new SparseIntArray();
             adsArray.put(TYPE_GENES_ADS, 3);
-            adsArray.put(TYPE_PLAY_ADS, 2);
+            adsArray.put(TYPE_PLAY_ADS, 1);
             adsArray.put(TYPE_SEARCH_ADS, 2);
         }
         return adsArray;
