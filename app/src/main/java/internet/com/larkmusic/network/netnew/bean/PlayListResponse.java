@@ -46,7 +46,6 @@ public class PlayListResponse implements Serializable {
         public String imgUrl;
         public String dissid;
         public long createtime;
-        public long passtime;
         public Object name;
         public String count;
         public String id;

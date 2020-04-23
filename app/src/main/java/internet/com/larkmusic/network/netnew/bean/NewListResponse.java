@@ -91,7 +91,6 @@ public class NewListResponse implements Serializable {
         public Object mvUrl;
         public int size_flac;
         public String media_mid;
-        public long passtime;
         public int id;
         public int page;
         public String songid;
@@ -198,14 +197,6 @@ public class NewListResponse implements Serializable {
 
         public void setMedia_mid(String media_mid) {
             this.media_mid = media_mid;
-        }
-
-        public long getPasstime() {
-            return passtime;
-        }
-
-        public void setPasstime(long passtime) {
-            this.passtime = passtime;
         }
 
         public int getId() {

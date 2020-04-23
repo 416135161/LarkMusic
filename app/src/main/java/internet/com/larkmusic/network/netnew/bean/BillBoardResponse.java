@@ -73,7 +73,6 @@ public class BillBoardResponse implements Serializable {
         public int size_flac;
         public String media_mid;
         public String rankid;
-        public long passtime;
         public int id;
         public int page;
         public String songid;
