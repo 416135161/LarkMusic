@@ -18,7 +18,7 @@ import internet.com.larkmusic.network.Config;
  * description:
  */
 public class AdsBaseActivity extends EventActivity {
-    String ID_RELEASE = "8edcb2c9c61d41618f709b15577accbd";
+    String ID_RELEASE = "a039387eaf3f41f696fc10cc35b8280d";
     String ID_DEBUG = "24534e1901884e398f1253216226017e";
     private MoPubInterstitial mInterstitial;
     private final int ADS_LOAD_RETRY_MAX_COUNT = 2;
